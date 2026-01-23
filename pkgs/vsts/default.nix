@@ -101,7 +101,7 @@ in {
     paulxstretch
     ripplerx
     #grainbow
-    inputs.audio.packages.${pkgs.system}.atlas2
+    inputs.audio.packages.${pkgs.stdenv.hostPlatform.system}.atlas2
     nn
   ];
 }

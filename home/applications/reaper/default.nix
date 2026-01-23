@@ -7,7 +7,7 @@
     recursive = true;
     source = pkgs.symlinkJoin {
       name = "reapkgs";
-      paths = with inputs.reapkgs-known.legacyPackages.${pkgs.system}; [
+      paths = with inputs.reapkgs-known.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
         birdbird-reascript-testing."BirdBird_Global Sampler.lua"
         birdbird-reascript-testing."BirdBird_Parameter History.lua"
         birdbird-reascript-testing."BirdBird_FX Inspector.lua"
