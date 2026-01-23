@@ -14,6 +14,12 @@
     target = ".local/share/color-schemes/PlasmaOverdose.colors";
   };
 
+  home.file.plasma-overdose-aurorae = {
+    source = ./Plasma-Overdose-master/aurorae;
+    target = ".local/share/aurorae/themes";
+    recursive = true;
+  };
+
   home.file.plasma-overdose-sounds = {
     source = ./Plasma-Overdose-master/sounds;
     target = ".local/share/sounds/Plasma-Overdose";
