@@ -17,7 +17,10 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages =
       if cfg.side == "client"
-      then [pkgs.ktailctl pkgs.tailscale]
+      then [
+        pkgs.ktailctl
+        pkgs.tailscale
+      ]
       else [pkgs.tailscale];
 
     services.tailscale.enable = true;
@@ -25,14 +28,22 @@ in {
 
     sops.secrets."tailscale_key" = {
       sopsFile = ./. + "/../secrets/${config.networking.hostName}.yaml";
+      owner = "tailscale-autoconnect";
     };
 
     systemd.services.tailscale-autoconnect = {
       description = "Automatic connection to Tailscale";
 
       # make sure tailscale is running before trying to connect to tailscale
-      after = ["network-pre.target" "tailscale.service" "sops-nix.service"];
-      wants = ["network-pre.target" "tailscale.service"];
+      after = [
+        "network-pre.target"
+        "tailscale.service"
+        "sops-nix.service"
+      ];
+      wants = [
+        "network-pre.target"
+        "tailscale.service"
+      ];
       wantedBy = ["multi-user.target"];
 
       # set this service as a oneshot job
