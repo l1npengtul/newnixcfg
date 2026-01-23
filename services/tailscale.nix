@@ -31,7 +31,6 @@ in {
 
     sops.secrets."tailscale_key" = {
       sopsFile = ./. + "/../secrets/${config.networking.hostName}.yaml";
-      owner = "tailscale-autoconnect";
     };
 
     networking.firewall = {
