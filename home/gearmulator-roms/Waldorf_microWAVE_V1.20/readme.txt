@@ -1,0 +1,1 @@
+This requires TWO 27C512 EPROMS, one of which contains the "L"ow order bits, and the other, the "H"igh order.

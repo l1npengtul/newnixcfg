@@ -1,0 +1,11 @@
+keys:
+  - &clubcyberia age1r0093sns2akzrrg2fgxuz6wu8lqugege8cns7l2emtgf7ttjmcgssge4ta
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *clubcyberia
+  - path_regex: secrets/clubcyberia.yaml
+    key_groups:
+      - age:
+        - *clubcyberia
