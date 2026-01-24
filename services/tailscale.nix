@@ -5,10 +5,10 @@
   sops,
   ...
 }: let
-  cfg = config.services.connect-to-tailscale;
+  cfg = config.services.tailscale-connect;
 in {
   options = {
-    services.connect-to-tailscale = {
+    services.tailscale-connect = {
       enable = lib.mkEnableOption "enable tailscale autoconnect";
       side = lib.mkOption {default = "client";};
     };

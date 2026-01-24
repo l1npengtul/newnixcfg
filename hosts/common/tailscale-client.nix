@@ -1,3 +1,3 @@
 {...}: {
-  services.tailscale-autoconnect.enable = true;
+  services.tailscale-connect.enable = true;
 }

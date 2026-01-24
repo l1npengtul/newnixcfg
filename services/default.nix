@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./libvirtd.nix
-    ./tailscale
+    ./tailscale.nix
     ./protonmail.nix
     ./sshd.nix
   ];

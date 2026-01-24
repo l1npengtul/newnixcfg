@@ -1,5 +1,5 @@
 {...}: {
-  services.tailscale-autoconnect = {
+  services.tailscale-connect = {
     enable = true;
     side = "server";
   };
