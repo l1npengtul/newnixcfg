@@ -110,6 +110,9 @@
       nix-flatpak.nixosModules.nix-flatpak
 
       sops-nix.nixosModules.sops
+      {
+        defaultSopsFile = ./secrets/secrets.yaml;
+      }
 
       musnix.nixosModules.musnix
 
@@ -121,7 +124,10 @@
           extraSpecialArgs = {
             inherit inputs pkgs;
           };
-          sharedModules = [plasma-manager.homeModules.plasma-manager sops-nix.homeManagerModules.sops];
+          sharedModules = [
+            plasma-manager.homeModules.plasma-manager
+            sops-nix.homeManagerModules.sops
+          ];
           users."${username}".imports = [
             ./home
           ];
@@ -157,7 +163,10 @@
     commonArgs = {
       inherit system;
       config.allowUnfree = true;
-      overlays = [reapersws-overlay nix-vscode-extensions.overlays.default];
+      overlays = [
+        reapersws-overlay
+        nix-vscode-extensions.overlays.default
+      ];
     };
 
     pkgs = import nixpkgs commonArgs;

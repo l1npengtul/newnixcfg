@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  sops,
+  options,
   ...
 }: let
   cfg = config.services.tailscale-connect;
@@ -24,7 +24,7 @@ in {
       else [pkgs.tailscale];
 
     sops.secrets."tailscale_key" = {
-      sopsFile = ./. + "/../secrets/${config.networking.hostName}.yaml";
+      sopsFile = ./. + "../secrets${options.networking.hostName}.yaml";
     };
 
     services.tailscale = {
