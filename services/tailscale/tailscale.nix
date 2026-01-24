@@ -4,7 +4,9 @@
   lib,
   sops,
   ...
-}: {
+}: let
+  cfg = config.services.connect-to-tailscale;
+in {
   options = {
     services.connect-to-tailscale = {
       enable = lib.mkEnableOption "enable tailscale autoconnect";
