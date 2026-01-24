@@ -24,7 +24,7 @@ in {
       else [pkgs.tailscale];
 
     sops.secrets."tailscale_key" = {
-      sopsFile = ./. + "../secrets${options.networking.hostName}.yaml";
+      sopsFile = ./. + "/../secrets/${options.networking.hostName}.yaml";
     };
 
     services.tailscale = {
