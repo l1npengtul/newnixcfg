@@ -1,5 +1,5 @@
 keys:
-  - &clubcyberia age1r0093sns2akzrrg2fgxuz6wu8lqugege8cns7l2emtgf7ttjmcgssge4ta
+  - &clubcyberia age1rc9773ntxpslz5esvhpt0yqfvyv9pyydyluv60e6r520fw5uzyhqrtv2ps
 creation_rules:
   - path_regex: secrets/clubcyberia.yaml
     key_groups:
