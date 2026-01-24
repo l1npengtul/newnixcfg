@@ -4,11 +4,9 @@
   lib,
   sops,
   ...
-}: let
-  cfg = config.services.tailscale-autoconnect;
-in {
+}: {
   options = {
-    services.tailscale-autoconnect = {
+    services.connect-to-tailscale = {
       enable = lib.mkEnableOption "enable tailscale autoconnect";
       side = lib.mkOption {default = "client";};
     };
@@ -23,14 +21,14 @@ in {
       ]
       else [pkgs.tailscale];
 
+    sops.secrets."tailscale_key" = {
+      sopsFile = ./. + "/../secrets/${config.networking.hostName}.yaml";
+    };
+
     services.tailscale = {
       enable = true;
       useRoutingFeatures = cfg.side;
       authKeyFile = config.sops.secrets."tailscale_key".path;
-    };
-
-    sops.secrets."tailscale_key" = {
-      sopsFile = ./. + "/../secrets/${config.networking.hostName}.yaml";
     };
 
     networking.firewall = {

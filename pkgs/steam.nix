@@ -20,8 +20,7 @@ in {
   programs.nix-ld = {
     enable = true;
     libraries = [
-      (pkgs.runCommand "steamrun-lib" {}
-        "mkdir $out; ln -s ${pkgs.steam-run.fhsenv}/usr/lib64 $out/lib")
+      (pkgs.runCommand "steamrun-lib" {} "mkdir $out; ln -s ${pkgs.steam-run.fhsenv}/usr/lib64 $out/lib")
     ];
   };
 
@@ -29,6 +28,7 @@ in {
     protonup-qt
     protonup-rs
     protonup-ng
+    protonplus
     r2modman
     protontricks
     (heroic.override {
