@@ -111,7 +111,6 @@
 
       sops-nix.nixosModules.sops
       {
-        defaultSopsFile = ./secrets/secrets.yaml;
       }
 
       musnix.nixosModules.musnix
