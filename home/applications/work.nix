@@ -9,4 +9,5 @@
   programs.obs-studio = {
     enable = true;
   };
+  programs.thunderbird.enable = true;
 }

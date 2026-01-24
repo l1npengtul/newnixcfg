@@ -22,6 +22,8 @@ in {
     jetbrains-toolbox
 
     kdiff3
+
+    fresh-editor
   ];
 
   programs = {

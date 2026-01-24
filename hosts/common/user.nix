@@ -29,5 +29,13 @@
     ];
   };
   programs.fish.enable = true;
-  nix.settings.trusted-users = ["@wheel" "root" "${username}"];
+  nix.settings.trusted-users = [
+    "@wheel"
+    "root"
+    "${username}"
+  ];
+  sops.age.sshKeyPaths = [
+    "/etc/ssh/ssh_host_ed25519_key"
+    "/home/${username}/.ssh/id_ed25519.pub"
+  ];
 }
