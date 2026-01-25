@@ -8,5 +8,6 @@
     strawberry
 
     openutau
+    kid3-cli
   ];
 }
