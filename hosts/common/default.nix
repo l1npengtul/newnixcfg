@@ -8,5 +8,6 @@
     })
     ./hardware/printer.nix
     ./hardware/gpu.nix
+    ./kde.nix
   ];
 }

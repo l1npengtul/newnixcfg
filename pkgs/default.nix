@@ -4,7 +4,6 @@
     ./fonts
     ./vsts
     ./disk_management.nix
-    ./kde.nix
     ./keyboard.nix
     ./programming.nix
     ./protonvpn.nix

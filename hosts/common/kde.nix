@@ -1,10 +1,14 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  reactionary = pkgs.callPackage ./sddm-theme.nix {};
+in {
   services = {
     desktopManager.plasma6.enable = true;
 
     displayManager = {
       sddm = {
         enable = true;
+        theme = "reactionary";
+        extraPackages = [reactionary];
         wayland.enable = true;
       };
       defaultSession = "plasma";
@@ -34,5 +38,7 @@
     kdePackages.partitionmanager
     wayland-utils
     wl-clipboard
+
+    reactionary
   ];
 }
