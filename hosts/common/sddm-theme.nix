@@ -3,7 +3,6 @@
   formats,
   stdenvNoCC,
   fetchgit,
-  qtgraphicaleffects,
   /*
   An example of how you can override the background with a NixOS wallpaper
   *
@@ -29,10 +28,6 @@ in
       hash = lib.fakeHash;
     };
 
-    propagatedBuildInputs = [
-      qtgraphicaleffects
-    ];
-
     dontWrapQtApps = true;
 
     installPhase =
@@ -48,13 +43,6 @@ in
       + ''
         runHook postInstall
       '';
-
-    postFixup = ''
-      mkdir -p $out/nix-support
-
-      echo ${qtgraphicaleffects} >> $out/nix-support/propagated-user-env-packages
-    '';
-
     meta = {
       description = "Reactionary SDDM Theme";
       homepage = "https://www.opencode.net/phob1an/reactionary";
