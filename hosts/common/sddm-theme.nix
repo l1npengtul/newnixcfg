@@ -2,7 +2,7 @@
   lib,
   formats,
   stdenvNoCC,
-  fetchGit,
+  fetchgit,
   qtgraphicaleffects,
   /*
   An example of how you can override the background with a NixOS wallpaper
@@ -23,7 +23,7 @@ in
     pname = "sddm-reactionary";
     version = "unstable-2024-02-08";
 
-    src = fetchGit {
+    src = fetchgit {
       url = "https://www.opencode.net/phob1an/reactionary.git";
       rev = "4aa2d20f0e93ae4387a90947fcc6c90940c18122";
       hash = lib.fakeHash;
