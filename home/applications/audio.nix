@@ -4,7 +4,7 @@
   ...
 }: let
   gearmulator = pkgs.stdenvNoCC.mkDerivation {
-    src = config.sops.secret.gearmulator.path;
+    src = config.sops.secrets.gearmulator.path;
 
     nativeBuildInputs = [pkgs.unzip];
 
@@ -20,7 +20,7 @@
     '';
   };
 in {
-  sops.secret.gearmulator = {
+  sops.secrets.gearmulator = {
     sopsFile = "secrets/hm/gearmulator.zip";
   };
 
