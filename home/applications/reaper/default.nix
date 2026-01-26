@@ -59,6 +59,6 @@ in {
       "sws_python.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python.py";
       "sws_python64.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python64.py";
     };
-    "ColorThemes/reapertips.ReaperThemeZip".source = ./reapertips/02_Theme/reapertips.ReaperThemeZip;
+    #     "ColorThemes/reapertips.ReaperThemeZip".source = ./reapertips/02_Theme/reapertips.ReaperThemeZip;
   };
 }
