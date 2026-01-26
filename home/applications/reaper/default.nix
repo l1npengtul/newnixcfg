@@ -44,21 +44,17 @@ in {
       paths = reapkgs ++ extras;
     };
   };
-  xdg.configFile."REAPER" = {
-    "libSwell-user.colortheme".source = ./reapertips/libSwell-user.colortheme;
-    "Mac-Saturated.SWSColor".source = ./reapertips-colors/Mac-Saturated.SWSColor;
-    "Data/toolbar_icons" = {
-      recursive = true;
-      source = ./toolbar_icons;
-    };
-    "UserPlugins" = {
-      "reaper_sws-x86_64.so".source = "${pkgs.reaper-sws-extension}/UserPlugins/reaper_sws-x86_64.so";
-      "reaper_reapack-x86_64.so".source = "${pkgs.reaper-reapack-extension}/UserPlugins/reaper_reapack-x86_64.so";
-    };
-    "Scripts" = {
-      "sws_python.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python.py";
-      "sws_python64.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python64.py";
-    };
-    #     "ColorThemes/reapertips.ReaperThemeZip".source = ./reapertips/02_Theme/reapertips.ReaperThemeZip;
+  xdg.configFile."REAPER/libSwell-user.colortheme".source = ./reapertips/libSwell-user.colortheme;
+  xdg.configFile."REAPER/Mac-Saturated.SWSColor".source = ./reapertips-colors/Mac-Saturated.SWSColor;
+  xdg.configFile."REAPER/Data/toolbar_icons" = {
+    recursive = true;
+    source = ./toolbar_icons;
   };
+  xdg.configFile."REAPER/UserPlugins/reaper_sws-x86_64.so".source = "${pkgs.reaper-sws-extension}/UserPlugins/reaper_sws-x86_64.so";
+  xdg.configFile."REAPER/UserPlugins/reaper_reapack-x86_64.so".source = "${pkgs.reaper-reapack-extension}/UserPlugins/reaper_reapack-x86_64.so";
+
+  xdg.configFile."REAPER/Scripts/sws_python.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python.py";
+  xdg.configFile."REAPER/Scripts/sws_python64.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python64.py";
+  xdg.configFile."REAPER/ColorThemes/reapertips.ReaperThemeZip".source =
+    ./reapertips/02_Theme/reapertips.ReaperThemeZip;
 }
