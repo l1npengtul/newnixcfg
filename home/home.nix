@@ -5,7 +5,7 @@
     timestamp = "-7 days";
   };
 
-  sops.age.sshKeyFiles = ["/etc/ssh/ssh_host_ed25519_key"];
+  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
   home.stateVersion = "25.11";
 }
