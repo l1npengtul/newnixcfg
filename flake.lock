@@ -64,6 +64,22 @@
         "type": "github"
       }
     },
+    "chicago95": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748357225,
+        "narHash": "sha256-e0X+rclCM8RCHRllvC/CBizM829dYFNByDGCsU86FqQ=",
+        "owner": "grassmunk",
+        "repo": "Chicago95",
+        "rev": "6b6ef76c58e2078c913420278b5e17e0aa566374",
+        "type": "github"
+      },
+      "original": {
+        "owner": "grassmunk",
+        "repo": "Chicago95",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -286,6 +302,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "hatsune-miku-windows-linux-cursors": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741914383,
+        "narHash": "sha256-HCHo4GwWLvjjnKWNiHb156Z+NQqliqLX1T1qNxMEMfE=",
+        "owner": "supermariofps",
+        "repo": "hatsune-miku-windows-linux-cursors",
+        "rev": "471ff88156e9a3dc8542d23e8cae4e1c9de6e732",
+        "type": "github"
+      },
+      "original": {
+        "owner": "supermariofps",
+        "repo": "hatsune-miku-windows-linux-cursors",
         "type": "github"
       }
     },
@@ -741,6 +773,22 @@
         "type": "github"
       }
     },
+    "plasma-overdose": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765736829,
+        "narHash": "sha256-pphNqlYxkfsQDbH4ZscDNJ4fJNSM/3lGxuCkHL9HgTw=",
+        "owner": "olivertzeng",
+        "repo": "Plasma-Overdose",
+        "rev": "5a31ef1c6dd0c014263a9808ee00bab226e596a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "olivertzeng",
+        "repo": "Plasma-Overdose",
+        "type": "github"
+      }
+    },
     "reapkgs": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -822,8 +870,10 @@
         "aagl": "aagl",
         "audio": "audio",
         "auto-cpufreq": "auto-cpufreq",
+        "chicago95": "chicago95",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
+        "hatsune-miku-windows-linux-cursors": "hatsune-miku-windows-linux-cursors",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "musnix": "musnix",
@@ -837,6 +887,7 @@
         "nixpkgs-reaper-sws": "nixpkgs-reaper-sws",
         "nixpkgs-stable": "nixpkgs-stable",
         "plasma-manager": "plasma-manager",
+        "plasma-overdose": "plasma-overdose",
         "reapkgs-extras": "reapkgs-extras",
         "reapkgs-known": "reapkgs-known",
         "sops-nix": "sops-nix",

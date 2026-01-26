@@ -24,6 +24,7 @@
 in {
   sops.secrets.gearmulator = {
     sopsFile = ./../../secrets/hm/gearmulator.zip;
+    format = "binary";
   };
 
   xdg.dataFile."The Usual Suspects" = {
