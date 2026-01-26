@@ -34,7 +34,7 @@
     enable = true;
 
     workspace = {
-      lookAndFeel = "PlasmaOverdose";
+      lookAndFeel = "Plasma Overdose";
       colorScheme = "PlasmaOverdose";
       iconTheme = "SE98C";
       soundTheme = "PlasmaOverdose";
@@ -48,7 +48,7 @@
       cursor = {
         theme = "miku-cursor-linux";
       };
-      wallpaper = ./fh000011.jpg;
+      wallpaper = ./wallpaper.jpg;
     };
 
     powerdevil = {
@@ -65,10 +65,10 @@
       };
       battery = {
         powerButtonAction = "sleep";
-        whenSleepingEnter = "standbyThenHibernate";
+        whenSleepingEnter = "sleep";
       };
       lowBattery = {
-        whenLaptopLidClosed = "hibernate";
+        whenLaptopLidClosed = "sleep";
       };
     };
 
