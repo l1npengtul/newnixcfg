@@ -130,7 +130,7 @@
             plasma-manager.homeModules.plasma-manager
             sops-nix.homeManagerModules.sops
             {
-              sops.age.sshKeyFiles = ["/etc/ssh/ssh_host_ed25519_key"];
+              sops.age.sshKeyFile = "/etc/ssh/ssh_host_ed25519_key";
             }
           ];
           users."${username}".imports = [
