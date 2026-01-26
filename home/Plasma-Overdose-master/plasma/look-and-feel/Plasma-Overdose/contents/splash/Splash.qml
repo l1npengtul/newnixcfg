@@ -6,7 +6,7 @@ Rectangle {
 
     Image {
         id: content
-        source: "images/booting"
+        source: "images/booting.png"
         fillMode: Image.PreserveAspectCrop
         anchors.fill: parent
         opacity: 1
@@ -23,7 +23,7 @@ Rectangle {
             model: 996
             property int current: 0
             Image {
-                source: "images/dots"
+                source: "images/dots.png"
                 visible: false
             }
         }
@@ -31,7 +31,7 @@ Rectangle {
 
     Image {
         id: welcome
-        source: "images/welcome"
+        source: "images/welcome.png"
         fillMode: Image.PreserveAspectCrop
         anchors.fill: parent
         opacity: 0
