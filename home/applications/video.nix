@@ -5,7 +5,7 @@
     libaacs
     vobcopy
     makemkv
-    handbrake
+    #     handbrake
     libbluray
     vlc
     avidemux
