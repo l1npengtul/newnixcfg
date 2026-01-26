@@ -17,6 +17,7 @@
   home.file.plasma-overdose-aurorae = {
     source = ./Plasma-Overdose-master/aurorae;
     target = ".local/share/aurorae/themes";
+    recursive = true;
   };
 
   home.file.plasma-overdose-sounds = {
@@ -36,6 +37,9 @@
       lookAndFeel = "Plasma Overdose";
       colorScheme = "Plasma Overdose";
       iconTheme = "SE98C";
+      soundTheme = "Plasma Overdose";
+      splashScreen = "Plasma Overdose";
+      windowDecorations = "Plasma Overdose";
       cursor = {
         theme = "Miku Cursor";
       };
