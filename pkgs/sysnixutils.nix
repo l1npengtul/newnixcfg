@@ -4,6 +4,7 @@
     nil
     nixfmt
     alejandra
+    nixfmt-tree
     patchelfUnstable
     file
     nix-prefetch-github
