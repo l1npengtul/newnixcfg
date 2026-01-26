@@ -2,11 +2,13 @@
   home.file.se98 = {
     source = ./SE98C;
     target = ".local/share/icons/SE98C";
+    recursive = true;
   };
 
   home.file.plasma-overdose-look-and-feel = {
     source = ./Plasma-Overdose-master/plasma/look-and-feel/Plasma-Overdose;
     target = ".local/share/plasma/look-and-feel/Plasma-Overdose";
+    recursive = true;
   };
 
   home.file.plasma-overdose-colors = {
@@ -23,11 +25,13 @@
   home.file.plasma-overdose-sounds = {
     source = ./Plasma-Overdose-master/sounds;
     target = ".local/share/sounds/Plasma-Overdose";
+    recursive = true;
   };
 
   home.file.miku-cursors = {
     source = ./miku-cursor-linux;
     target = ".local/share/icons/miku-cursor-linux";
+    recursive = true;
   };
 
   programs.plasma = {

@@ -71,6 +71,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
 
     reapkgs-known.url = "github:silvarc141/reapkgs-known";
+    reapkgs-extras.url = "github:l1npengtul/reapkgs-extras";
   };
 
   outputs = {
@@ -94,6 +95,8 @@
     sops-nix,
     impermanence,
     deploy-rs,
+    reapkgs-known,
+    reapkgs-extras,
     ...
   } @ inputs: let
     username = "l1npengtul";
