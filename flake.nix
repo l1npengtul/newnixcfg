@@ -129,6 +129,9 @@
           sharedModules = [
             plasma-manager.homeModules.plasma-manager
             sops-nix.homeManagerModules.sops
+            {
+              age.sshKeyFiles = ["/etc/ssh/ssh_host_ed25519_key"];
+            }
           ];
           users."${username}".imports = [
             ./home
