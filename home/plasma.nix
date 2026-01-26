@@ -1,6 +1,13 @@
-{
-  xdg.dataFile."icons/Chicago95".source = ./Chicago95/Icons/Chicago95;
-
+{inputs, ...}: {
+  xdg.dataFile."icons/Chicago95".source = "${inputs.chicago95}/Icons/Chicago95";
+  xdg.dataFile."icons/miku-cursor-linux".source = "${inputs.hatsune-miku-windows-linux-cursors}/miku-cursor-linux";
+  xdg.dataFile."color-schemes/PlasmaOverdose.colors".source = "${inputs.plasma-overdose}/colorschemes/PlasmaOverdose.colors";
+  xdg.dataFile."sounds/Plasma-Overdose".source = "${inputs.plasma-overdose}/sounds";
+  xdg.dataFile."aurorae/themes/Plasma-Overdose" = {
+    recursive = true;
+    source = "${inputs.plasma-overdose}/aurorae/Plasma-Overdose";
+  };
+  xdg.dataFile."plasma/look-and-feel/Plasma-Overdose".source = "${inputs.plasma-overdose}/plasma/look-and-feel/Plasma-Overdose";
   programs.plasma = {
     enable = true;
 

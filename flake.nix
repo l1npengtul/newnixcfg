@@ -72,6 +72,23 @@
 
     reapkgs-known.url = "github:silvarc141/reapkgs-known";
     reapkgs-extras.url = "github:l1npengtul/reapkgs-extras";
+
+    # Additional Configuration Files
+
+    plasma-overdose = {
+      url = "github:olivertzeng/Plasma-Overdose";
+      flake = false;
+    };
+
+    hatsune-miku-windows-linux-cursors = {
+      url = "github:supermariofps/hatsune-miku-windows-linux-cursors";
+      flake = false;
+    };
+
+    chicago95 = {
+      url = "github:grassmunk/Chicago95";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -97,6 +114,9 @@
     deploy-rs,
     reapkgs-known,
     reapkgs-extras,
+    plasma-overdose,
+    hatsune-miku-windows-linux-cursors,
+    chicago95,
     ...
   } @ inputs: let
     username = "l1npengtul";
