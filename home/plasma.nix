@@ -42,7 +42,8 @@
         theme = "Plasma Overdose";
       };
       windowDecorations = {
-        theme = "Plasma Overdose";
+        library = "org.kde.kwin.aurorae";
+        theme = "__aurorae__svg__Plasma-Overdose_x1.5";
       };
       cursor = {
         theme = "Miku Cursor";
