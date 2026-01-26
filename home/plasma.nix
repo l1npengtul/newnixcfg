@@ -48,7 +48,7 @@
       cursor = {
         theme = "miku-cursor-linux";
       };
-      wallpaper = ./wallpaper.jpg;
+      wallpaper = ./fh000018.jpg;
     };
 
     powerdevil = {
