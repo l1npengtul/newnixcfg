@@ -40,5 +40,6 @@ in {
     wl-clipboard
 
     reactionary
+    plasma-overdose-kde-theme
   ];
 }

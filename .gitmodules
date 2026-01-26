@@ -1,0 +1,9 @@
+[submodule "home/Plasma-Overdose"]
+	path = home/Plasma-Overdose
+	url = https://github.com/olivertzeng/Plasma-Overdose.git
+[submodule "home/hatsune-miku-windows-linux-cursors"]
+	path = home/hatsune-miku-windows-linux-cursors
+	url = https://github.com/supermariofps/hatsune-miku-windows-linux-cursors.git
+[submodule "home/Chicago95"]
+	path = home/Chicago95
+	url = https://github.com/grassmunk/Chicago95.git

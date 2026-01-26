@@ -43,46 +43,20 @@ in {
       name = "reapkgs";
       paths = reapkgs ++ extras;
     };
-  };
-
-  home.file.sws-extension = {
-    source = "${pkgs.reaper-sws-extension}/UserPlugins/reaper_sws-x86_64.so";
-    target = ".config/REAPER/UserPlugins/reaper_sws-x86_64.so";
-  };
-
-  home.file.sws-script1 = {
-    source = "${pkgs.reaper-sws-extension}/Scripts/sws_python.py";
-    target = ".config/REAPER/Scripts/sws_python.py";
-  };
-
-  home.file.sws-script2 = {
-    source = "${pkgs.reaper-sws-extension}/Scripts/sws_python64.py";
-    target = ".config/REAPER/Scripts/sws_python64.py";
-  };
-
-  home.file.reapack = {
-    source = "${pkgs.reaper-reapack-extension}/UserPlugins/reaper_reapack-x86_64.so";
-    target = ".config/REAPER/UserPlugins/reaper_reapack-x86_64.so";
-  };
-
-  home.file.reapertips = {
-    source = ./reapertips/02_Theme/reapertips.ReaperThemeZip;
-    target = ".config/REAPER/ColorThemes/reapertips.ReaperThemeZip";
-  };
-
-  home.file.reapertipstoolbars = {
-    source = ./toolbar_icons;
-    target = ".config/REAPER/Data/toolbar_icons";
-    recursive = true;
-  };
-
-  home.file.reapertips-saturated-sws-color = {
-    source = ./reapertips-colors/Mac-Saturated.SWSColor;
-    target = ".config/REAPER/";
-  };
-
-  home.file.reapertipslibswell = {
-    source = ./reapertips/libSwell-user.colortheme;
-    target = ".config/REAPER/libSwell-user.colortheme";
+    "libSwell-user.colortheme".source = ./reapertips/libSwell-user.colortheme;
+    "Mac-Saturated.SWSColor".source = ./reapertips-colors/Mac-Saturated.SWSColor;
+    "Data/toolbar_icons" = {
+      recursive = true;
+      source = ./toolbar_icons;
+    };
+    "UserPlugins" = {
+      "reaper_sws-x86_64.so".source = "${pkgs.reaper-sws-extension}/UserPlugins/reaper_sws-x86_64.so";
+      "reaper_reapack-x86_64.so".source = "${pkgs.reaper-reapack-extension}/UserPlugins/reaper_reapack-x86_64.so";
+    };
+    "Scripts" = {
+      "sws_python.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python.py";
+      "sws_python64.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python64.py";
+    };
+    "ColorThemes/reapertips.ReaperThemeZip".source = ./reapertips/02_Theme/reapertips.ReaperThemeZip;
   };
 }

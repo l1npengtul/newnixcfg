@@ -1,48 +1,48 @@
 {
-  home.file.se98 = {
-    source = ./SE98C;
-    target = ".local/share/icons/SE98C";
-  };
-
-  home.file.plasma-overdose-look-and-feel = {
-    source = ./Plasma-Overdose-master/plasma/look-and-feel/Plasma-Overdose;
-    target = ".local/share/plasma/look-and-feel/Plasma-Overdose";
-  };
-
-  home.file.plasma-overdose-colors = {
-    source = ./Plasma-Overdose-master/colorschemes/PlasmaOverdose.colors;
-    target = ".local/share/color-schemes/PlasmaOverdose.colors";
-  };
-
-  home.file.plasma-overdose-aurorae = {
-    source = ./Plasma-Overdose-master/aurorae;
-    target = ".local/share/aurorae/themes";
-    recursive = true;
-  };
-
-  home.file.plasma-overdose-sounds = {
-    source = ./Plasma-Overdose-master/sounds;
-    target = ".local/share/sounds/Plasma-Overdose";
-  };
-
-  home.file.miku-cursors = {
-    source = ./miku-cursor-linux;
-    target = ".local/share/icons/miku-cursor-linux";
+  xdg.dataFile = {
+    icons = {
+      "Chicago95".source = ./Chicago95/Icons/Chicago95;
+      "miku-cursor-linux".source = ./hatsune-miku-windows-linux-cursors/miku-cursor-linux;
+    };
+    "color-schemes/PlasmaOverdose.colors".source = ./Plasma-Overdose/colorschemes/PlasmaOverdose.colors;
+    "sounds/Plasma-Overdose".source = ./Plasma-Overdose/sounds;
+    "aurorae/themes/Plasma-Overdose" = {
+      recursive = true;
+      source = ./Plasma-Overdose/aurorae/Plasma-Overdose;
+    };
+    "plasma/look-and-feel/Plasma-Overdose".source =
+      ./Plasma-Overdose/plasma/look-and-feel/Plasma-Overdose;
   };
 
   programs.plasma = {
     enable = true;
 
+    #     input = {
+    #       touchPadType = {
+    #         enable = true;
+    #         disableWhileTyping = true;
+    #         middleButtonEmulation = true;
+    #         naturalScroll = true;
+    #         tapToClick = true;
+    #         twoFingerTap = "rightClick";
+    #         scrollMethod = "twoFingers";
+    #       };
+    #       mouseType = {
+    #         enable = true;
+    #
+    #       };
+    #     };
+
     workspace = {
       colorScheme = "PlasmaOverdose";
-      iconTheme = "SE98C";
+      iconTheme = "Chicago95";
       soundTheme = "PlasmaOverdose";
       splashScreen = {
         theme = "PlasmaOverdose";
       };
       windowDecorations = {
         library = "org.kde.kwin.aurorae";
-        theme = "__aurorae__svg__Plasma-Overdose_x1.5";
+        theme = "__aurorae__svg__Plasma-Overdose";
       };
       cursor = {
         theme = "miku-cursor-linux";
@@ -87,9 +87,6 @@
       kcminputrc."ButtonRebinds/Tablet/HUION Huion Tablet_GS1331"."5" = "Key,M";
       kcminputrc."ButtonRebinds/Tablet/HUION Huion Tablet_GS1331"."6" = "Key,[";
       kcminputrc."ButtonRebinds/Tablet/HUION Huion Tablet_GS1331"."7" = "Key,]";
-      kcminputrc."Libinput/13364/53321/Keychron Keychron M6 8K".PointerAccelerationProfile = 1;
-      kcminputrc."Libinput/22597/22098/Xelus Xelus Valor Rev3 Consumer Control".Enabled = false;
-      kcminputrc."Libinput/22597/22098/Xelus Xelus Valor Rev3 Mouse".Enabled = false;
       kcminputrc."Libinput/9580/109/HUION Huion Tablet_GS1331 Dial".Enabled = false;
       kcminputrc."Libinput/9580/109/HUION Huion Tablet_GS1331 Stylus".MapToWorkspace = false;
       #       kcminputrc.Mouse.cursorTheme = "kasane-teto-cursors";
@@ -109,6 +106,7 @@
       kwinrc.Wayland."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       kwinrc.Wayland."InputMethod\x5b$e\x5d" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       kwinrc.Wayland.VirtualKeyboardEnabled = true;
+      kwinrc.Windows.FocusPolicy = "FocusFollowsMouse";
       kwinrc.Desktops.Number = {
         value = 4;
         # Forces kde to not change this value (even through the settings app).
