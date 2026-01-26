@@ -38,7 +38,9 @@
       colorScheme = "Plasma Overdose";
       iconTheme = "SE98C";
       soundTheme = "Plasma Overdose";
-      splashScreen = "Plasma Overdose";
+      splashScreen = {
+        theme = "Plasma Overdose";
+      };
       windowDecorations = "Plasma Overdose";
       cursor = {
         theme = "Miku Cursor";
