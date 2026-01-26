@@ -34,19 +34,19 @@
     enable = true;
 
     workspace = {
-      lookAndFeel = "Plasma Overdose";
-      colorScheme = "Plasma Overdose";
+      lookAndFeel = "PlasmaOverdose";
+      colorScheme = "PlasmaOverdose";
       iconTheme = "SE98C";
-      soundTheme = "Plasma Overdose";
+      soundTheme = "PlasmaOverdose";
       splashScreen = {
-        theme = "Plasma Overdose";
+        theme = "PlasmaOverdose";
       };
       windowDecorations = {
         library = "org.kde.kwin.aurorae";
         theme = "__aurorae__svg__Plasma-Overdose_x1.5";
       };
       cursor = {
-        theme = "Miku Cursor";
+        theme = "miku-cursor-linux";
       };
       wallpaper = ./fh000011.jpg;
     };
