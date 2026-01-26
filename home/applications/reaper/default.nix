@@ -43,6 +43,8 @@ in {
       name = "reapkgs";
       paths = reapkgs ++ extras;
     };
+  };
+  xdg.configFile.REAPER = {
     "libSwell-user.colortheme".source = ./reapertips/libSwell-user.colortheme;
     "Mac-Saturated.SWSColor".source = ./reapertips-colors/Mac-Saturated.SWSColor;
     "Data/toolbar_icons" = {
