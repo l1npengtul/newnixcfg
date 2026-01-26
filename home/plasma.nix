@@ -65,7 +65,7 @@
       };
       battery = {
         powerButtonAction = "sleep";
-        whenSleepingEnter = "sleep";
+        whenSleepingEnter = "standby";
       };
       lowBattery = {
         whenLaptopLidClosed = "sleep";
