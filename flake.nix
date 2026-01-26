@@ -131,6 +131,7 @@
             sops-nix.homeManagerModules.sops
           ];
           users."${username}".imports = [
+            sops-nix.homeManagerModules.sops
             ./home
           ];
         };
