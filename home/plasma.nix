@@ -41,7 +41,9 @@
       splashScreen = {
         theme = "Plasma Overdose";
       };
-      windowDecorations = "Plasma Overdose";
+      windowDecorations = {
+        theme = "Plasma Overdose";
+      };
       cursor = {
         theme = "Miku Cursor";
       };
