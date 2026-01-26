@@ -34,7 +34,6 @@
     enable = true;
 
     workspace = {
-      lookAndFeel = "Plasma Overdose";
       colorScheme = "PlasmaOverdose";
       iconTheme = "SE98C";
       soundTheme = "PlasmaOverdose";
