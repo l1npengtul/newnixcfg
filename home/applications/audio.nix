@@ -6,7 +6,7 @@
   gearmulator = pkgs.stdenvNoCC.mkDerivation {
     pname = "gearmulator";
     version = "0unstable-6767";
-    src = config.sops.secrets.gearmulator.path;
+    src = config.sops.secrets."gearmulator.zip".path;
 
     nativeBuildInputs = [pkgs.unzip];
 
@@ -22,7 +22,7 @@
     '';
   };
 in {
-  sops.secrets.gearmulator = {
+  sops.secrets."gearmulator.zip" = {
     sopsFile = ./../../secrets/hm/gearmulator.zip;
     format = "binary";
   };
