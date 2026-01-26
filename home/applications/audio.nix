@@ -21,7 +21,7 @@
   };
 in {
   sops.secrets.gearmulator = {
-    sopsFile = ./../secrets/hm/gearmulator.zip;
+    sopsFile = ./../../secrets/hm/gearmulator.zip;
   };
 
   xdg.dataFile."The Usual Suspects" = {
