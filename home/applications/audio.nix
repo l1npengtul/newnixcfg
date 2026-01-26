@@ -4,6 +4,8 @@
   ...
 }: let
   gearmulator = pkgs.stdenvNoCC.mkDerivation {
+    pname = "gearmulator";
+    version = "0unstable-6767";
     src = config.sops.secrets.gearmulator.path;
 
     nativeBuildInputs = [pkgs.unzip];
