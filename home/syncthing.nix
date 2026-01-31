@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  osConfig,
+  ...
+}: {
   services.syncthing = {
     enable = true;
     overrideDevices = true;
@@ -27,10 +31,10 @@
   };
   sops.secrets = {
     "syncthing/key" = {
-      sopsFile = ./../../. + "secrets/${config.networking.hostName}.yaml";
+      sopsFile = ./../../. + "secrets/${osConfig.networking.hostName}.yaml";
     };
     "syncthing/cert" = {
-      sopsFile = ./../../. + "secrets/${config.networking.hostName}.yaml";
+      sopsFile = ./../../. + "secrets/${osConfig.networking.hostName}.yaml";
     };
     "syncthing/password" = {
       sopsFile = ./../../secrets/syncthing.yaml;
