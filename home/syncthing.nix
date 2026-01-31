@@ -30,11 +30,17 @@
     };
   };
   sops.secrets = {
+    "syncthing/key" = {
+      sopsFile = ./../. + "secrets/${osConfig.networking.hostName}.yaml";
+    };
+    "syncthing/cert" = {
+      sopsFile = ./../. + "secrets/${osConfig.networking.hostName}.yaml";
+    };
     "syncthing/password" = {
-      sopsFile = ./../../secrets/syncthing.yaml;
+      sopsFile = ./../secrets/syncthing.yaml;
     };
     "syncthing/decrypt" = {
-      sopsFile = ./../../secrets/syncthing.yaml;
+      sopsFile = ./../secrets/syncthing.yaml;
     };
   };
   systemd.user.services.syncthing.Unit.After = ["sops-nix.service"];
