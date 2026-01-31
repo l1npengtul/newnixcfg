@@ -5,6 +5,7 @@
     overrideFolders = true;
     key = config.sops.secrets."syncthing/key".path;
     cert = config.sops.secrets."syncthing/cert".path;
+    tray.enable = true;
     settings = {
       devices = {
         "clubcyberia".id = "2MCEZGX-MZ4MYMV-SW5RSO7-NDLJWAL-FVEMON7-T2ADAL6-ZVYI2CF-CQPE4QS";
@@ -24,7 +25,6 @@
       };
     };
   };
-  services.syncthing-tray.enable = true;
   sops.secrets = {
     "syncthing/key" = {
       sopsFile = ./../../. + "secrets/${config.networking.hostName}.yaml";
