@@ -7,8 +7,8 @@
     enable = true;
     overrideDevices = true;
     overrideFolders = true;
-    key = config.sops.secrets."syncthing/key".path;
-    cert = config.sops.secrets."syncthing/cert".path;
+    #     key = config.sops.secrets."syncthing/key".path;
+    #     cert = config.sops.secrets."syncthing/cert".path;
     tray.enable = true;
     settings = {
       devices = {
@@ -43,4 +43,5 @@
       sopsFile = ./../../secrets/syncthing.yaml;
     };
   };
+  systemd.user.services.syncthing.Unit.After = ["sops-nix.service"];
 }
