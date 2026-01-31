@@ -192,6 +192,11 @@
         modules =
           [
             musnix.nixosModules.musnix
+            nixos-hardware.nixosModules.common-pc-ssd
+            nixos-hardware.nixosModules.common-gpu-amd
+            nixos-hardware.nixosModules.common-cpu-amd
+
+            ./hosts/clubcyberia
           ]
           ++ common-modules;
       };
@@ -207,8 +212,9 @@
             nixos-hardware.nixosModules.common-pc-laptop-ssd
             nixos-hardware.nixosModules.common-gpu-intel
             nixos-hardware.nixosModules.common-cpu-intel
-            nixos-hardware.nixosModules.common-pc-laptop
             nixos-hardware.nixosModules.common-hidpi
+
+            ./hosts/pegrose512
           ]
           ++ common-modules;
       };
