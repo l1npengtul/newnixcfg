@@ -274,7 +274,6 @@
 
             # services
             ./services/server
-            ./services/syncthing.nix
           ];
         };
     };
