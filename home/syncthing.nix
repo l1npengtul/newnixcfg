@@ -30,12 +30,6 @@
     };
   };
   sops.secrets = {
-    "syncthing/key" = {
-      sopsFile = ./../../. + "secrets/${osConfig.networking.hostName}.yaml";
-    };
-    "syncthing/cert" = {
-      sopsFile = ./../../. + "secrets/${osConfig.networking.hostName}.yaml";
-    };
     "syncthing/password" = {
       sopsFile = ./../../secrets/syncthing.yaml;
     };
