@@ -4,9 +4,10 @@
 
     directories = [
       "/etc/nixos"
-      "/srv"
-      "/var/lib"
+      "/etc/NetworkManager/system-connections"
       "/var/log"
+      "/var/lib/systemd/coredump"
+      "/var/lib/nixos"
     ];
 
     files = [

@@ -18,8 +18,7 @@ in {
       createHome = true;
       description = "madamoiselle service user";
       isSystemUser = true;
-      group = "srvusers";
-      home = "/srv/srvusers/madamoiselle";
+      group = "services";
     };
     systemd.services.madamoiselle = {
       wantedBy = ["default.target"];
@@ -27,10 +26,8 @@ in {
       description = "enable madamoiselle discord bot";
       serviceConfig = {
         User = "madamoiselle";
-        Group = "srvusers";
+        Group = "services";
         Restart = "on-failure";
-        WorkingDirectory = "/srv/srvusers/madamoiselle";
-        StateDirectory = "madamoiselle";
         ProtectHome = true;
         ProtectSystem = true;
         NoNewPrivileges = true;
@@ -57,5 +54,6 @@ in {
     };
     environment.systemPackages = [madamoiselle];
     environment.etc."madamoiselle.toml".source = ./madamoiselle.toml;
+    environment.persistence."/nix/persist".files = ["/var/lib/madamoiselle/madamoiselle.db"];
   };
 }

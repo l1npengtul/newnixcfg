@@ -4,5 +4,6 @@
     ./plasma.nix
     ./shell.nix
     ./applications
+    ./syncthing.nix
   ];
 }

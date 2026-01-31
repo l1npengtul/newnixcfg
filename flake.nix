@@ -136,8 +136,6 @@
       {
       }
 
-      musnix.nixosModules.musnix
-
       home-manager.nixosModules.home-manager
       {
         home-manager = {
@@ -159,21 +157,8 @@
       ./pkgs
       ./services
       ./configuration.nix
+      ./hosts
     ];
-
-    common-amd-modules =
-      [
-        nixos-hardware.nixosModules.common-cpu-amd
-        nixos-hardware.nixosModules.common-gpu-amd
-      ]
-      ++ common-modules;
-
-    common-intel-modules =
-      [
-        nixos-hardware.nixosModules.common-intel-amd
-        nixos-hardware.nixosModules.common-intel-amd
-      ]
-      ++ common-modules;
 
     reapersws-overlay = final: prev: {
       inherit
@@ -206,10 +191,9 @@
 
         modules =
           [
-            ./services/sunshine.nix
-            ./hosts/clubcyberia
+            musnix.nixosModules.musnix
           ]
-          ++ common-amd-modules;
+          ++ common-modules;
       };
       pegrose512 = lib.nixosSystem {
         inherit system pkgs;
@@ -219,9 +203,14 @@
 
         modules =
           [
-            ./hosts/pegrose512
+            musnix.nixosModules.musnix
+            nixos-hardware.nixosModules.common-pc-laptop-ssd
+            nixos-hardware.nixosModules.common-gpu-intel
+            nixos-hardware.nixosModules.common-cpu-intel
+            nixos-hardware.nixosModules.common-pc-laptop
+            nixos-hardware.nixosModules.common-hidpi
           ]
-          ++ common-amd-modules;
+          ++ common-modules;
       };
       oldhome = lib.nixosSystem {
         inherit system pkgs;
@@ -231,10 +220,63 @@
 
         modules =
           [
-            ./hosts/pegrose512
+            nixos-hardware.nixosModules.common-pc-laptop-ssd
+            nixos-hardware.nixosModules.common-gpu-intel
+            nixos-hardware.nixosModules.common-cpu-intel
+            nixos-hardware.nixosModules.common-pc-laptop
+            nixos-hardware.nixosModules.common-hidpi
           ]
-          ++ common-intel-modules;
+          ++ common-modules;
       };
+      wiltshire = let
+        pkgs = pkgs-stable;
+        pkgs-unstable = import nixpkgs commonArgs;
+      in
+        lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-unstable pkgs-master;
+          };
+
+          modules = [
+            nixos-hardware.nixosModules.common-pc-ssd
+            nixos-hardware.nixosModules.common-gpu-intel
+            nixos-hardware.nixosModules.common-cpu-intel
+
+            sops-nix.nixosModules.sops
+            {
+            }
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit inputs pkgs;
+                };
+                sharedModules = [
+                  sops-nix.homeManagerModules.sops
+                ];
+                users."${username}".imports = [
+                  ./home/shell.nix
+                  ./home/home.nix
+                  ./home/syncthing.nix
+                ];
+              };
+            }
+
+            ./pkgs
+            ./services
+            ./configuration.nix
+            ./hosts
+            ./hosts/common/server
+
+            # services
+            ./services/server
+            ./services/syncthing.nix
+          ];
+        };
     };
   };
 }

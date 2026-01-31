@@ -1,0 +1,4 @@
+{...}: {
+  programs.plasma.workspace.inputs = {
+  };
+}

@@ -1,10 +1,6 @@
 keys:
   - &clubcyberia age1rc9773ntxpslz5esvhpt0yqfvyv9pyydyluv60e6r520fw5uzyhqrtv2ps
 creation_rules:
-  - path_regex: secrets/clubcyberia.yaml
-    key_groups:
-      - age:
-        - *clubcyberia
   - path_regex: secrets/hm/[^/]+\.(zip)$
     key_groups:
       - age:

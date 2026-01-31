@@ -2,7 +2,7 @@
   imports = [
     ./libvirtd.nix
     ./tailscale.nix
-    ./protonmail.nix
     ./sshd.nix
+    ./syncthing/devices.nix
   ];
 }

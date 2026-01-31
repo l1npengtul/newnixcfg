@@ -18,6 +18,7 @@
       "scanner"
       "lp"
       "cdrom"
+      "syncthing"
     ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
@@ -36,6 +37,5 @@
   ];
   sops.age.sshKeyPaths = [
     "/etc/ssh/ssh_host_ed25519_key"
-    # "/home/${username}/.ssh/id_ed25519.pub"
   ];
 }
