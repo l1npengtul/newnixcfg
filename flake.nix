@@ -157,7 +157,6 @@
       ./pkgs
       ./services
       ./configuration.nix
-      ./hosts
     ];
 
     reapersws-overlay = final: prev: {
