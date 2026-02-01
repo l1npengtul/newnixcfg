@@ -2,6 +2,8 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
+    forceEncodingConfig = true;
+    hardwareAcceleration.enable = true;
   };
   environment.systemPackages = with pkgs; [
     jellyfin

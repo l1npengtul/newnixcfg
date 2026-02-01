@@ -1,19 +1,26 @@
 {
+  inputs,
   config,
   osConfig,
+  pkgs,
   ...
-}: {
+}: let
+  shhh = builtins.toString inputs.shhh;
+in {
   services.syncthing = {
     enable = true;
     overrideDevices = true;
     overrideFolders = true;
     key = config.sops.secrets."syncthing/key".path;
     cert = config.sops.secrets."syncthing/cert".path;
-    tray.enable = true;
+    tray = {
+      enable = true;
+      package = pkgs.syncthingtray;
+    };
     settings = {
       devices = {
-        "clubcyberia".id = "2MCEZGX-MZ4MYMV-SW5RSO7-NDLJWAL-FVEMON7-T2ADAL6-ZVYI2CF-CQPE4QS";
-        "wiltshire".id = "5DVZIJY-JVDCANH-PGOZVVI-F5OG5EU-QQKMVXK-NA7CUUH-L3YOWGT-DI7QQAX";
+        "clubcyberia".id = inputs.shhh.syncthing-device-ids.clubcyberia;
+        "wiltshire".id = inputs.shhh.syncthing-device-ids.wiltshire;
       };
       folders = {
         "Documents" = {
@@ -31,17 +38,16 @@
   };
   sops.secrets = {
     "syncthing/key" = {
-      sopsFile = ./. + "/../secrets/${osConfig.networking.hostName}.yaml";
+      sopsFile = "${shhh}/${osConfig.networking.hostName}.yaml";
     };
     "syncthing/cert" = {
-      sopsFile = ./. + "/../secrets/${osConfig.networking.hostName}.yaml";
+      sopsFile = "${shhh}/${osConfig.networking.hostName}.yaml";
     };
     "syncthing/password" = {
-      sopsFile = ./../secrets/syncthing.yaml;
+      sopsFile = "${shhh}/syncthing.yaml";
     };
     "syncthing/decrypt" = {
-      sopsFile = ./../secrets/syncthing.yaml;
+      sopsFile = "${shhh}/syncthing.yaml";
     };
   };
-  systemd.user.services.syncthing.Unit.After = ["sops-nix.service"];
 }

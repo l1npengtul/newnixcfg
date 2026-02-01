@@ -89,6 +89,10 @@
       url = "github:grassmunk/Chicago95";
       flake = false;
     };
+
+    shhh = {
+      url = "git+ssh://git@codeberg.org/l1npengtul/shhh.git?shallow=1";
+    };
   };
 
   outputs = {
@@ -117,6 +121,7 @@
     plasma-overdose,
     hatsune-miku-windows-linux-cursors,
     chicago95,
+    shhh,
     ...
   } @ inputs: let
     username = "l1npengtul";

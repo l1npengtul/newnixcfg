@@ -36,7 +36,7 @@
       };
       windowDecorations = {
         library = "org.kde.kwin.aurorae";
-        theme = "__aurorae__svg__Plasma-Overdose";
+        theme = "__aurorae__svg__Plasma-Overdosex1.5";
       };
       cursor = {
         theme = "miku-cursor-linux";

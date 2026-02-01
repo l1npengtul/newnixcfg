@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -6,6 +7,7 @@
 }: let
   cfg = config.services.madamoiselle;
   madamoiselle = pkgs.callPackage ./madamoiselle.nix {};
+  shhh = builtins.toString inputs.shhh;
 in {
   options = {
     services.madamoiselle = {
@@ -43,13 +45,14 @@ in {
       };
 
       script = ''
-        export MADAMOISELLE_DISCORD_TOKEN=$(cat ${config.sops.secrets."madamoiselle/discord_token".path})
+        export MADAMOISELLE_DISCORD_TOKEN=$(cat ${config.sops.secrets."madamoiselle-discord-token".path})
 
         ${madamoiselle}/bin/madamoiselle
       '';
     };
 
-    sops.secrets."madamoiselle/discord_token" = {
+    sops.secrets."madamoiselle-discord-token" = {
+      sopsFile = "${shhh}/madamoiselle.yaml";
       restartUnits = ["madamoiselle.service"];
     };
     environment.systemPackages = [madamoiselle];

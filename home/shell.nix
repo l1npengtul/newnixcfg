@@ -1,15 +1,21 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   programs = {
     git = {
       enable = true;
       settings = {
-        user.email = "l1npengtul@protonmail.com";
+        user.email = inputs.shhh.email;
         user.name = "l1npengtul";
       };
     };
 
-    carapace.enable = true;
-    carapace.enableNushellIntegration = true;
+    carapace = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
 
     starship = {
       enable = true;
@@ -83,5 +89,8 @@
     };
   };
 
-  home.packages = with pkgs; [fzf grc];
+  home.packages = with pkgs; [
+    fzf
+    grc
+  ];
 }

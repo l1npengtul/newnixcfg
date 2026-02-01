@@ -3,9 +3,11 @@
   pkgs,
   lib,
   options,
+  inputs,
   ...
 }: let
   cfg = config.services.tailscale-connect;
+  shhh = builtins.toString inputs.shhh;
 in {
   options = {
     services.tailscale-connect = {
@@ -24,7 +26,7 @@ in {
       else [pkgs.tailscale];
 
     sops.secrets."tailscale_key" = {
-      sopsFile = ./. + "/../secrets/${config.networking.hostName}.yaml";
+      sopsFile = "${shhh}/${config.networking.hostName}.yaml";
     };
 
     services.tailscale = {
