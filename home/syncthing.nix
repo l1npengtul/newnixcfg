@@ -13,10 +13,6 @@ in {
     overrideFolders = true;
     key = config.sops.secrets."syncthing/key".path;
     cert = config.sops.secrets."syncthing/cert".path;
-    tray = {
-      enable = true;
-      package = pkgs.syncthingtray;
-    };
     settings = {
       devices = {
         "clubcyberia".id = inputs.shhh.syncthing-device-ids.clubcyberia;
