@@ -12,9 +12,11 @@ git add .
 git commit  --allow-empty -m "$(whoami)@${WHERE}: $(date) - $@"
 
 PK=$(sudo cat /etc/ssh/ssh_host_ed25519_key)
-export SOPS_AGE_KEY=$(ssh-to-age -i /etc/ssh/ssh_host_ed25519_key -private-key)
+export SOPS_AGE_KEY=$(ssh-to-age ${PK} -private-key)
 SSH_TO_AGE_PASSPHRASE=""
 PK=""
+
+nixos-rebuild build --show-trace --builders "" --flake .#$WHERE
 
 sudo nixos-rebuild switch --show-trace --builders "" --flake .#$WHERE
 
