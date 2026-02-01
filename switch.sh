@@ -12,10 +12,10 @@ git add .
 git commit  --allow-empty -m "$(whoami)@${WHERE}: $(date) - $@"
 
 PK=$(sudo cat /etc/ssh/ssh_host_ed25519_key)
-echo ${PK} >> tmp.txt
-chmod 600 tmp.txt
-export SOPS_AGE_KEY=$(ssh-to-age -i tmp.txt -private-key)
-rm tmp.txt
+echo ${PK} >> ed25519_key
+chmod 600 ed25519_key
+export SOPS_AGE_KEY=$(ssh-to-age -i ed25519_key -private-key)
+rm ed25519_key
 SSH_TO_AGE_PASSPHRASE=""
 PK=""
 
