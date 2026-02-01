@@ -622,6 +622,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_10": {
+      "locked": {
+        "lastModified": 1768564909,
+        "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e4bae1bd10c9c57b2cf517953ab70060a828ee6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1743014863,
@@ -736,18 +752,16 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1768564909,
-        "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
+        "lastModified": 1769740369,
+        "narHash": "sha256-xKPyJoMoXfXpDM5DFDZDsi9PHArf2k5BJjvReYXoFpM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e4bae1bd10c9c57b2cf517953ab70060a828ee6f",
+        "rev": "6308c3b21396534d8aaeac46179c14c439a89b8a",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "type": "indirect"
       }
     },
     "plasma-manager": {
@@ -890,6 +904,7 @@
         "plasma-overdose": "plasma-overdose",
         "reapkgs-extras": "reapkgs-extras",
         "reapkgs-known": "reapkgs-known",
+        "shhh": "shhh",
         "sops-nix": "sops-nix",
         "vhs-decode-nur-packages": "vhs-decode-nur-packages"
       }
@@ -966,6 +981,25 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "shhh": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_9"
+      },
+      "locked": {
+        "lastModified": 1769949411,
+        "narHash": "sha256-LzXVNnKexosyudGKgKCLzvNeWCPIMBxK2fK/KKg+DSQ=",
+        "ref": "refs/heads/senpai",
+        "rev": "0e28f0a883c40515ac4a08b57462a7ab8048777e",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/l1npengtul/shhh.git"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/l1npengtul/shhh.git"
       }
     },
     "sops-nix": {
@@ -1099,7 +1133,7 @@
     "vhs-decode-nur-packages": {
       "inputs": {
         "fenix": "fenix_2",
-        "nixpkgs": "nixpkgs_9"
+        "nixpkgs": "nixpkgs_10"
       },
       "locked": {
         "lastModified": 1768768841,

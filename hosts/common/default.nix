@@ -1,9 +1,13 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./boot.nix
     ./tailscale-client.nix
     (import ./user.nix {
-      inherit pkgs;
+      inherit inputs pkgs;
       username = "l1npengtul";
     })
     ./hardware/printer.nix
