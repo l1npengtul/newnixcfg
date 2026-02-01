@@ -12,7 +12,7 @@ git add .
 git commit  --allow-empty -m "$(whoami)@${WHERE}: $(date) - $@"
 
 PK=$(sudo cat /etc/ssh/ssh_host_ed25519_key)
-export SOPS_AGE_KEY=$(echo ${PK} | ssh-to-age -private-key)
+export SOPS_AGE_KEY=$(echo ${PK} | ssh-to-age -i -private-key)
 SSH_TO_AGE_PASSPHRASE=""
 PK=""
 
