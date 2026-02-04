@@ -1,15 +1,13 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
-    (
-      import ./../common/user.nix {
-        inherit pkgs;
-      }
-    )
-    ./../common/battery_optimizations.nix
   ];
 
-  time.timeZone = "Asia/Tokyo";
+  time.timeZone = inputs.shhh.systems.tz.oldhome;
 
   boot.kernelParams = ["mem_sleep_default=deep"];
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/MAGPIE_SIGNAL";

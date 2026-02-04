@@ -1,12 +1,13 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
-    ./../common/music.nix
-    ./../common/hardware/scanner.nix
-    ./../common
   ];
 
-  time.timeZone = "Asia/Tokyo";
+  time.timeZone = inputs.shhh.systems.tz.clubcyberia;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

@@ -1,11 +1,13 @@
 {
   inputs,
+  lib,
   config,
   osConfig,
-  pkgs,
   ...
 }: let
   shhh = builtins.toString inputs.shhh;
+  syc = inputs.shhh.services.syncthing;
+  usr = inputs.shhh.systems.username;
 in {
   services.syncthing = {
     enable = true;
@@ -13,22 +15,14 @@ in {
     overrideFolders = true;
     key = config.sops.secrets."syncthing/key".path;
     cert = config.sops.secrets."syncthing/cert".path;
+    user = usr;
+    guiAddress = syc.gui-port;
+    guiPassword = config.sops.secrets."syncthing/password".path;
     settings = {
-      devices = {
-        "clubcyberia".id = inputs.shhh.syncthing-device-ids.clubcyberia;
-        "wiltshire".id = inputs.shhh.syncthing-device-ids.wiltshire;
-      };
-      folders = {
-        "Documents" = {
-          path = "/home/l1npengtul/Documents";
-          devices = [
-            "wiltshire"
-            {
-              name = "clubcyberia";
-              encryptionPasswordFile = config.sops.secrets."syncthing/decrypt".path;
-            }
-          ];
-        };
+      devices = syc.devices;
+      folders = lib.mergeAttrsList (syc.fldrs usr config.sops.secrets."syncthing/decrypt".path);
+      gui = {
+        user = usr;
       };
     };
   };

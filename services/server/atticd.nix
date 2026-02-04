@@ -1,14 +1,16 @@
 {
-  pkgs,
+  inputs,
   config,
   ...
-}: {
+}: let
+  shhh = builtins.toString inputs.shhh;
+in {
   services.atticd = {
     enable = true;
     environmentFile = config.sops.secrets.atticd.path;
 
     settings = {
-      listen = "[::]:4774";
+      listen = inputs.shhh.services.atticd.listen;
 
       jwt = {};
 
@@ -22,7 +24,7 @@
   };
 
   sops.secrets.atticd = {
-    sopsFile = ./../secrets/atticd.env;
+    sopsFile = "${shhh}/atticd.env";
   };
   environment.persistence."/nix/persist".directories = ["/var/lib/atticd"];
 }

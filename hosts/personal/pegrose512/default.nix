@@ -1,18 +1,13 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
-    (
-      import ./../common/user.nix {
-        inherit pkgs;
-      }
-    )
-    ./../common/gpu.nix
-    ./../common/music.nix
-    ./../common/hardware/printer.nix
-    ./../common/hardware/scanner.nix
   ];
 
-  time.timeZone = "Asia/Seoul";
+  time.timeZone = inputs.shhh.systems.tz.pegrose512;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

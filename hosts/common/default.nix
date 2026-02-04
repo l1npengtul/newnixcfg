@@ -8,9 +8,8 @@
     ./tailscale-client.nix
     (import ./user.nix {
       inherit inputs pkgs;
-      username = "l1npengtul";
+      username = inputs.shhh.sys-username;
     })
-    ./hardware/printer.nix
     ./hardware/gpu.nix
     ./kde.nix
   ];

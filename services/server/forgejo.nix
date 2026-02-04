@@ -7,29 +7,34 @@
   cfg = config.services.forgejo;
   srv = cfg.settings.server;
   shhh = builtins.toString inputs.shhh;
+  fjc = inputs.shhh.services.forgejo;
 in {
   services.forgejo = {
     enable = true;
-    database.type = "postgres";
+    database.type = fjc.db_type;
     lfs.enable = true;
     settings = {
       server = {
-        DOMAIN = "git.l1npengtul.lol";
+        DOMAIN = fjc.domain;
         ROOT_URL = "https://${srv.DOMAIN}/";
-        HTTP_PORT = inputs.shhh.ports.forgejo.http;
+        HTTP_PORT = fjc.http;
       };
       service.DISABLE_REGISTRATION = true;
       actions = {
         ENABLED = true;
-        DEFAULT_ACTIONS_URL = "github";
+      };
+      "cron.sync_external_users" = {
+        RUN_AT_START = true;
+        SCHEDULE = "@every 24h";
+        UPDATE_EXISTING = true;
       };
       mailer = {
         ENABLED = true;
         PROTOCOL = "smtps";
-        SMTP_ADDR = "mail.smtp2go.com";
-        SMTP_PORT = inputs.shhh.ports.forgejo.http;
-        FROM = "noreply@$git.l1npengtul.lol";
-        USER = "forgejo-git";
+        SMTP_ADDR = fjc.smtp_addr;
+        SMTP_PORT = fjc.mailer_port;
+        FROM = "noreply@$${fjc.domain}";
+        USER = fjc.smtp_user;
       };
     };
     secrets = {
@@ -51,7 +56,7 @@ in {
   systemd.services.forgejo.preStart = let
     adminCmd = "${lib.getExe cfg.package} admin user";
     pwd = config.sops.secrets.forgejo-admin-password;
-    user = inputs.shhh.sevices.forgejo.admin;
+    user = fjc.admin;
   in ''
     ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true
   '';

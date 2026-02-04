@@ -1,4 +1,4 @@
-{...}: let
+{lib, ...}: let
   trusted = ["@wheel"];
 in {
   nix.settings.allowed-users = trusted;

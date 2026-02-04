@@ -129,8 +129,6 @@
     lib = nixpkgs.lib // home-manager.lib;
 
     common-modules = [
-      nixos-hardware.nixosModules.common-pc-ssd
-
       nix-index-database.nixosModules.nix-index
 
       auto-cpufreq.nixosModules.default
@@ -159,8 +157,10 @@
         };
       }
 
+      ./hosts/common
       ./pkgs
       ./services
+      ./services/syncthing.nix
       ./configuration.nix
     ];
 
@@ -200,7 +200,7 @@
             nixos-hardware.nixosModules.common-gpu-amd
             nixos-hardware.nixosModules.common-cpu-amd
 
-            ./hosts/clubcyberia
+            ./hosts/personal/clubcyberia
           ]
           ++ common-modules;
       };
@@ -218,7 +218,7 @@
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-hidpi
 
-            ./hosts/pegrose512
+            ./hosts/personal/pegrose512
           ]
           ++ common-modules;
       };
@@ -235,6 +235,8 @@
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc-laptop
             nixos-hardware.nixosModules.common-hidpi
+
+            ./hosts/personal/oldhome
           ]
           ++ common-modules;
       };
@@ -250,8 +252,11 @@
 
           modules = [
             nixos-hardware.nixosModules.common-pc-ssd
+            nixos-hardware.nixosModules.common-pc-hdd
             nixos-hardware.nixosModules.common-gpu-intel
             nixos-hardware.nixosModules.common-cpu-intel
+
+            disko.nixosModules.disko
 
             sops-nix.nixosModules.sops
             {
@@ -271,7 +276,6 @@
                 users."${username}".imports = [
                   ./home/shell.nix
                   ./home/home.nix
-                  ./home/syncthing.nix
                 ];
               };
             }
@@ -279,10 +283,66 @@
             ./pkgs
             ./services
             ./configuration.nix
-            ./hosts
+            ./hosts/server/wiltshire
             ./hosts/common/server
 
             # services
+            ./services/syncthing.nix
+            ./services/server/jellyfin.nix
+            #./services/server/forgejo-worker.nix
+            ./services/server
+          ];
+        };
+      omvdijan = let
+        pkgs = pkgs-stable;
+        pkgs-unstable = import nixpkgs commonArgs;
+      in
+        lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-unstable pkgs-master;
+          };
+
+          modules = [
+            nixos-hardware.nixosModules.common-pc-hdd
+            nixos-hardware.nixosModules.common-gpu-intel
+            nixos-hardware.nixosModules.common-cpu-intel
+
+            disko.nixosModules.disko
+
+            sops-nix.nixosModules.sops
+            {
+            }
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit inputs pkgs;
+                };
+                sharedModules = [
+                  sops-nix.homeManagerModules.sops
+                ];
+                users."${username}".imports = [
+                  ./home/shell.nix
+                  ./home/home.nix
+                ];
+              };
+            }
+
+            ./pkgs
+            ./services
+            ./configuration.nix
+            ./hosts/server/omvdijan
+            ./hosts/common/server
+
+            # services
+            ./services/syncthing.nix
+            ./services/server/madamoiselle
+            ./services/server/forgejo.nix
+            ./services/server/atticd.nix
             ./services/server
           ];
         };
