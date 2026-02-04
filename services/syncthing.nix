@@ -17,7 +17,7 @@ in {
     cert = config.sops.secrets."syncthing/cert".path;
     user = usr;
     guiAddress = syc.gui-port;
-    guiPassword = config.sops.secrets."syncthing/password".path;
+    guiPasswordFile = config.sops.secrets."syncthing/password".path;
     settings = {
       devices = syc.devices;
       folders = lib.mergeAttrsList (syc.fldrs usr config.sops.secrets."syncthing/decrypt".path);
