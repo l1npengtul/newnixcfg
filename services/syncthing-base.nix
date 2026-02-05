@@ -1,8 +1,7 @@
 {
   inputs,
   config,
-  username ? inputs.shhh.systems.username,
-  ...
+  username,
 }: let
   shhh = builtins.toString inputs.shhh;
   syc = inputs.shhh.services.syncthing;
