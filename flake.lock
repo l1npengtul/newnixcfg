@@ -988,10 +988,10 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1770285498,
-        "narHash": "sha256-t/X1/5wHZL6wmOS1M/P1tH7FImC5UBmLm7I/vxadO8k=",
+        "lastModified": 1770285916,
+        "narHash": "sha256-t1NqJa0yM0fXfJfJTASGWO03SP5rXD5+jLRlvCmWi2A=",
         "ref": "senpai",
-        "rev": "e60e6687a7339e4a171c9e029d8c1302a3dcfd0a",
+        "rev": "81c7dd8fa9b79fe5f38ecf9526f71d0bb340c278",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/l1npengtul/shhh.git"
