@@ -1,13 +1,11 @@
 {
   inputs,
-  lib,
   config,
-  osConfig,
+  username ? inputs.shhh.systems.username,
   ...
 }: let
   shhh = builtins.toString inputs.shhh;
   syc = inputs.shhh.services.syncthing;
-  usr = inputs.shhh.systems.username;
 in {
   services.syncthing = {
     enable = true;
@@ -15,28 +13,28 @@ in {
     overrideFolders = true;
     key = config.sops.secrets."syncthing/key".path;
     cert = config.sops.secrets."syncthing/cert".path;
-    user = usr;
+    user = username;
     guiAddress = syc.gui-port;
     guiPasswordFile = config.sops.secrets."syncthing/password".path;
     settings = {
       devices = syc.devices;
       folders = (
         syc.folders {
-          username = usr;
+          username = username;
           secret = config.sops.secrets."syncthing/decrypt".path;
         }
       );
       gui = {
-        user = usr;
+        user = username;
       };
     };
   };
   sops.secrets = {
     "syncthing/key" = {
-      sopsFile = "${shhh}/${osConfig.networking.hostName}.yaml";
+      sopsFile = "${shhh}/${config.networking.hostName}.yaml";
     };
     "syncthing/cert" = {
-      sopsFile = "${shhh}/${osConfig.networking.hostName}.yaml";
+      sopsFile = "${shhh}/${config.networking.hostName}.yaml";
     };
     "syncthing/password" = {
       sopsFile = "${shhh}/syncthing.yaml";

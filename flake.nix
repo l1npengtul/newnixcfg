@@ -287,9 +287,9 @@
             ./hosts/common/server
 
             # services
-            ./services/syncthing.nix
             ./services/server/jellyfin.nix
             #./services/server/forgejo-worker.nix
+            ./services/server/syncthing-server.nix
             ./services/server
           ];
         };
@@ -339,7 +339,7 @@
             ./hosts/common/server
 
             # services
-            ./services/syncthing.nix
+            ./services/server/syncthing-server.nix
             ./services/server/madamoiselle
             ./services/server/forgejo.nix
             ./services/server/atticd.nix
