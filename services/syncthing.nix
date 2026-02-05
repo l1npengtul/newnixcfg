@@ -20,13 +20,12 @@ in {
     guiPasswordFile = config.sops.secrets."syncthing/password".path;
     settings = {
       devices = syc.devices;
-      folders = let
-        f =
-          inputs.shhh.lib.fldrs usr config.sops.secrets."syncthing/decrypt".path
-          ["clubcyberia"]
-          ["wiltshire"];
-      in
-        lib.mergeAttrsList f;
+      folders = lib.mergeAttrsList syc.fldrs {
+        username = usr;
+        secret = config.sops.secrets."syncthing/decrypt".path;
+        secreted = ["clubcyberia"];
+        no_secret = ["wiltshire"];
+      };
       gui = {
         user = usr;
       };
