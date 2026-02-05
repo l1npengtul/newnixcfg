@@ -21,7 +21,10 @@ in {
     settings = {
       devices = syc.devices;
       folders = let
-        f = syc.fldrs usr config.sops.secrets."syncthing/decrypt".path ["clubcyberia"] ["wiltshire"];
+        f =
+          inputs.shhh.lib.fldrs usr config.sops.secrets."syncthing/decrypt".path
+          ["clubcyberia"]
+          ["wiltshire"];
       in
         lib.mergeAttrsList f;
       gui = {
