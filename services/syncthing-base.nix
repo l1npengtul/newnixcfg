@@ -10,8 +10,6 @@ in {
     enable = true;
     overrideDevices = true;
     overrideFolders = true;
-    key = config.sops.secrets."syncthing/key".path;
-    cert = config.sops.secrets."syncthing/cert".path;
     user = username;
     guiAddress = syc.gui-port;
     guiPasswordFile = config.sops.secrets."syncthing/password".path;
