@@ -1,10 +1,10 @@
 {
   inputs,
   config,
-  username,
 }: let
   shhh = builtins.toString inputs.shhh;
   syc = inputs.shhh.services.syncthing;
+  username = "l1npengtul";
 in {
   services.syncthing = {
     enable = true;
