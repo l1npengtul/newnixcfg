@@ -9,8 +9,8 @@
   username = syc.user."${config.networking.hostName}";
 in {
   users.users.username =
-    lib.mkIf inputs.shhh.systems.side."${config.networking.hostName}"
-    == "server" {
+    lib.optionals (inputs.shhh.systems.side."${config.networking.hostName}" == "server")
+    {
       createHome = true;
       extraGroups = [
         "syncthing"
