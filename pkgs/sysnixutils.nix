@@ -57,4 +57,5 @@
     ripgrep
   ];
   programs.nix-index-database.comma.enable = true;
+  programs.ssh.startAgent = true;
 }
