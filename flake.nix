@@ -160,7 +160,7 @@
       ./hosts/common
       ./pkgs
       ./services
-      #./services/syncthing.nix
+      ./services/syncthing.nix
       ./configuration.nix
     ];
 
