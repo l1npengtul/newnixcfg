@@ -75,7 +75,7 @@ in {
     reaper-sws-extension
     reaper-reapack-extension
 
-    airwindows
+    #airwindows
     #airwin2rack
     socalabs-sid
     socalabs-sn76489
