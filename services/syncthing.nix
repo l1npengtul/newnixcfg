@@ -1,60 +1,51 @@
 {
   inputs,
   config,
-  lib,
   ...
 }: let
   shhh = builtins.toString inputs.shhh;
   syc = inputs.shhh.services.syncthing;
   username = syc.user."${config.networking.hostName}";
 in {
-  lib.mkMerge = [
-    # unconditional
-    {
-      services.syncthing = {
-        enable = true;
-        overrideDevices = true;
-        overrideFolders = true;
-        key = config.sops.secrets."syncthing-key".path;
-        cert = config.sops.secrets."syncthing-cert".path;
+  users.users."${username}" = {
+    createHome = true;
+    extraGroups = [
+      "syncthing"
+    ];
+  };
+  services.syncthing = {
+    enable = true;
+    overrideDevices = true;
+    overrideFolders = true;
+    key = config.sops.secrets."hosts/${config.networking.hostName}/key".path;
+    cert = config.sops.secrets."hosts/${config.networking.hostName}/cert".path;
+    user = username;
+    guiAddress = syc.gui-port;
+    guiPasswordFile = config.sops.secrets."syncthing/password".path;
+    settings = {
+      devices = syc.devices;
+      folders = (
+        syc.folders {
+          username = username;
+          secret = config.sops.secrets."syncthing/decrypt".path;
+        }
+      );
+      gui = {
         user = username;
-        guiAddress = syc.gui-port;
-        guiPasswordFile = config.sops.secrets."syncthing/password".path;
-        settings = {
-          devices = syc.devices;
-          folders = (
-            syc.folders {
-              username = username;
-              secret = config.sops.secrets."syncthing/decrypt".path;
-            }
-          );
-          gui = {
-            user = username;
-          };
-        };
       };
+    };
+  };
 
-      sops.secrets."syncthing-key" = {
-        sopsFile = "${shhh}/${config.networking.hostName}.yaml";
-      };
-      sops.secrets."syncthing-cert" = {
-        sopsFile = "${shhh}/${config.networking.hostName}.yaml";
-      };
-      sops.secrets."syncthing/password" = {
-        sopsFile = "${shhh}/syncthing.yaml";
-      };
-      sops.secrets."syncthing/decrypt" = {
-        sopsFile = "${shhh}/syncthing.yaml";
-      };
-    }
-    # optional user setting
-    (lib.mkIf (inputs.shhh.systems.side."${config.networking.hostName}" == "server") {
-      users.users."${username}" = {
-        createHome = true;
-        extraGroups = [
-          "syncthing"
-        ];
-      };
-    })
-  ];
+  sops.secrets."hosts/${config.networking.hostName}/key" = {
+    sopsFile = "${shhh}/syncthing.yaml";
+  };
+  sops.secrets."hosts/${config.networking.hostName}/cert" = {
+    sopsFile = "${shhh}/syncthing.yaml";
+  };
+  sops.secrets."syncthing/password" = {
+    sopsFile = "${shhh}/syncthing.yaml";
+  };
+  sops.secrets."syncthing/decrypt" = {
+    sopsFile = "${shhh}/syncthing.yaml";
+  };
 }

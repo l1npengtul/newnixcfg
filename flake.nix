@@ -290,7 +290,7 @@
             ./services/syncthing.nix
             ./services/server/jellyfin.nix
             #./services/server/forgejo-worker.nix
-            ./services/server/syncthing-server.nix
+            ./services/server/syncthing-persist.nix
             ./services/server
           ];
         };
@@ -344,6 +344,7 @@
             ./services/server/madamoiselle
             ./services/server/forgejo.nix
             ./services/server/atticd.nix
+            ./services/server/syncthing-persist.nix
             ./services/server
           ];
         };

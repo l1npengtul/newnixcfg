@@ -25,14 +25,14 @@ in {
       ]
       else [pkgs.tailscale];
 
-    sops.secrets."tailscale_key" = {
-      sopsFile = "${shhh}/${config.networking.hostName}.yaml";
+    sops.secrets."ts-auth/${config.networking.hostName}" = {
+      sopsFile = "${shhh}/tailscale.yaml";
     };
 
     services.tailscale = {
       enable = true;
       useRoutingFeatures = cfg.side;
-      authKeyFile = config.sops.secrets."tailscale_key".path;
+      authKeyFile = config.sops.secrets."ts-auth/${config.networking.hostName}".path;
     };
 
     networking.firewall = {
