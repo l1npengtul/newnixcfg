@@ -30,6 +30,7 @@
     fish = {
       enable = true;
       interactiveShellInit = ''
+        export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent
         echo "\
         ⠂⠀⢂⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣴⡦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
         ⢀⠀⠸⢻⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣞⡿⠚⠉⠀⢸⣄⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -64,8 +65,8 @@
         ⠀⠀⠀⠀⠀⣰⣿⠟⠋⠀⠀⣿⣿⣿⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⢠⣧⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⢀⣠⣿⣿⡇⠀⣼⣿⡄⠀⠀⠀⡗⠀⠀⢸
         ⠀⠀⠀⠀⢰⡿⠃⠀⠀⠀⢠⣿⣿⡟⡿⠀⠀⠀⢸⠀⠀⠀⠀⠀⢸⠉⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⡫⠊⢈⡇⢠⢻⡟⠀⠀⠀⠀⡷⠀⠀⠸
         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣯⡇⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⡘⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⢫⡟⠀⠀⠀⠀⢀⠇⠀⠀⠀"
-           echo "SAKANA!!!!"
-             starship init fish | source
+        echo "SAKANA!!!!"
+        starship init fish | source
       '';
       plugins = [
         # Enable a plugin (here grc for colorized command output) from nixpkgs
@@ -93,4 +94,6 @@
     fzf
     grc
   ];
+
+  services.ssh-agent.enable = true;
 }
