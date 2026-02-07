@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-git reset --soft HEAD
+git reset --soft origin/senpai
 
 WHERE=$(cat /etc/hostname)
 
