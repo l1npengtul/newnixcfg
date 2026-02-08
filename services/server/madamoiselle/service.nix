@@ -4,11 +4,13 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.services.madamoiselle;
-  madamoiselle = pkgs.callPackage ./madamoiselle.nix {};
+  madamoiselle = pkgs.callPackage ./madamoiselle.nix { };
   shhh = builtins.toString inputs.shhh;
-in {
+in
+{
   options = {
     services.madamoiselle = {
       enable = lib.mkEnableOption "enable madamoiselle";
@@ -17,14 +19,14 @@ in {
 
   config = lib.mkIf cfg.enable {
     users.users.madamoiselle = {
-      createHome = true;
       description = "madamoiselle service user";
       isSystemUser = true;
-      group = "services";
+      group = "madamoiselle";
     };
+    users.groups.madamoiselle = { };
     systemd.services.madamoiselle = {
-      wantedBy = ["default.target"];
-      after = ["network.target"];
+      wantedBy = [ "default.target" ];
+      after = [ "network.target" ];
       description = "enable madamoiselle discord bot";
       serviceConfig = {
         User = "madamoiselle";
@@ -37,7 +39,7 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
 
-        After = ["sops-nix.service"];
+        After = [ "sops-nix.service" ];
       };
 
       environment = {
@@ -53,10 +55,19 @@ in {
 
     sops.secrets."madamoiselle-discord-token" = {
       sopsFile = "${shhh}/madamoiselle.yaml";
-      restartUnits = ["madamoiselle.service"];
+      restartUnits = [ "madamoiselle.service" ];
+      owner = "madamoiselle";
     };
-    environment.systemPackages = [madamoiselle];
+    environment.systemPackages = [ madamoiselle ];
     environment.etc."madamoiselle.toml".source = ./madamoiselle.toml;
-    environment.persistence."/nix/persist".files = ["/var/lib/madamoiselle/madamoiselle.db"];
+    environment.persistence."/nix/persist".files = [
+      {
+        file = "/var/lib/madamoiselle/madamoiselle.db";
+        parentDirectory = {
+          user = "madamoiselle";
+          mode = "u=rw;g=;o=";
+        };
+      }
+    ];
   };
 }

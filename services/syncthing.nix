@@ -2,11 +2,13 @@
   inputs,
   config,
   ...
-}: let
+}:
+let
   shhh = builtins.toString inputs.shhh;
   syc = inputs.shhh.services.syncthing;
   username = syc.user."${config.networking.hostName}";
-in {
+in
+{
   users.users."${username}" = {
     createHome = true;
     group = "${username}";
@@ -18,8 +20,8 @@ in {
     enable = true;
     overrideDevices = true;
     overrideFolders = true;
-    key = config.sops.secrets."hosts/${config.networking.hostName}/key".path;
-    cert = config.sops.secrets."hosts/${config.networking.hostName}/cert".path;
+    key = config.sops.secrets."syncthing-key".path;
+    cert = config.sops.secrets."syncthing-cert".path;
     user = username;
     guiAddress = syc.gui-port;
     guiPasswordFile = config.sops.secrets."syncthing/password".path;
@@ -37,11 +39,13 @@ in {
     };
   };
 
-  sops.secrets."hosts/${config.networking.hostName}/key" = {
-    sopsFile = "${shhh}/syncthing.yaml";
+  sops.secrets."syncthing-key" = {
+    sopsFile = "${shhh}/syncthing-keys/${config.networking.hostName}/key.pem";
+    format = "binary";
   };
-  sops.secrets."hosts/${config.networking.hostName}/cert" = {
-    sopsFile = "${shhh}/syncthing.yaml";
+  sops.secrets."syncthing-cert" = {
+    sopsFile = "${shhh}/syncthing-keys/${config.networking.hostName}/cert.pem";
+    format = "binary";
   };
   sops.secrets."syncthing/password" = {
     sopsFile = "${shhh}/syncthing.yaml";
@@ -49,4 +53,13 @@ in {
   sops.secrets."syncthing/decrypt" = {
     sopsFile = "${shhh}/syncthing.yaml";
   };
+
+  networking.firewall.allowedTCPPorts = [
+    8384
+    22000
+  ];
+  networking.firewall.allowedUDPPorts = [
+    22000
+    21027
+  ];
 }

@@ -44,8 +44,8 @@ use space in front to not have it in history
 export installhost=<hostname>
 
 install -d -m755 "/tmp/$installhost/nix/persist/etc/ssh"
-ssh-keygen -t ed25519 -N "" -C "root@$hostname" -f /tmp/$installhost/nix/persist/etc/ssh/
-cat /tmp/$installhost/nix/persist/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age/bin/ssh-to-age
+ssh-keygen -t ed25519 -N "" -C "root@$hostname" -f /tmp/$installhost/nix/persist/etc/ssh/ssh_host_ed25519_key
+cat /tmp/$installhost/nix/persist/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
 chmod 600 "/tmp/$installhost/nix/persist/etc/ssh/ssh_host_ed25519_key"
 
 install -d -m755 "/tmp/$installhost/nix/persist/etc/secrets/initrd/"
@@ -60,7 +60,7 @@ write secret key to `"/tmp/secret.key"`
 
 
 ```
-nixos-anywhere --generate-hardware-config nixos-generate-config ./hosts/servers/installhost/hardware-configuration.nix \
+nixos-anywhere --generate-hardware-config nixos-generate-config ./hosts/servers/$installhost/hardware-configuration.nix \
  --flake .#$hostname \
  --target-host root@<ip address> \
  --disk-encryption-keys "/tmp/secret.key" "/tmp/secret.key" \

@@ -3,9 +3,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   shhh = builtins.toString inputs.shhh;
-in {
+in
+{
   services.caddy = {
     enable = true;
     globalConfig = ''
@@ -15,10 +17,11 @@ in {
     '';
   };
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile = [config.sops.secrets."CF_API_KEY".path];
+  systemd.services.caddy.serviceConfig.EnvironmentFile = [ config.sops.secrets."CF_API_KEY".path ];
 
   sops.secrets."CF_API_KEY" = {
     sopsFile = "${shhh}/caddy.env";
+    format = "dotenv";
   };
 
   networking.firewall.allowedTCPPorts = [

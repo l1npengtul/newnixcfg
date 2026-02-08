@@ -3,12 +3,14 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.services.forgejo;
   srv = cfg.settings.server;
   shhh = builtins.toString inputs.shhh;
   fjc = inputs.shhh.services.forgejo;
-in {
+in
+{
   services.forgejo = {
     enable = true;
     database.type = fjc.db_type;
@@ -17,7 +19,7 @@ in {
       server = {
         DOMAIN = fjc.domain;
         ROOT_URL = "https://${srv.DOMAIN}/";
-        HTTP_PORT = fjc.http;
+        HTTP_PORT = fjc.http_port;
       };
       service.DISABLE_REGISTRATION = true;
       actions = {
@@ -43,11 +45,11 @@ in {
   };
 
   sops.secrets.forgejo-mailer-password = {
-    file = "${shhh}/forgejo.yaml";
+    sopsFile = "${shhh}/forgejo.yaml";
     owner = "forgejo";
   };
   sops.secrets.forgejo-admin-password = {
-    file = "${shhh}/forgejo.yaml";
+    sopsFile = "${shhh}/forgejo.yaml";
     owner = "forgejo";
   };
 
@@ -55,16 +57,24 @@ in {
     tls {
       dns cloudflare {env.CF_API_KEY}
     }
-    reverse_proxy localhost:${fjc.http}
+    reverse_proxy localhost:${builtins.toString fjc.http_port}
   '';
 
-  environment.persistence."/nix/persist".files = ["/var/lib/forgejo"];
+  environment.persistence."/nix/persist".directories = [
+    {
+      directory = "/var/lib/forgejo";
+      user = "forgejo";
+      mode = "u=rw,g=r,o=";
+    }
+  ];
 
-  systemd.services.forgejo.preStart = let
-    adminCmd = "${lib.getExe cfg.package} admin user";
-    pwd = config.sops.secrets.forgejo-admin-password;
-    user = fjc.admin;
-  in ''
-    ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true
-  '';
+  systemd.services.forgejo.preStart =
+    let
+      adminCmd = "${lib.getExe cfg.package} admin user";
+      pwd = config.sops.secrets.forgejo-admin-password;
+      user = fjc.admin;
+    in
+    ''
+      ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true
+    '';
 }

@@ -12,7 +12,13 @@
     jellyfin
     jellyfin-ffmpeg
   ];
-  environment.persistence."/nix/persist2".files = [ "/var/lib/jellyfin" ];
+  environment.persistence."/nix/persist2".directories = [
+    {
+      directory = "/var/lib/jellyfin";
+      user = "jellyfin";
+      mode = "u=rw,g=r,o=";
+    }
+  ];
   users.users.jellyfin.extraGroups = [
     "video"
     "render"
