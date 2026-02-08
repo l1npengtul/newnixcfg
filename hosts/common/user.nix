@@ -4,11 +4,9 @@
   pkgs,
   username ? "l1npengtul",
   ...
-}:
-let
+}: let
   shhh = builtins.toString inputs.shhh;
-in
-{
+in {
   users.users."${username}" = {
     isNormalUser = true;
     createHome = true;
@@ -36,4 +34,5 @@ in
     sopsFile = "${shhh}/secrets.yaml";
     neededForUsers = true;
   };
+  security.sudo.wheelNeedsPassword = false;
 }

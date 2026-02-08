@@ -61,7 +61,7 @@ write secret key to `"/tmp/secret.key"`
 
 ```
 nixos-anywhere --generate-hardware-config nixos-generate-config ./hosts/servers/$installhost/hardware-configuration.nix \
- --flake .#$hostname \
+ --flake .#$installhost \
  --target-host root@<ip address> \
  --disk-encryption-keys "/tmp/secret.key" "/tmp/secret.key" \
  --extra-files "/tmp/$installhost"

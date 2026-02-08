@@ -2,11 +2,9 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   shhh = builtins.toString inputs.shhh;
-in
-{
+in {
   services.atticd = {
     enable = true;
     environmentFile = config.sops.secrets.ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64.path;
@@ -14,7 +12,7 @@ in
     settings = {
       listen = "[::]:${builtins.toString inputs.shhh.services.atticd.port}";
 
-      jwt = { };
+      jwt = {};
 
       chunking = {
         nar-size-threshold = 64 * 1024;

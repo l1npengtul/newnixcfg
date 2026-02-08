@@ -14,11 +14,11 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = ["umask=0077"];
               };
             };
-            crypt_p1 = {
-              size = "950G";
+            perlica = {
+              size = "890G";
               content = {
                 type = "luks";
                 name = "perlica"; # device-mapper name when decrypted
@@ -37,8 +37,8 @@
         content = {
           type = "gpt";
           partitions = {
-            crypt_p2 = {
-              size = "950G";
+            xaihi = {
+              size = "890G";
               content = {
                 type = "luks";
                 name = "xaihi";

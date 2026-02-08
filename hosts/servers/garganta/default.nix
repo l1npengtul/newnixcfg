@@ -1,5 +1,8 @@
-{ inputs, lib, ... }:
 {
+  inputs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
@@ -12,7 +15,7 @@
 
   fileSystems."/nix/persist".neededForBoot = true;
 
-  boot.initrd.availableKernelModules = [ "virtio_pci" ];
+  boot.initrd.availableKernelModules = ["virtio_pci"];
 
   # Reset root subvolume on boot
   boot.initrd.postResumeCommands = lib.mkAfter ''

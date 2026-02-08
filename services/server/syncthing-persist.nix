@@ -2,12 +2,10 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   syc = inputs.shhh.services.syncthing;
   username = syc.user."${config.networking.hostName}";
-in
-{
+in {
   environment.persistence."/nix/persist".directories = [
     {
       directory = "/home/${
@@ -34,5 +32,5 @@ in
     createHome = true;
     isSystemUser = true;
   };
-  users.groups."${username}" = { };
+  users.groups."${username}" = {};
 }
