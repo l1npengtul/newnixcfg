@@ -34,6 +34,12 @@ Update Secret File
 $ nix-shell -p sops --run "sops updatekeys secrets/example.yaml"
 ```
 
+# new system
+
+```
+ echo "mypassword" | mkpasswd -m sha-512 --stdin
+```
+use space in front to not have it in history
 ```
 export installhost=<hostname>
 
@@ -48,6 +54,10 @@ chmod 600 "/tmp/$installhost/nix/persist/etc/secrets/initrd/ssh_host_ed25519_key
 ```
 
 write secret key to `"/tmp/secret.key"`
+```
+ echo -n "mypassword" >> /tmp/secret.key
+```
+
 
 ```
 nixos-anywhere --generate-hardware-config nixos-generate-config ./hosts/servers/installhost/hardware-configuration.nix \
