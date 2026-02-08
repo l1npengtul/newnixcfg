@@ -10,7 +10,7 @@ in {
     environmentFile = config.sops.secrets.atticd.path;
 
     settings = {
-      listen = inputs.shhh.services.atticd.listen;
+      listen = "[::]:${inputs.shhh.services.atticd.port}";
 
       jwt = {};
 
@@ -22,6 +22,13 @@ in {
       };
     };
   };
+
+  services.caddy.virtualHosts."${inputs.shhh.services.atticd.domain}".extraConfig = ''
+    tls {
+      dns cloudflare {env.CF_API_KEY}
+    }
+    reverse_proxy localhost:${inputs.shhh.services.atticd.port}
+  '';
 
   sops.secrets.atticd = {
     sopsFile = "${shhh}/atticd.env";

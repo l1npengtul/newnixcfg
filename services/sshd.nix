@@ -10,8 +10,4 @@
       PermitRootLogin = "no";
     };
   };
-
-  networking.firewall = {
-    allowedTCPPorts = [inputs.shhh.services.ssh.port];
-  };
 }

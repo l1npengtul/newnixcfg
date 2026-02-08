@@ -33,3 +33,10 @@ Update Secret File
 ```
 $ nix-shell -p sops --run "sops updatekeys secrets/example.yaml"
 ```
+
+```
+nix run github:nix-community/nixos-anywhere -- --generate-hardware-config nixos-generate-config ./hosts/servers/$machine/hardware-configuration.nix --flake .#$machine --target-host root@<ip address>
+```
+
+add `--copy-host-keys` to copy host ssh key
+add `--disk-encryption-keys /tmp/secret.key`

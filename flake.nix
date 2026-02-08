@@ -128,7 +128,7 @@
     system = "x86_64-linux";
     lib = nixpkgs.lib // home-manager.lib;
 
-    common-modules = [
+    common-pc-modules = [
       nix-index-database.nixosModules.nix-index
 
       auto-cpufreq.nixosModules.default
@@ -161,6 +161,43 @@
       ./pkgs
       ./services
       ./services/syncthing.nix
+      ./configuration.nix
+    ];
+
+    common-server-modules = [
+      nixos-hardware.nixosModules.common-pc-hdd
+      nixos-hardware.nixosModules.common-pc-ssd
+
+      disko.nixosModules.disko
+
+      impermanence.nixosModules.impermanence
+
+      sops-nix.nixosModules.sops
+      {
+      }
+
+      home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = {
+            inherit inputs pkgs;
+          };
+          sharedModules = [
+            sops-nix.homeManagerModules.sops
+          ];
+          users."${username}".imports = [
+            ./home/shell.nix
+            ./home/home.nix
+          ];
+        };
+      }
+
+      ./hosts/common/server
+      ./pkgs/minimal.nix
+      ./services
+      ./services/server
       ./configuration.nix
     ];
 
@@ -202,7 +239,7 @@
 
             ./hosts/personal/clubcyberia
           ]
-          ++ common-modules;
+          ++ common-pc-modules;
       };
       pegrose512 = lib.nixosSystem {
         inherit system pkgs;
@@ -220,7 +257,7 @@
 
             ./hosts/personal/pegrose512
           ]
-          ++ common-modules;
+          ++ common-pc-modules;
       };
       oldhome = lib.nixosSystem {
         inherit system pkgs;
@@ -238,7 +275,7 @@
 
             ./hosts/personal/oldhome
           ]
-          ++ common-modules;
+          ++ common-pc-modules;
       };
       wiltshire = let
         pkgs = pkgs-stable;
@@ -250,49 +287,20 @@
             inherit inputs pkgs-unstable pkgs-master;
           };
 
-          modules = [
-            nixos-hardware.nixosModules.common-pc-ssd
-            nixos-hardware.nixosModules.common-pc-hdd
-            nixos-hardware.nixosModules.common-gpu-intel
-            nixos-hardware.nixosModules.common-cpu-intel
+          modules =
+            [
+              nixos-hardware.nixosModules.common-gpu-intel
+              nixos-hardware.nixosModules.common-cpu-intel
 
-            disko.nixosModules.disko
+              ./hosts/servers/wiltshire
 
-            sops-nix.nixosModules.sops
-            {
-            }
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit inputs pkgs;
-                };
-                sharedModules = [
-                  sops-nix.homeManagerModules.sops
-                ];
-                users."${username}".imports = [
-                  ./home/shell.nix
-                  ./home/home.nix
-                ];
-              };
-            }
-
-            ./pkgs
-            ./services
-            ./configuration.nix
-            ./hosts/server/wiltshire
-            ./hosts/common/server
-
-            # services
-            ./services/syncthing.nix
-            ./services/server/jellyfin.nix
-            #./services/server/forgejo-worker.nix
-            ./services/server/syncthing-persist.nix
-            ./services/server
-          ];
+              # services
+              ./services/syncthing.nix
+              ./services/server/jellyfin.nix
+              #./services/server/forgejo-worker.nix
+              ./services/server/syncthing-persist.nix
+            ]
+            ++ common-server-modules;
         };
       omvdijan = let
         pkgs = pkgs-stable;
@@ -304,49 +312,39 @@
             inherit inputs pkgs-unstable pkgs-master;
           };
 
-          modules = [
-            nixos-hardware.nixosModules.common-pc-hdd
-            nixos-hardware.nixosModules.common-gpu-intel
-            nixos-hardware.nixosModules.common-cpu-intel
+          modules =
+            [
+              nixos-hardware.nixosModules.common-gpu-intel
+              nixos-hardware.nixosModules.common-cpu-intel
 
-            disko.nixosModules.disko
+              ./hosts/servers/omvdijan
 
-            sops-nix.nixosModules.sops
-            {
-            }
+              # services
+              ./services/syncthing.nix
+              ./services/server/madamoiselle
+              ./services/server/forgejo.nix
+              ./services/server/atticd.nix
+              ./services/server/syncthing-persist.nix
+            ]
+            ++ common-server-modules;
+        };
+      garganta = let
+        pkgs = pkgs-stable;
+        pkgs-unstable = import nixpkgs commonArgs;
+      in
+        lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-unstable pkgs-master;
+          };
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit inputs pkgs;
-                };
-                sharedModules = [
-                  sops-nix.homeManagerModules.sops
-                ];
-                users."${username}".imports = [
-                  ./home/shell.nix
-                  ./home/home.nix
-                ];
-              };
-            }
+          modules =
+            [
+              nixos-hardware.nixosModules.common-cpu-amd
 
-            ./pkgs
-            ./services
-            ./configuration.nix
-            ./hosts/server/omvdijan
-            ./hosts/common/server
-
-            # services
-            ./services/syncthing.nix
-            ./services/server/madamoiselle
-            ./services/server/forgejo.nix
-            ./services/server/atticd.nix
-            ./services/server/syncthing-persist.nix
-            ./services/server
-          ];
+              ./hosts/servers/garganta
+            ]
+            ++ common-server-modules;
         };
     };
   };

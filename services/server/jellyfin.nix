@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
     forceEncodingConfig = true;
     hardwareAcceleration.enable = true;
   };
@@ -9,5 +8,5 @@
     jellyfin
     jellyfin-ffmpeg
   ];
-  environment.persistence."/nix/persist".files = ["/var/lib/jellyfin"];
+  environment.persistence."/nix/persist2".files = ["/var/lib/jellyfin"];
 }

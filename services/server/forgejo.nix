@@ -51,6 +51,13 @@ in {
     owner = "forgejo";
   };
 
+  services.caddy.virtualHosts."${srv.DOMAIN}".extraConfig = ''
+    tls {
+      dns cloudflare {env.CF_API_KEY}
+    }
+    reverse_proxy localhost:${fjc.http}
+  '';
+
   environment.persistence."/nix/persist".files = ["/var/lib/forgejo"];
 
   systemd.services.forgejo.preStart = let
