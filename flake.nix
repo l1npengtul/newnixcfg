@@ -165,7 +165,6 @@
     ];
 
     common-server-modules = [
-      nixos-hardware.nixosModules.common-pc-hdd
       nixos-hardware.nixosModules.common-pc-ssd
 
       disko.nixosModules.disko
@@ -277,75 +276,63 @@
           ]
           ++ common-pc-modules;
       };
-      wiltshire = let
-        pkgs = pkgs-stable;
-        pkgs-unstable = import nixpkgs commonArgs;
-      in
-        lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = {
-            inherit inputs pkgs-unstable pkgs-master;
-          };
-
-          modules =
-            [
-              nixos-hardware.nixosModules.common-gpu-intel
-              nixos-hardware.nixosModules.common-cpu-intel
-
-              ./hosts/servers/wiltshire
-
-              # services
-              ./services/syncthing.nix
-              ./services/server/jellyfin.nix
-              #./services/server/forgejo-worker.nix
-              ./services/server/syncthing-persist.nix
-            ]
-            ++ common-server-modules;
+      wiltshire = lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = {
+          inherit inputs pkgs-stable pkgs-master;
         };
-      omvdijan = let
-        pkgs = pkgs-stable;
-        pkgs-unstable = import nixpkgs commonArgs;
-      in
-        lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = {
-            inherit inputs pkgs-unstable pkgs-master;
-          };
 
-          modules =
-            [
-              nixos-hardware.nixosModules.common-gpu-intel
-              nixos-hardware.nixosModules.common-cpu-intel
+        modules =
+          [
+            nixos-hardware.nixosModules.common-gpu-intel
+            nixos-hardware.nixosModules.common-cpu-intel
 
-              ./hosts/servers/omvdijan
+            ./hosts/servers/wiltshire
 
-              # services
-              ./services/syncthing.nix
-              ./services/server/madamoiselle
-              ./services/server/forgejo.nix
-              ./services/server/atticd.nix
-              ./services/server/syncthing-persist.nix
-            ]
-            ++ common-server-modules;
+            # services
+            ./services/syncthing.nix
+            ./services/server/jellyfin.nix
+            #./services/server/forgejo-worker.nix
+            ./services/server/syncthing-persist.nix
+          ]
+          ++ common-server-modules;
+      };
+      omvdijan = lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = {
+          inherit inputs pkgs-stable pkgs-master;
         };
-      garganta = let
-        pkgs = pkgs-stable;
-        pkgs-unstable = import nixpkgs commonArgs;
-      in
-        lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = {
-            inherit inputs pkgs-unstable pkgs-master;
-          };
 
-          modules =
-            [
-              nixos-hardware.nixosModules.common-cpu-amd
+        modules =
+          [
+            nixos-hardware.nixosModules.common-gpu-intel
+            nixos-hardware.nixosModules.common-cpu-intel
 
-              ./hosts/servers/garganta
-            ]
-            ++ common-server-modules;
+            ./hosts/servers/omvdijan
+
+            # services
+            ./services/syncthing.nix
+            ./services/server/madamoiselle
+            ./services/server/forgejo.nix
+            ./services/server/atticd.nix
+            ./services/server/syncthing-persist.nix
+          ]
+          ++ common-server-modules;
+      };
+      garganta = lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = {
+          inherit inputs pkgs-stable pkgs-master;
         };
+
+        modules =
+          [
+            nixos-hardware.nixosModules.common-cpu-amd
+
+            ./hosts/servers/garganta
+          ]
+          ++ common-server-modules;
+      };
     };
   };
 }

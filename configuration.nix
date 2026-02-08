@@ -1,32 +1,10 @@
 {pkgs, ...}: {
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  services = {
-    pulseaudio.enable = false;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      jack.enable = true;
-      pulse.enable = true;
-      socketActivation = true;
-    };
-    libinput.enable = true;
-    fwupd.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    git-lfs
-    sof-firmware
-    unzip
-    p7zip
-    pciutils
-    usbutils
-    nmap
-    firefox
   ];
 
   environment.pathsToLink = [
@@ -52,11 +30,6 @@
     "/share/qemu"
     "/sys"
   ];
-
-  hardware = {
-    enableRedistributableFirmware = true;
-    enableAllFirmware = true;
-  };
 
   boot = {
     tmp = {

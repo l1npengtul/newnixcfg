@@ -18,13 +18,13 @@
               };
             };
             luks = {
-              size = "95%";
+              size = "470G";
               content = {
                 type = "luks";
                 name = "crypted";
+                passwordFile = "/tmp/secret.key";
                 settings = {
                   allowDiscards = true;
-                  keyFile = "/tmp/secret.key";
                 };
                 content = {
                   type = "btrfs";
@@ -40,6 +40,7 @@
                         "compress=zstd"
                         "noatime"
                         "ssd"
+                        "noexec"
                       ];
                     };
                     "/var" = {
@@ -48,6 +49,25 @@
                         "compress=zstd"
                         "noatime"
                         "ssd"
+                        "noexec"
+                      ];
+                    };
+                    "/var/log" = {
+                      mountpoint = "/var/log";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                        "ssd"
+                        "noexec"
+                      ];
+                    };
+                    "/etc/nixos" = {
+                      mountpoint = "/etc/nixos";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                        "ssd"
+                        "noexec"
                       ];
                     };
                     "/home" = {
@@ -56,6 +76,7 @@
                         "compress=zstd"
                         "noatime"
                         "ssd"
+                        "noexec"
                       ];
                     };
                     "/nix" = {
@@ -84,8 +105,9 @@
               content = {
                 type = "luks";
                 name = "crypted2";
+                passwordFile = "/tmp/secret.key";
                 settings = {
-                  keyFile = "/tmp/secret.key";
+                  allowDiscards = true;
                 };
                 content = {
                   type = "btrfs";
@@ -100,6 +122,7 @@
                       mountOptions = [
                         "compress=zstd"
                         "noatime"
+                        "noexec"
                       ];
                     };
                     "/swap" = {
@@ -123,9 +146,10 @@
               size = "100%";
               content = {
                 type = "luks";
-                name = "crypted2";
+                name = "crypted3";
+                passwordFile = "/tmp/secret.key";
                 settings = {
-                  keyFile = "/tmp/secret.key";
+                  allowDiscards = true;
                 };
                 content = {
                   type = "btrfs";
@@ -138,8 +162,9 @@
                     "/nix/persist2" = {
                       mountpoint = "/nix/persist2";
                       mountOptions = [
-                        "compress=lz4"
+                        "compress=zstd"
                         "noatime"
+                        "noexec"
                       ];
                     };
                   };

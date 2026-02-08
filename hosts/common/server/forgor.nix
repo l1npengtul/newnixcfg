@@ -17,6 +17,11 @@
       "/etc/ssh/ssh_host_rsa_key.pub"
       "/etc/ssh/ssh_host_rsa_key"
       "/etc/passwd"
+      "/etc/secrets/initrd/ssh_host_ed25519_key.pub"
+      "/etc/secrets/initrd/ssh_host_ed25519_key"
+      #       "/etc/tor/onion/bootup/hostname"
+      #       "/etc/tor/onion/bootup/hs_ed25519_public_key"
+      #       "/etc/tor/onion/bootup/hs_ed25519_secret_key"
     ];
   };
 

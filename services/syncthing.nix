@@ -9,6 +9,7 @@
 in {
   users.users."${username}" = {
     createHome = true;
+    group = "${username}";
     extraGroups = [
       "syncthing"
     ];

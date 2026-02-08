@@ -55,6 +55,14 @@
     grabserial
     ripgrep-all
     ripgrep
+    git-lfs
+    sof-firmware
+    unzip
+    p7zip
+    pciutils
+    usbutils
+    nmap
+    firefox
   ];
   programs.nix-index-database.comma.enable = true;
 }

@@ -1,29 +1,18 @@
 {
   inputs,
+  config,
   pkgs,
   username ? "l1npengtul",
   ...
-}: {
+}: let
+  shhh = builtins.toString inputs.shhh;
+in {
   users.users."${username}" = {
     isNormalUser = true;
     createHome = true;
     shell = pkgs.fish;
-    extraGroups = [
-      "wheel"
-      "audio"
-      "networkmanager"
-      "libvirtd"
-      "jackaudio"
-      "adbusers"
-      "kvm"
-      "scanner"
-      "lp"
-      "cdrom"
-    ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
-    ];
     openssh.authorizedKeys.keys = inputs.shhh.services.ssh.authorized-keys;
+    hashedPasswordFile = config.sops.secrets."passwords/${config.networking.hostName}".path;
   };
   programs.fish.enable = true;
   nix.settings.trusted-users = [
@@ -32,4 +21,7 @@
     "${username}"
   ];
   sops.age.sshKeyPaths = inputs.shhh.sops-ssh-paths;
+  sops.secrets."passwords/${config.networking.hostName}" = {
+    sopsFile = "${shhh}/secrets.yaml";
+  };
 }

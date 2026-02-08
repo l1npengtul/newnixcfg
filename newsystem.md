@@ -35,8 +35,57 @@ $ nix-shell -p sops --run "sops updatekeys secrets/example.yaml"
 ```
 
 ```
-nix run github:nix-community/nixos-anywhere -- --generate-hardware-config nixos-generate-config ./hosts/servers/$machine/hardware-configuration.nix --flake .#$machine --target-host root@<ip address>
+export installhost=<hostname>
+
+install -d -m755 "/tmp/$installhost/nix/persist/etc/ssh"
+ssh-keygen -t ed25519 -N "" -C "root@$hostname" -f /tmp/$installhost/nix/persist/etc/ssh/
+cat /tmp/$installhost/nix/persist/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age/bin/ssh-to-age
+chmod 600 "/tmp/$installhost/nix/persist/etc/ssh/ssh_host_ed25519_key"
+
+install -d -m755 "/tmp/$installhost/nix/persist/etc/secrets/initrd/"
+ssh-keygen -t ed25519 -N "" -f /tmp/$installhost/nix/persist/etc/secrets/initrd/ssh_host_ed25519_key
+chmod 600 "/tmp/$installhost/nix/persist/etc/secrets/initrd/ssh_host_ed25519_key"
 ```
 
-add `--copy-host-keys` to copy host ssh key
-add `--disk-encryption-keys /tmp/secret.key`
+write secret key to `"/tmp/secret.key"`
+
+```
+nixos-anywhere --generate-hardware-config nixos-generate-config ./hosts/servers/installhost/hardware-configuration.nix \
+ --flake .#$hostname \
+ --target-host root@<ip address> \
+ --disk-encryption-keys "/tmp/secret.key" "/tmp/secret.key" \
+ --extra-files "/tmp/$installhost"
+```
+
+post install
+
+use `lspci -v` and add the ethernet driver to `boot.initrd.availibleKernelModules`
+if using btrfs, use `findmnt /`, find root subvolume and write this script to `boot.initrd.postResumeCommands`
+
+```
+  # Reset root subvolume on boot
+  boot.initrd.postResumeCommands = lib.mkAfter ''
+    mkdir /btrfs_tmp
+    mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp # CONFIRM THIS IS CORRECT FROM findmnt
+    if [[ -e /btrfs_tmp/root ]]; then
+      mkdir -p /btrfs_tmp/old_roots
+      timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
+      mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+    fi
+
+    delete_subvolume_recursively() {
+      IFS=$'\n'
+      for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+        delete_subvolume_recursively "/btrfs_tmp/$i"
+      done
+      btrfs subvolume delete "$1"
+    }
+
+    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
+      delete_subvolume_recursively "$i"
+    done
+
+    btrfs subvolume create /btrfs_tmp/root
+    umount /btrfs_tmp
+  '';
+```

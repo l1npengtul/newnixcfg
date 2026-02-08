@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }: {
   imports = [
@@ -12,8 +13,9 @@
     ./systemd.nix
     ./remote-unlock.nix
     ./tailscale-server.nix
+    ./headless.nix
     (import ./../user.nix {
-      inherit inputs pkgs;
+      inherit inputs pkgs config;
       username = inputs.shhh.systems.username;
     })
   ];

@@ -7,7 +7,8 @@
       KbdInteractiveAuthentication = false;
       UseDns = true;
       X11Forwarding = false;
-      PermitRootLogin = "no";
+      PermitRootLogin = "prohibit-password";
     };
   };
+  users.users."root".openssh.authorizedKeys.keys = inputs.shhh.services.ssh.authorized-keys;
 }

@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./../../common/hardware/gpu-amd.nix
   ];
 
   time.timeZone = inputs.shhh.systems.tz.pegrose512;
