@@ -32,8 +32,6 @@ in
         User = "madamoiselle";
         Group = "madamoiselle";
         Restart = "on-failure";
-        ProtectHome = true;
-        ProtectSystem = true;
         NoNewPrivileges = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
@@ -60,13 +58,12 @@ in
     };
     environment.systemPackages = [ madamoiselle ];
     environment.etc."madamoiselle.toml".source = ./madamoiselle.toml;
-    environment.persistence."/nix/persist".files = [
+    environment.persistence."/nix/persist".directories = [
       {
-        file = "/var/lib/madamoiselle/madamoiselle.db";
-        parentDirectory = {
-          user = "madamoiselle";
-          mode = "u=rw;g=;o=";
-        };
+        directory = "/var/lib/madamoiselle";
+        user = "madamoiselle";
+        group = "madamoiselle";
+        mode = "u=rwx,g=rw,o=";
       }
     ];
   };

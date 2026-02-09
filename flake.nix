@@ -292,7 +292,7 @@
             ./services/syncthing.nix
             ./services/server/jellyfin.nix
             ./services/server/madamoiselle
-            ./services/server/forgejo-worker.nix
+            #./services/server/forgejo-worker.nix
             ./services/server/syncthing-persist.nix
           ]
           ++ common-server-modules;
@@ -307,12 +307,17 @@
             nixos-hardware.nixosModules.common-gpu-intel
             nixos-hardware.nixosModules.common-cpu-intel
 
+            nix-minecraft.nixosModules.minecraft-servers
+
             ./hosts/servers/omvdijan
 
             # services
             ./services/server/forgejo.nix
-            ./services/server/atticd.nix
+            #./services/server/atticd.nix
             ./services/server/caddy.nix
+
+            ./services/server/meinkraft
+            ./services/server/meinkraft/obamna
           ]
           ++ common-server-modules;
         };
@@ -329,8 +334,9 @@
 
             ./hosts/servers/garganta
 
+            ./services/server/caddy.nix
             ./services/server/meinkraft
-            ./services/server/meinkraft/hcraft.nix
+            ./services/server/meinkraft/hc
           ]
           ++ common-server-modules;
         };

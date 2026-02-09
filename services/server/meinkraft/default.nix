@@ -4,7 +4,8 @@
   services.minecraft-servers = {
     enable = true;
     eula = true;
-    openFirewall = false;
+    openFirewall = true;
+    managementSystem.systemd-socket.enable = true;
   };
   environment.persistence."/nix/persist".directories = [
     {
