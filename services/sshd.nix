@@ -1,7 +1,9 @@
-{inputs, ...}: {
+{ inputs, ... }:
+{
   services.openssh = {
     enable = true;
-    ports = [inputs.shhh.services.ssh.port];
+    ports = [ inputs.shhh.services.ssh.port ];
+    openFirewall = false;
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;

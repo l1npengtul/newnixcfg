@@ -3,23 +3,24 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   shhh = builtins.toString inputs.shhh;
-in {
+in
+{
   services.caddy = {
     enable = true;
-    globalConfig = ''
-      tls {
-          dns cloudflare {env.CF_API_KEY}
-      }
-    '';
+    package = pkgs.caddy.withPlugins {
+      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
+      hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
+    };
+    environmentFile = config.sops.secrets."CF_API_TOKEN".path;
   };
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile = [config.sops.secrets."CF_API_KEY".path];
-
-  sops.secrets."CF_API_KEY" = {
+  sops.secrets."CF_API_TOKEN" = {
     sopsFile = "${shhh}/caddy.env";
     format = "dotenv";
+    owner = "caddy";
   };
 
   networking.firewall.allowedTCPPorts = [

@@ -216,6 +216,7 @@
         overlays = [
           reapersws-overlay
           nix-vscode-extensions.overlays.default
+          inputs.nix-minecraft.overlay
         ];
       };
 
@@ -291,7 +292,7 @@
             ./services/syncthing.nix
             ./services/server/jellyfin.nix
             ./services/server/madamoiselle
-            #./services/server/forgejo-worker.nix
+            ./services/server/forgejo-worker.nix
             ./services/server/syncthing-persist.nix
           ]
           ++ common-server-modules;
@@ -311,6 +312,7 @@
             # services
             ./services/server/forgejo.nix
             ./services/server/atticd.nix
+            ./services/server/caddy.nix
           ]
           ++ common-server-modules;
         };
@@ -323,7 +325,12 @@
           modules = [
             nixos-hardware.nixosModules.common-cpu-amd
 
+            nix-minecraft.nixosModules.minecraft-servers
+
             ./hosts/servers/garganta
+
+            ./services/server/meinkraft
+            ./services/server/meinkraft/hcraft.nix
           ]
           ++ common-server-modules;
         };
