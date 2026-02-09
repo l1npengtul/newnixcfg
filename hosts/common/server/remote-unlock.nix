@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   boot.initrd = {
     network = {
       enable = true;
@@ -9,7 +8,7 @@
         enable = true;
         port = 2222;
         authorizedKeys = inputs.shhh.services.ssh.authorized-keys;
-        hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+        hostKeys = ["/etc/secrets/initrd/ssh_host_ed25519_key"];
       };
       postCommands = ''
         # Automatically ask for the password on SSH login

@@ -3,17 +3,15 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   shhh = builtins.toString inputs.shhh;
-in
-{
+in {
   users.users.gitea-runner = {
     description = "gitea-runner";
     isSystemUser = true;
     group = "gitea-runner";
   };
-  users.groups.gitea-runner = { };
+  users.groups.gitea-runner = {};
   services.gitea-actions-runner = {
     package = pkgs.forgejo-runner;
     instances.default = {

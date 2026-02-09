@@ -2,13 +2,11 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   shhh = builtins.toString inputs.shhh;
   syc = inputs.shhh.services.syncthing;
   username = syc.user."${config.networking.hostName}";
-in
-{
+in {
   users.users."${username}" = {
     createHome = true;
     group = "${username}";

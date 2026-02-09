@@ -785,6 +785,24 @@
         "type": "github"
       }
     },
+    "randomshit": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770671347,
+        "narHash": "sha256-mns1O8uo1DeO4Os1j7o76DJPMQluuFn3shn2OIP+Jq0=",
+        "ref": "senpai",
+        "rev": "eb53be1ed3a1a98929dd10f7849137172c486cb6",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/l1npengtul/randomshit.git"
+      },
+      "original": {
+        "ref": "senpai",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/l1npengtul/randomshit.git"
+      }
+    },
     "reapkgs": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -884,6 +902,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "plasma-manager": "plasma-manager",
         "plasma-overdose": "plasma-overdose",
+        "randomshit": "randomshit",
         "reapkgs-extras": "reapkgs-extras",
         "reapkgs-known": "reapkgs-known",
         "shhh": "shhh",

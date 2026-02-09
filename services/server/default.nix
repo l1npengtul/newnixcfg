@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./defaults/audit.nix
     ./defaults/clamav.nix

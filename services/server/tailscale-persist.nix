@@ -1,7 +1,4 @@
-{
-  ...
-}:
-{
+{...}: {
   environment.persistence."/nix/persist".directories = [
     {
       directory = "/var/lib/tailscale";

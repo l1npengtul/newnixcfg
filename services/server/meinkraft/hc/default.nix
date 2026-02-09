@@ -3,15 +3,14 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   shhh = builtins.toString inputs.shhh;
   hcraft = inputs.shhh.services.minecraft.hcraft;
-in
-{
+  hfile = builtins.toString inputs.randomshit;
+in {
   services.minecraft-servers.servers."hcraft" = {
     enable = true;
-    package = pkgs.fabricServers.fabric-1_21_11.override { jre_headless = pkgs.zulu25; };
+    package = pkgs.fabricServers.fabric-1_21_11.override {jre_headless = pkgs.zulu25;};
     jvmOpts = "-Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20";
     serverProperties = {
       server-port = hcraft.server;
@@ -24,8 +23,8 @@ in
       motd = "Join Floor 1: discord.gg/hellocharlotte";
     };
     files = {
-      "server-icon.png" = ./hcicon.png;
-      "config/pl3xmap/config.yaml" = ./pl3xmap-config.yaml;
+      "server-icon.png" = "${hfile}/hc/server_icon.png";
+      "config/pl3xmap/config.yml" = "${hfile}/pl3xmap-config.yml";
       "config/Discord-Integration.toml" = config.sops.secrets."Discord-Integration.toml".path;
       "mods/fabric-api-0.141.3%2B1.21.11.jar" = pkgs.fetchurl {
         url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/i5tSkVBH/fabric-api-0.141.3%2B1.21.11.jar";

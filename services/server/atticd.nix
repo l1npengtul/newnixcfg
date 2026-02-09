@@ -2,17 +2,15 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   shhh = builtins.toString inputs.shhh;
-in
-{
+in {
   users.users.atticd = {
     description = "atticd service user";
     isSystemUser = true;
     group = "atticd";
   };
-  users.groups.atticd = { };
+  users.groups.atticd = {};
 
   services.atticd = {
     enable = true;
@@ -23,7 +21,7 @@ in
     settings = {
       listen = "[::]:${builtins.toString inputs.shhh.services.atticd.port}";
 
-      jwt = { };
+      jwt = {};
 
       chunking = {
         nar-size-threshold = 64 * 1024;

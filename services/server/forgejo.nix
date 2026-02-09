@@ -3,14 +3,12 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.forgejo;
   srv = cfg.settings.server;
   shhh = builtins.toString inputs.shhh;
   fjc = inputs.shhh.services.forgejo;
-in
-{
+in {
   services.forgejo = {
     enable = true;
     database.type = fjc.db_type;
@@ -68,13 +66,11 @@ in
     }
   ];
 
-  systemd.services.forgejo.preStart =
-    let
-      adminCmd = "${lib.getExe cfg.package} admin user";
-      pwd = config.sops.secrets.forgejo-admin-password;
-      user = fjc.admin;
-    in
-    ''
-      ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true
-    '';
+  systemd.services.forgejo.preStart = let
+    adminCmd = "${lib.getExe cfg.package} admin user";
+    pwd = config.sops.secrets.forgejo-admin-password;
+    user = fjc.admin;
+  in ''
+    ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true
+  '';
 }

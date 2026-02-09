@@ -2,12 +2,11 @@
   inputs,
   pkgs,
   ...
-}:
-let
+}: let
   obamnacraft = inputs.shhh.services.minecraft.obamnacraft;
-  forgeServers = pkgs.callPackage ./forge-servers { };
-in
-{
+  obamnafile = builtins.toString inputs.randomshit;
+  forgeServers = pkgs.callPackage ./forge-servers {};
+in {
   services.minecraft-servers.servers."obamnacraft" = {
     enable = true;
     package = forgeServers.forge-1_20_1.override {
@@ -27,7 +26,7 @@ in
       motd = "only goobing allowed in obamnacraft";
     };
     files = {
-      "server-icon.png" = ./server_icon.png;
+      "server-icon.png" = "${obamnafile}/obamna/server_icon.png";
     };
     whitelist = obamnacraft.whitelist;
     operators = obamnacraft.ops;

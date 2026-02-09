@@ -2,8 +2,7 @@
   inputs,
   lib,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
@@ -16,7 +15,7 @@
 
   fileSystems."/nix/persist".neededForBoot = true;
 
-  boot.initrd.availableKernelModules = [ "ixgbe" ];
+  boot.initrd.availableKernelModules = ["ixgbe"];
 
   # Reset root subvolume on boot
   boot.initrd.postResumeCommands = lib.mkAfter ''
