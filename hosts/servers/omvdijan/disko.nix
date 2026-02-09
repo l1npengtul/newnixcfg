@@ -14,11 +14,11 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
+                mountOptions = [ "umask=0077" ];
               };
             };
             perlica = {
-              size = "890G";
+              size = "470G";
               content = {
                 type = "luks";
                 name = "perlica"; # device-mapper name when decrypted
@@ -38,10 +38,10 @@
           type = "gpt";
           partitions = {
             xaihi = {
-              size = "890G";
+              size = "470G";
               content = {
                 type = "luks";
-                name = "xaihi";
+                name = "perlica2";
                 # Remove settings.keyFile if you want to use interactive password entry
                 passwordFile = "/tmp/secret.key";
                 settings = {
@@ -60,6 +60,7 @@
                         "rw"
                         "relatime"
                         "ssd"
+                        "noexec"
                       ];
                     };
                     "/etc/nixos" = {
@@ -68,6 +69,7 @@
                         "compress=zstd"
                         "noatime"
                         "ssd"
+                        "noexec"
                       ];
                     };
                     "/nix" = {

@@ -1,6 +1,9 @@
-{username ? "l1npengtul", ...}: {
+{
+  username ? "l1npengtul",
+  ...
+}:
+{
   users.users."${username}".extraGroups = [
-    "libvirtd"
     "jackaudio"
     "adbusers"
     "kvm"

@@ -4,9 +4,11 @@
   pkgs,
   username ? "l1npengtul",
   ...
-}: let
+}:
+let
   shhh = builtins.toString inputs.shhh;
-in {
+in
+{
   users.users."${username}" = {
     isNormalUser = true;
     createHome = true;
@@ -23,6 +25,7 @@ in {
       "input"
     ];
   };
+  users.groups."${username}" = { };
   programs.fish.enable = true;
   nix.settings.trusted-users = [
     "@wheel"
