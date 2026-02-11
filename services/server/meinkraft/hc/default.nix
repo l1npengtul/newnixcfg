@@ -3,14 +3,16 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   shhh = builtins.toString inputs.shhh;
   hcraft = inputs.shhh.services.minecraft.hcraft;
   hfile = builtins.toString inputs.randomshit;
-in {
+in
+{
   services.minecraft-servers.servers."hcraft" = {
     enable = true;
-    package = pkgs.fabricServers.fabric-1_21_11.override {jre_headless = pkgs.zulu25;};
+    package = pkgs.fabricServers.fabric-1_21_11.override { jre_headless = pkgs.zulu25; };
     jvmOpts = "-Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20";
     serverProperties = {
       server-port = hcraft.server;
@@ -21,10 +23,13 @@ in {
       "rcon.password" = hcraft.rcon.password;
       "rcon.port" = hcraft.rcon.port;
       motd = "Join Floor 1: discord.gg/hellocharlotte";
+      max-players = 40;
+      sync-chunk-writes = false;
+      max-chained-neighbor-updates = 10000;
     };
     files = {
-      "server-icon.png" = "${hfile}/hc/server_icon.png";
-      "config/pl3xmap/config.yml" = "${hfile}/pl3xmap-config.yml";
+      "server-icon.png" = "${hfile}/hc/hcicon.png";
+      #       "config/pl3xmap/config.yml" = "${hfile}/hc/pl3xmap-config.yml";
       "config/Discord-Integration.toml" = config.sops.secrets."Discord-Integration.toml".path;
       "mods/fabric-api-0.141.3%2B1.21.11.jar" = pkgs.fetchurl {
         url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/i5tSkVBH/fabric-api-0.141.3%2B1.21.11.jar";
@@ -154,6 +159,94 @@ in {
         url = "https://cdn.modrinth.com/data/dMOPQTBa/versions/P6qIrYqv/sivage-v1.1.1-mc1.21.11.jar";
         sha512 = "49cc677c1fa82bda42e45953a216e9596006f6cd86f77e65fc429a78229c162e08dcf80307fd2ae6126e0c2786ebf7d16d05fb0d0f963aff2747b17f7d0ac90f";
       };
+      "mods/yawp.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/py6EMmAJ/versions/qIozZcHS/yawp-1.21.11-fabric-0.6.2-beta1.jar";
+        sha512 = "8c3e215cd359bf9e70f684f0214514e3e42db6f083ffbd973d94249f7ce401b9d6ec9eb42af7f3be54973f53d6f9ba60355ac0b78e2ffdf54af0ca962f348af7";
+      };
+      "mods/ProperProxyProtocol.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/VVMQoiHH/versions/W1sAVYKm/ProperProxyProtocol-fabric-1.0.0.jar";
+        sha512 = "27253d1fb417ffcc954d96326a0b7c709be121753a55fee6a0ae1fad74982f8cefa6ab87ac048218c80c540518cbbfaee66e8ff7ba741f7217cb9a14ebcbda6d";
+      };
+      "mods/architectury.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/lhGA9TYQ/versions/uNdfrcQ8/architectury-19.0.1-fabric.jar";
+        sha512 = "7ca532844a0ed3d35e8515e13d1e84f8eadfceaae93281b79ad6b4dac253f4634e3dfcc7592f9543871dec117e1a3092c196ba5eae33735162de223be19dc4ad";
+      };
+      "mods/antixray.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/sml2FMaA/versions/I2sZQFG8/antixray-fabric-1.4.13%2B1.21.11.jar";
+        sha512 = "89b0bf4072e0c8231bb9ab06bc7988a9ce9c2b2ef4d4e4f4e8e815523197efbfab2db6493a54fd246305064e435b6c4fda63d29ce5947c465e4abcd24975719b";
+      };
+      "mods/RecipeCooldown.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/7LEWYKTV/versions/oe5KEgWu/RecipeCooldown-1.0.0.jar";
+        sha512 = "84d52e7dbb2aa780b1ba0ec436a58135b1af53f5612bdfeaafb701df10f91df09fad15c7b2dc23552a0a362bc38fd65765f6e82737a45faa163b8dbe89fe7101";
+      };
+      "mods/MoogsEndStructures.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/r4PuRGfV/versions/66xhbndk/MoogsEndStructures-1.21-2.0.1.jar";
+        sha512 = "bc6ebffe094c53dc4cdb1a0f7938ec679bdd3da4f2c47867ccc9195270fe8499afee052616e22d28493da13a53a71b6f1c34c3f12a6a7a02806a026c3b3b6e2f";
+      };
+      "mods/LetMeDespawn.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/vE2FN5qn/versions/7gmpSYHk/LetMeDespawn-1.21.11-x-fabric-1.6.2.jar";
+        sha512 = "e0a03faef8bc3e94de34be71b0e0c3a3129a65baf2290483d64637547bc6008b8658231be268342b98e4f0405c57e64b1a84c42185fbd043bec39c185a71cb48";
+      };
+      "mods/alternate-current.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/r0v8vy1s/versions/XdouG8YV/alternate-current-mc1.21.11-1.9.0.jar";
+        sha512 = "6c6f9411fad87f5ad04648fe47946764bce5f9121af2155aa2be7731e52b11e9150ac2de1657e0407ecc4cf1c373ef605b4de020aa71db32ba051bf88aec2535";
+      };
+      "mods/grimac.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/LJNGWSvH/versions/c5kqeyny/grimac-fabric-2.3.73-f118b5c.jar";
+        sha512 = "9bf1f192660f216c6920d61c050c11e9e5ff13471704e5fbbcb63a68f5406e1363409e88211183bc1f1c8646034bebe6a0716c8cb72298612676ddbb33b31a29";
+      };
+      "mods/noisium.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/hasdd01q/versions/VyMvRQKq/noisium-fabric-2.8.3%2Bmc1.21.11.jar";
+        sha512 = "03d4c116204ee8cb4f95b668576c9e8c099ed939c150ff0cf4ff094ae52b0c5f6214c1292c94f25ea7f614254151d1ff2db68ecaddc9f56486189d29fa3a24eb";
+      };
+      "mods/vmp.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/wnEe9KBa/versions/cgdtMg5d/vmp-fabric-mc1.21.11-0.2.0%2Bbeta.7.226-all.jar";
+        sha512 = "ab855809c2afa07d3ebb8d883ecce3c899fff0c3be493c868ce153645139cf459ced04d62296ea6fdbdddaf12789926da8a167536599be555885b7222adb049e";
+      };
+      "mods/MoogsVoyagerStructures.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/OQAgZMH1/versions/aHamoWna/MoogsVoyagerStructures-1.21-5.0.5.jar";
+        sha512 = "bc6f2a0590816e20a9df722181221e4e7769e64f9fe0efdb88666bae3443354ad59df95a0562f5a854cdc3d5d9a9c12448b605cc3b7fee51e61a85b397fd8f05";
+      };
+      "mods/Explorify.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/HSfsxuTo/versions/9vHj342y/Explorify%20v1.6.4%20f15-88.mod.jar";
+        sha512 = "601ee61e3619ab6a929ff06e4e3db6cc480d97a19e5716ac40a2a325d2d609b857a1ac17f2c0ed2b242e662b5486f4e0f59584fbd47acd481b318c45c244254b";
+      };
+      "mods/cristellib.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/cl223EMc/versions/6vtzWpRI/cristellib-fabric-1.21.11-3.0.4.jar";
+        sha512 = "401305ae1479864511615a60d6d9d72dca34b0a58db7affaeb1f9a5582eaff24b516e96b686bd1198f251653c7a5980d86a1407f684ab952c3c45e64f88ae6b6";
+      };
+      "mods/cloth_config.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/9s6osm5g/versions/xuX40TN5/cloth-config-21.11.153-fabric.jar";
+        sha512 = "8f455489d4b71069e998568cf4e1450116f4360a4eb481cd89117f629c6883164886cf63ca08ac4fc929dd13d1112152755a6216d4a1498ee6406ef102093e51";
+      };
+      "mods/towns-and-towers.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/DjLobEOy/versions/vXLcy6ev/t_and_t-fabric-neoforge-1.13.8.jar";
+        sha512 = "2ae7bdfea06e27a4e9d96fbbfd64271c46840ac04ccdf4c4e4407133c2e3e5c20f6b56fccae87afe2b5bc4c9e37a219de05ca37fd85962696db18d18255e4b0c";
+      };
+      "mods/MoogsNetherStructures.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/nGUXvjTa/versions/6iByrxOG/MoogsNetherStructures-1.20-2.0.3.jar";
+        sha512 = "8baecbcf1a68dce565ef7a2785deef9cba4879e0ccb3ff6ef63c11b3f27bf906787222654a4a07c28d2e84b53f274b0b10aac4fab502171d0c95bb45554377b7";
+      };
+      "mods/moogs_structure_lib.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/1oUDhxuy/versions/HcWRsQG7/moogs_structure_lib-1.1.0-1.21.11-fabric.jar";
+        sha512 = "264ae1fdc510aa9f37feccbe01ed1f621032a62bc51b05d34b97c44c29efd4ba511feaa7b347dea7837a9d878c56bd536edf3ac7b4cae5abeac6d13f56b6c28a";
+      };
+      "mods/almanac.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/Gi02250Z/versions/Tcl38ycb/Almanac-1.21.11-x-fabric-1.6.2.jar";
+        sha512 = "2341101d7c051ebeb31d0e05ebcaf7b6930da99f2a03d9cf9c782af9b1905be327a7248c5ad4a0e5c05928081bcff4c81729cff3505a6cfa4023b87f686fd735";
+      };
+      "mods/MoogsTemplesReimagined.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/UNanzCXS/versions/FSSbRbVq/MoogsTemplesReimagined-1.21-1.1.0.jar";
+        sha512 = "9daa9625e1134d59da5c4de12e97ff875af7dacb27235b0e4a68d4b75e441495f0e0e283aa0424633a2edc410234ab05ab8246aedf470d241b683fcd1e0c23e8";
+      };
+      "mods/MoogsSoaringStructures.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/RJCLIx7k/versions/5oeZ3VOH/MoogsSoaringStructures-1.21-2.0.2.jar";
+        sha512 = "452618a01a81c9101d8f720f51f67f667ca8ff7c8a5e629c05ab0c0f8792e3cf413a914d07db452904c8d00022e31a9c522ec8935bba1f2a3b7ea03832ef0bb1";
+      };
+      "mods/Chunky.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/fALzjamp/versions/1CpEkmcD/Chunky-Fabric-1.4.55.jar";
+        sha512 = "3be0e049e3dea6256b395ccb1f7dccc9c6b23cb7b1f6a717a7cd1ca55f9dbda489679df32868c72664ebb28ca05f2c366590d1e1a11f0dc5f69f947903bad833";
+      };
     };
     symlinks = {
     };
@@ -169,7 +262,7 @@ in {
     tls {
       dns cloudflare {env.CF_API_TOKEN}
     }
-    reverse_proxy localhost:${builtins.toString inputs.shhh.services.atticd.port}
+    reverse_proxy localhost:8080
   '';
 
   sops.secrets."Discord-Integration.toml" = {

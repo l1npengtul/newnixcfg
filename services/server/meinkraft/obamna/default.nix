@@ -2,11 +2,13 @@
   inputs,
   pkgs,
   ...
-}: let
+}:
+let
   obamnacraft = inputs.shhh.services.minecraft.obamnacraft;
   obamnafile = builtins.toString inputs.randomshit;
-  forgeServers = pkgs.callPackage ./forge-servers {};
-in {
+  forgeServers = pkgs.callPackage ./forge-servers { };
+in
+{
   services.minecraft-servers.servers."obamnacraft" = {
     enable = true;
     package = forgeServers.forge-1_20_1.override {
