@@ -1,9 +1,11 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }:
 let
+  shhh = builtins.toString inputs.shhh;
   obamnacraft = inputs.shhh.services.minecraft.obamnacraft;
   obamnafile = builtins.toString inputs.randomshit;
   forgeServers = pkgs.callPackage ./forge-servers { };
@@ -29,6 +31,11 @@ in
     };
     files = {
       "server-icon.png" = "${obamnafile}/obamna/server_icon.png";
+      "config/Discord-Integration.toml" = config.sops.secrets."Discord-Integration-obamna.toml".path;
+      "mods/dcintegration.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/rbJ7eS5V/versions/ILJrSvYW/dcintegration-forge-3.0.7.1-1.20.1.jar";
+        sha512 = "a4bcef59ff48059595fbcb50891b4561db8fdfe6e30ad4a6277eb0506bac519a3d69431aa691969d8894b93e5dc055b94cb0a9c09a1e3066eb5cbde411d2e483";
+      };
     };
     whitelist = obamnacraft.whitelist;
     operators = obamnacraft.ops;
@@ -39,6 +46,12 @@ in
   networking.firewall.allowedTCPPorts = [
     obamnacraft.server
   ];
+
+  sops.secrets."Discord-Integration-obamna.toml" = {
+    sopsFile = "${shhh}/mc-configs/obamna/Discord-Integration.toml";
+    format = "binary";
+    owner = "minecraft";
+  };
 
   environment.persistence."/nix/persist".directories = [
     {

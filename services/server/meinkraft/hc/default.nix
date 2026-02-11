@@ -247,6 +247,26 @@ in
         url = "https://cdn.modrinth.com/data/fALzjamp/versions/1CpEkmcD/Chunky-Fabric-1.4.55.jar";
         sha512 = "3be0e049e3dea6256b395ccb1f7dccc9c6b23cb7b1f6a717a7cd1ca55f9dbda489679df32868c72664ebb28ca05f2c366590d1e1a11f0dc5f69f947903bad833";
       };
+      "mods/modernfix.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/TjSm1wrD/versions/JwSO8JCN/modernfix-5.25.2-build.4.jar";
+        sha512 = "0d65c05ac0475408c58ef54215714e6301113101bf98bfe4bb2ba949fbfddd98225ac4e2093a5f9206a9e01ba80a931424b237bdfa3b6e178c741ca6f7f8c6a3";
+      };
+      "mods/immersive_optimization.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/vNZgQmjg/versions/6B7n0Arj/immersive_optimization-fabric-1.21.11-0.1.2.jar";
+        sha512 = "fa9e0fb93a252f5e3d2f4f130156b07ffac6675f786072c43760dfc108b445c4c0dce2b81733e5fc04f3baef72fa8895c0eb57a0a21f564a1838c3913eed228b";
+      };
+      "mods/ResourcefulConfig.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/M1953qlQ/versions/nC6Zw8Lx/ResourcefulConfig-fabric-1.21.11-3.11.2.jar";
+        sha512 = "2acc99216e288680388e4b7635ba525a00494538b075ad7a49be65940884fa622346dc561ab4ecd5fde8425aa408f1f564b4973eef87ce85f07c9ca314460e43";
+      };
+      "mods/structure_layout_optimizer.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/ayPU0OHc/versions/YDgvKeWI/structure_layout_optimizer-1.1.4%2B1.21.11-fabric.jar";
+        sha512 = "fadc4edf802ba4ca29efeaf4c5f0d133ce5b8c2a04d3fdd2938585167dbdce988fa8d8a43835ef81cdd5c0ad2a91b23c7cbbe9175275b84044f55fad63fb7f22";
+      };
+      "mods/tt20.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/YS3ZignI/versions/QRRzf8E5/tt20-0.7.2%2Bmc1.21.11.jar";
+        sha512 = "2647f63f4ab492ef7f5f70d6bce4f9019975797140a650c59bfb6ce1dcf5853d2eff32cb812d488f61018ee4c4581661e0f3cbbc7132d7e8077b438043967a38";
+      };
     };
     symlinks = {
     };
@@ -266,7 +286,7 @@ in
   '';
 
   sops.secrets."Discord-Integration.toml" = {
-    sopsFile = "${shhh}/Discord-Integration.toml";
+    sopsFile = "${shhh}/mc-configs/hc/Discord-Integration.toml";
     format = "binary";
     owner = "minecraft";
   };

@@ -788,10 +788,10 @@
     "randomshit": {
       "flake": false,
       "locked": {
-        "lastModified": 1770671347,
-        "narHash": "sha256-mns1O8uo1DeO4Os1j7o76DJPMQluuFn3shn2OIP+Jq0=",
+        "lastModified": 1770810784,
+        "narHash": "sha256-DtM1Pzik4GjA1rkijhI0L0HuS7k04pkOV2LFHGTnmOE=",
         "ref": "senpai",
-        "rev": "eb53be1ed3a1a98929dd10f7849137172c486cb6",
+        "rev": "ddb6111bc013efd7e92dffbe9ca58984380b464b",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/l1npengtul/randomshit.git"
@@ -989,10 +989,10 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1770776207,
-        "narHash": "sha256-mkSzCHYTsEgsg0PwxPP5oVYhAiD0ZGBhmhkEk3Gyo1k=",
+        "lastModified": 1770811139,
+        "narHash": "sha256-1RgXgdxuRf8lCJcK22Smm7yktF+bRNix/71b5m+emJA=",
         "ref": "senpai",
-        "rev": "38b1432922528be7de28358e1a79faa0577f3d61",
+        "rev": "ece9cce93184bdfb9cae43db48a9cbee6c7423c3",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/l1npengtul/shhh.git"
