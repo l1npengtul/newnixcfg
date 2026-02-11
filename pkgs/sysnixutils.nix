@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     # nix utilities
     nil
@@ -63,6 +64,7 @@
     usbutils
     nmap
     firefox
+    rpi-imager
   ];
   programs.nix-index-database.comma.enable = true;
 }

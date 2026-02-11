@@ -4,14 +4,17 @@
   pkgs,
   username ? "l1npengtul",
   ...
-}: let
+}:
+let
   shhh = builtins.toString inputs.shhh;
-in {
+in
+{
   users.users."${username}" = {
     isNormalUser = true;
     createHome = true;
     shell = pkgs.fish;
-    openssh.authorizedKeys.keys = inputs.shhh.services.ssh.authorized-keys;
+    openssh.authorizedKeys.keys =
+      inputs.shhh.services.ssh.authorized-keys.system."${config.networking.hostName}";
     hashedPasswordFile = config.sops.secrets."passwords/${config.networking.hostName}".path;
     extraGroups = [
       "wheel"
@@ -23,7 +26,7 @@ in {
       "input"
     ];
   };
-  users.groups."${username}" = {};
+  users.groups."${username}" = { };
   programs.fish.enable = true;
   nix.settings.trusted-users = [
     "@wheel"
