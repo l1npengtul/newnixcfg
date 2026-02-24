@@ -13,5 +13,6 @@
     ./video.nix
     ./wine.nix
     ./work.nix
+    ./utils.nix
   ];
 }
