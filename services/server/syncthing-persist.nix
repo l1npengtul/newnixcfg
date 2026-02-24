@@ -15,25 +15,33 @@ in
       }/Documents";
       user = username;
       group = "syncthing";
-      mode = "u=rwx,g=rwx,o=rwx";
+      mode = "u=rw,g=rw,o=";
     }
     {
       directory = "/home/${inputs.shhh.services.syncthing.user."${config.networking.hostName}"}/Pictures";
       user = username;
       group = "syncthing";
-      mode = "u=rwx,g=rwx,o=rwx";
+      mode = "u=rw,g=rw,o=";
     }
     {
       directory = "/home/${inputs.shhh.services.syncthing.user."${config.networking.hostName}"}/Music";
       user = username;
       group = "syncthing";
-      mode = "u=rwx,g=rwx,o=rwx";
+      mode = "u=rw,g=rw,o=";
+    }
+    {
+      directory = "/home/${
+        inputs.shhh.services.syncthing.user."${config.networking.hostName}"
+      }/.local/share/bottles/bottles/plugins/drive_c";
+      user = username;
+      group = "syncthing";
+      mode = "u=rw,g=rw,o=";
     }
     {
       directory = "/home/${inputs.shhh.services.syncthing.user."${config.networking.hostName}"}";
       user = username;
       group = "syncthing";
-      mode = "u=rwx,g=rwx,o=rwx";
+      mode = "u=rw,g=rw,o=";
     }
   ];
   users.users."${username}" = {
