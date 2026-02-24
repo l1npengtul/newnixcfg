@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./fcitx5
     ./fonts
@@ -10,5 +11,6 @@
     ./steam.nix
     ./sysnixutils.nix
     ./flatpak.nix
+    ./udf.nix
   ];
 }

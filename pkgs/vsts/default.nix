@@ -4,35 +4,37 @@
   pkgs-stable,
   pkgs-master,
   ...
-}: let
+}:
+let
   #organ = pkgs.callPackage ./socalabs/organ.nix {};
   #piano = pkgs.callPackage ./socalabs/piano.nix {};
   #slplugins = pkgs.callPackage ./socalabs/slplugins.nix {};
   #wavetable = pkgs.callPackage ./socalabs/wavetable.nix {};
-  treetable = pkgs.callPackage ./demucs/treetable.nix {};
-  submitit = pkgs.callPackage ./demucs/submitit.nix {};
+  treetable = pkgs.callPackage ./demucs/treetable.nix { };
+  submitit = pkgs.callPackage ./demucs/submitit.nix { };
   dora-search = pkgs.callPackage ./demucs/dora-search.nix {
     treetable = treetable;
     submitit = submitit;
   };
-  lameenc = pkgs.callPackage ./demucs/lameenc.nix {};
-  openunmix = pkgs.python3Packages.callPackage ./demucs/openunmix.nix {};
+  lameenc = pkgs.callPackage ./demucs/lameenc.nix { };
+  openunmix = pkgs.python3Packages.callPackage ./demucs/openunmix.nix { };
   demucs = pkgs.callPackage ./demucs/demucs.nix {
     openunmix = openunmix;
     lameenc = lameenc;
     dora-search = dora-search;
   };
-  libswell = pkgs.callPackage ./libswell {};
-  paulxstretch = pkgs.callPackage ./paulxstretch.nix {};
-  ripplerx = pkgs.callPackage ./ripplerx.nix {};
+  libswell = pkgs.callPackage ./libswell { };
+  paulxstretch = pkgs.callPackage ./paulxstretch.nix { };
+  ripplerx = pkgs.callPackage ./ripplerx.nix { };
   #grainbow = pkgs.callPackage ./grainbow {};
   #   synthv-studio-pro = pkgs.callPackage ./synthv-studio-pro {};
-  recstar = pkgs.callPackage ./recstar {};
-  nn = pkgs.callPackage ./neuralnote.nix {};
+  recstar = pkgs.callPackage ./recstar { };
+  nn = pkgs.callPackage ./neuralnote.nix { };
   #musescore-evolution = pkgs.callPackage ./musescore-evolution.nix {};
   #surgext = pkgs.callPackage ./surgext-nightly.nix {};
   #vvital = pkgs.callPackage ./vital.nix {};
-in {
+in
+{
   imports = [
   ];
 
@@ -44,7 +46,7 @@ in {
     dexed
     setbfree
     zynaddsubfx
-    #audacity
+    audacity
     musescore
     #musescore-evolution
     paulstretch
@@ -56,27 +58,25 @@ in {
     vital
     distrho-ports
     bitwig-studio
-    yabridgectl
-    yabridge
-    wineWowPackages.stagingFull
+    pkgs-master.yabridgectl
+    pkgs-master.yabridge
+    wineWow64Packages.stagingFull
     dxvk_2
     #recstar
-    #plugdata
+    plugdata
     #dl-librescore
     carla
     (reaper.overrideAttrs (prev: {
-      postInstall =
-        (prev.postInstall or "")
-        + ''
-          rm $out/opt/REAPER/libSwell.so
-          ln -s ${libswell}/lib/libSwell.so $out/opt/REAPER/libSwell.so
-        '';
+      postInstall = (prev.postInstall or "") + ''
+        rm $out/opt/REAPER/libSwell.so
+        ln -s ${libswell}/lib/libSwell.so $out/opt/REAPER/libSwell.so
+      '';
     }))
     reaper-sws-extension
     reaper-reapack-extension
 
-    #airwindows
-    #airwin2rack
+    airwindows
+    airwin2rack
     socalabs-sid
     socalabs-sn76489
     socalabs-papu
