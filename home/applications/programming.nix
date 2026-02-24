@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   additional = with pkgs.vscode-marketplace; [
     hellotham.vsc-rosely-light
     mgwg.light-pink-theme
@@ -8,18 +9,15 @@
     itsyaasir.rust-feature-toggler
     littlefoxteam.vscode-python-test-adapter
   ];
-in {
+in
+{
   home.packages = with pkgs; [
     ghidra-bin
     gdb
     # hex editor
-    okteta
+    #okteta
 
     jetbrains.rust-rover
-    jetbrains.idea
-    jetbrains.clion
-    jetbrains.gateway
-    jetbrains-toolbox
 
     kdiff3
 
@@ -38,7 +36,8 @@ in {
       enable = true;
       package = pkgs.vscodium;
       profiles.default = {
-        extensions = with pkgs.vscode-extensions;
+        extensions =
+          with pkgs.vscode-extensions;
           [
             zhuangtongfa.material-theme
             yzhang.markdown-all-in-one

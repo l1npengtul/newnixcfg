@@ -1,10 +1,11 @@
-{pkgs, ...}: {
+{ pkgs, pkgs-stable, ... }:
+{
   home.packages = with pkgs; [
     mpv
     libdvdcss
     libaacs
     vobcopy
-    makemkv
+    pkgs-stable.makemkv
     #     handbrake
     libbluray
     vlc

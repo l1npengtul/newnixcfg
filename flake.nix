@@ -48,6 +48,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lager-patch.url = "github:NixOS/nixpkgs?ref=pull/493363/head";
+
     vhs-decode-nur-packages.url = "github:JuniorIsAJitterbug/nur-packages";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -100,146 +102,165 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    nixpkgs-stable,
-    nixpkgs-master,
-    nixos-hardware,
-    home-manager,
-    plasma-manager,
-    nix-flatpak,
-    auto-cpufreq,
-    musnix,
-    audio,
-    aagl,
-    nix-index-database,
-    vhs-decode-nur-packages,
-    nix-minecraft,
-    nixpkgs-reaper-sws,
-    nix-vscode-extensions,
-    disko,
-    sops-nix,
-    impermanence,
-    deploy-rs,
-    reapkgs-known,
-    reapkgs-extras,
-    plasma-overdose,
-    hatsune-miku-windows-linux-cursors,
-    chicago95,
-    shhh,
-    randomshit,
-    ...
-  } @ inputs: let
-    username = "l1npengtul";
-    system = "x86_64-linux";
-    lib = nixpkgs.lib // home-manager.lib;
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-stable,
+      nixpkgs-master,
+      nixos-hardware,
+      home-manager,
+      plasma-manager,
+      nix-flatpak,
+      auto-cpufreq,
+      musnix,
+      audio,
+      aagl,
+      nix-index-database,
+      vhs-decode-nur-packages,
+      nix-minecraft,
+      nixpkgs-reaper-sws,
+      nix-vscode-extensions,
+      disko,
+      sops-nix,
+      impermanence,
+      deploy-rs,
+      reapkgs-known,
+      reapkgs-extras,
+      plasma-overdose,
+      hatsune-miku-windows-linux-cursors,
+      chicago95,
+      shhh,
+      randomshit,
+      lager-patch,
+      ...
+    }@inputs:
+    let
+      username = "l1npengtul";
+      system = "x86_64-linux";
+      lib = nixpkgs.lib // home-manager.lib;
 
-    common-pc-modules = [
-      nixos-hardware.nixosModules.common-pc-ssd
+      common-pc-modules = [
+        nixos-hardware.nixosModules.common-pc-ssd
 
-      nix-index-database.nixosModules.nix-index
+        nix-index-database.nixosModules.nix-index
 
-      auto-cpufreq.nixosModules.default
+        auto-cpufreq.nixosModules.default
 
-      nix-flatpak.nixosModules.nix-flatpak
+        nix-flatpak.nixosModules.nix-flatpak
 
-      sops-nix.nixosModules.sops
-      {
-      }
+        sops-nix.nixosModules.sops
+        {
+        }
 
-      home-manager.nixosModules.home-manager
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = {
-            inherit inputs pkgs;
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {
+              inherit
+                inputs
+                pkgs
+                pkgs-stable
+                pkgs-master
+                ;
+            };
+            sharedModules = [
+              plasma-manager.homeModules.plasma-manager
+              sops-nix.homeManagerModules.sops
+            ];
+            users."${username}".imports = [
+              ./home
+            ];
           };
-          sharedModules = [
-            plasma-manager.homeModules.plasma-manager
-            sops-nix.homeManagerModules.sops
-          ];
-          users."${username}".imports = [
-            ./home
-          ];
-        };
-      }
+        }
 
-      ./hosts/common
-      ./pkgs
-      ./services
-      ./services/syncthing.nix
-      ./configuration.nix
-    ];
-
-    common-server-modules = [
-      nixos-hardware.nixosModules.common-pc-ssd
-
-      disko.nixosModules.disko
-
-      impermanence.nixosModules.impermanence
-
-      sops-nix.nixosModules.sops
-      {
-      }
-
-      home-manager.nixosModules.home-manager
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = {
-            inherit inputs pkgs;
-          };
-          sharedModules = [
-            sops-nix.homeManagerModules.sops
-          ];
-          users."${username}".imports = [
-            ./home/shell.nix
-            ./home/home.nix
-          ];
-        };
-      }
-
-      ./hosts/common/server
-      ./pkgs/minimal.nix
-      ./services
-      ./services/server
-      ./configuration.nix
-    ];
-
-    reapersws-overlay = final: prev: {
-      inherit
-        (nixpkgs-reaper-sws.legacyPackages.${prev.system})
-        reaper-sws-extension
-        ;
-    };
-
-    commonArgs = {
-      inherit system;
-      config.allowUnfree = true;
-      overlays = [
-        reapersws-overlay
-        nix-vscode-extensions.overlays.default
-        inputs.nix-minecraft.overlay
+        ./hosts/common
+        ./pkgs
+        ./services
+        ./services/syncthing.nix
+        ./configuration.nix
       ];
-    };
 
-    pkgs = import nixpkgs commonArgs;
-    pkgs-stable = import nixpkgs-stable commonArgs;
-    pkgs-master = import nixpkgs-master commonArgs;
-  in {
-    inherit lib commonArgs;
+      common-server-modules = [
+        nixos-hardware.nixosModules.common-pc-ssd
 
-    nixosConfigurations = {
-      clubcyberia = lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = {
-          inherit inputs pkgs-stable pkgs-master;
-        };
+        disko.nixosModules.disko
 
-        modules =
-          [
+        impermanence.nixosModules.impermanence
+
+        sops-nix.nixosModules.sops
+        {
+        }
+
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {
+              inherit
+                inputs
+                pkgs
+                pkgs-stable
+                pkgs-master
+                ;
+            };
+            sharedModules = [
+              sops-nix.homeManagerModules.sops
+            ];
+            users."${username}".imports = [
+              ./home/shell.nix
+              ./home/home.nix
+            ];
+          };
+        }
+
+        ./hosts/common/server
+        ./pkgs/minimal.nix
+        ./services
+        ./services/server
+        ./configuration.nix
+      ];
+
+      reapersws-overlay = final: prev: {
+        inherit (nixpkgs-reaper-sws.legacyPackages.${prev.system})
+          reaper-sws-extension
+          ;
+      };
+
+      lager-overlay = final: prev: {
+        inherit (lager-patch.legacyPackages.${prev.system})
+          lager
+          ;
+      };
+
+      commonArgs = {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          reapersws-overlay
+          nix-vscode-extensions.overlays.default
+          inputs.nix-minecraft.overlay
+          lager-overlay
+        ];
+      };
+
+      pkgs = import nixpkgs commonArgs;
+      pkgs-stable = import nixpkgs-stable commonArgs;
+      pkgs-master = import nixpkgs-master commonArgs;
+    in
+    {
+      inherit lib commonArgs;
+
+      nixosConfigurations = {
+        clubcyberia = lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-stable pkgs-master;
+          };
+
+          modules = [
             musnix.nixosModules.musnix
             nixos-hardware.nixosModules.common-gpu-amd
             nixos-hardware.nixosModules.common-cpu-amd
@@ -247,15 +268,14 @@
             ./hosts/personal/clubcyberia
           ]
           ++ common-pc-modules;
-      };
-      pegrose512 = lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = {
-          inherit inputs pkgs-stable pkgs-master;
         };
+        pegrose512 = lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-stable pkgs-master;
+          };
 
-        modules =
-          [
+          modules = [
             musnix.nixosModules.musnix
             nixos-hardware.nixosModules.common-gpu-intel
             nixos-hardware.nixosModules.common-cpu-intel
@@ -264,15 +284,14 @@
             ./hosts/personal/pegrose512
           ]
           ++ common-pc-modules;
-      };
-      oldhome = lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = {
-          inherit inputs pkgs-stable pkgs-master;
         };
+        oldhome = lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-stable pkgs-master;
+          };
 
-        modules =
-          [
+          modules = [
             nixos-hardware.nixosModules.common-pc-laptop-ssd
             nixos-hardware.nixosModules.common-gpu-intel
             nixos-hardware.nixosModules.common-cpu-intel
@@ -282,15 +301,14 @@
             ./hosts/personal/oldhome
           ]
           ++ common-pc-modules;
-      };
-      wiltshire = lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = {
-          inherit inputs pkgs-stable pkgs-master;
         };
+        wiltshire = lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-stable pkgs-master;
+          };
 
-        modules =
-          [
+          modules = [
             nixos-hardware.nixosModules.common-gpu-intel
             nixos-hardware.nixosModules.common-cpu-intel
 
@@ -304,15 +322,14 @@
             ./services/server/syncthing-persist.nix
           ]
           ++ common-server-modules;
-      };
-      omvdijan = lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = {
-          inherit inputs pkgs-stable pkgs-master;
         };
+        omvdijan = lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-stable pkgs-master;
+          };
 
-        modules =
-          [
+          modules = [
             nixos-hardware.nixosModules.common-gpu-intel
             nixos-hardware.nixosModules.common-cpu-intel
 
@@ -329,15 +346,14 @@
             ./services/server/meinkraft/obamna
           ]
           ++ common-server-modules;
-      };
-      garganta = lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = {
-          inherit inputs pkgs-stable pkgs-master;
         };
+        garganta = lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs pkgs-stable pkgs-master;
+          };
 
-        modules =
-          [
+          modules = [
             nixos-hardware.nixosModules.common-cpu-amd
 
             nix-minecraft.nixosModules.minecraft-servers
@@ -349,7 +365,7 @@
             ./services/server/meinkraft/hc
           ]
           ++ common-server-modules;
+        };
       };
     };
-  };
 }

@@ -363,6 +363,22 @@
         "type": "github"
       }
     },
+    "lager-patch": {
+      "locked": {
+        "lastModified": 1771938515,
+        "narHash": "sha256-UaRz62j7Fv6xHegIp8P5xgez7473pRk2TJG2qmR4rx0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "070b8d095f3404ab1bd283451dcf38f078a4d912",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/493363/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "mucap": {
       "inputs": {
         "naersk": "naersk",
@@ -890,6 +906,7 @@
         "hatsune-miku-windows-linux-cursors": "hatsune-miku-windows-linux-cursors",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "lager-patch": "lager-patch",
         "musnix": "musnix",
         "nix-flatpak": "nix-flatpak",
         "nix-index-database": "nix-index-database",
