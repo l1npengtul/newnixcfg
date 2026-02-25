@@ -1,4 +1,8 @@
-{username ? "l1npengtul", ...}: {
+{
+  username ? "l1npengtul",
+  ...
+}:
+{
   users.users."${username}".extraGroups = [
     "jackaudio"
     "adbusers"
@@ -6,5 +10,6 @@
     "scanner"
     "lp"
     "cdrom"
+    "gamemode"
   ];
 }
