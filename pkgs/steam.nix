@@ -1,13 +1,15 @@
-{pkgs, ...}: let
-  dwproton = pkgs.callPackage ./dwproton.nix {};
-in {
+{ pkgs, ... }:
+let
+  dwproton = pkgs.callPackage ./dwproton.nix { };
+in
+{
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     gamescopeSession.enable = true;
-    extraCompatPackages = [dwproton];
+    extraCompatPackages = [ dwproton ];
   };
 
   programs.gamescope = {
@@ -20,17 +22,12 @@ in {
   programs.nix-ld = {
     enable = true;
     libraries = [
-      (pkgs.runCommand "steamrun-lib" {} "mkdir $out; ln -s ${pkgs.steam-run.fhsenv}/usr/lib64 $out/lib")
+      (pkgs.runCommand "steamrun-lib" { } "mkdir $out; ln -s ${pkgs.steam-run.fhsenv}/usr/lib64 $out/lib")
     ];
   };
 
   environment.systemPackages = with pkgs; [
-    protonup-qt
-    protonup-rs
-    protonup-ng
-    protonplus
     r2modman
-    protontricks
     (heroic.override {
       extraPkgs = pkgs: [
         pkgs.gamescope
