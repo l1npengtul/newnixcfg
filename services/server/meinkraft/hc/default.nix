@@ -267,6 +267,34 @@ in
         url = "https://cdn.modrinth.com/data/YS3ZignI/versions/QRRzf8E5/tt20-0.7.2%2Bmc1.21.11.jar";
         sha512 = "2647f63f4ab492ef7f5f70d6bce4f9019975797140a650c59bfb6ce1dcf5853d2eff32cb812d488f61018ee4c4581661e0f3cbbc7132d7e8077b438043967a38";
       };
+      "mods/pvptoggle.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/N4z36VBo/versions/FAw6HuxL/pvptoggle-1.4.0%2B1.21.11.jar";
+        sha512 = "a4330103c03524c0a49522c8c4ef1dd97d201c3923e2d90cd42be718a7cdac8a07199a0aefd85c5b0fd1425f5528b29291cd1c7addec32ce1c4e48c210eb8f3f";
+      };
+      "mods/universal-ledger.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/2lSR2KuV/versions/DoSl66bS/universalledger-1.2.0.jar";
+        sha512 = "ba34a30a4d63479768d3264eb1c75705eaf5d1077cd507037030aa7bd362b84bbc527094f39a5593af3bfd8e063a3c12ec6f22494dfc6fd03bff4d3163862ee8";
+      };
+      "mods/simple-voice-chat.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/pFTZ8sqQ/voicechat-fabric-1.21.11-2.6.12.jar";
+        sha512 = "afc78e3d8ca463fb783b00ec3d4cb938ff9249f088d077f8cd75f6c846419e0fe4916061f57a0b188a5c28565c934623c52113f476e69e82aecabaffc8e8fdcc";
+      };
+      "mods/nodim.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/PL5F9WAX/versions/iZvU0GH8/NoDim-1.3.0.jar";
+        sha512 = "277bbd518a28fe66ce53d3ac53d7523acaf26173806db0660f33e29a9cc7192ff359f9eb4eb797f41b474cc09291006d4b07878d0808240bee695a6105c23085";
+      };
+      "mods/vanilla-tps.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/OgsODby2/versions/UqR954qM/vanilla-tps-2.0.0.jar";
+        sha512 = "564e1b1071189113ee738632016b4dad8bd1d414e4d06fad7fd80f67272455d4893ea822986c478a5d7736bd27add534c0048cc573649846e00f52cc66bf55ae";
+      };
+      "mods/banhammer.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/Wpqg0ciI/versions/XDiYb5Bi/banhammer-0.16.2%2B1.21.11.jar";
+        sha512 = "50e6c469aab07a539b811c90c72370ee5e7df78a063bb14e8262ec2b454894f526a64b3c84c4539ccb6247ef37174bc1a6fa65b1d5c76e61d43cd905c76ea06d";
+      };
+      "mods/immersive-optimization.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/vNZgQmjg/versions/8CL8kG3K/immersive_optimization-fabric-1.21.11-0.1.4.jar";
+        sha512 = "9beee4c4dba2b06ccef1021d8569d579046e4269ce94b6ff0457807f38419eccf0abaeb0ecf8646762bc7f359459c27e93199ffc9651729ac8552b4f5fbbd916";
+      };
     };
     symlinks = {
     };
@@ -276,6 +304,7 @@ in
 
   networking.firewall.allowedTCPPorts = [
     hcraft.server
+    24454
   ];
 
   services.caddy.virtualHosts."floor1-map.l1npengtul.lol".extraConfig = ''

@@ -317,7 +317,7 @@
             # services
             ./services/syncthing.nix
             ./services/server/jellyfin.nix
-            ./services/server/madamoiselle
+            #./services/server/madamoiselle
             #./services/server/forgejo-worker.nix
             ./services/server/syncthing-persist.nix
           ]
@@ -341,6 +341,7 @@
             ./services/server/forgejo.nix
             #./services/server/atticd.nix
             ./services/server/caddy.nix
+            ./services/server/madamoiselle
 
             ./services/server/meinkraft
             ./services/server/meinkraft/obamna
