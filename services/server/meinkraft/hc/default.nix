@@ -307,6 +307,10 @@ in
         url = "https://cdn.modrinth.com/data/bWrNNfkb/versions/wzwExuYr/Floodgate-Fabric-2.2.6-b54.jar";
         sha512 = "aae816d98e2233167602c053becb43ffb6880451296fab2f3c6a6cd4c8bdc8208955d73e1089f9acdd8c1dccee7835c0b33fc42413ab317d9a9feee7b29de1af";
       };
+      "mods/kits.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/yeVTVdYd/versions/dHlJNEYn/kits-1.8.0-mc1.21.11.jar";
+        sha512 = "ecceb0d55f5691e4e4ea52f0926b0b2f9599c612a2fe6efc2f83ea554400174e51b0521c6159bfa4001a19a64cc4f41f128b2827c9affa9b91c8f813aecc0461";
+      };
     };
     symlinks = {
     };
