@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  trenchbroom = import ./trenchbroom.nix { inherit pkgs; };
+in
 {
   home.packages = with pkgs; [
     blender
@@ -6,6 +9,7 @@
     darktable
     davinci-resolve-studio
     krita
+    trenchbroom
   ];
   programs.obs-studio = {
     enable = true;

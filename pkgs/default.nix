@@ -11,6 +11,7 @@
     ./steam.nix
     ./sysnixutils.nix
     ./flatpak.nix
+    ./appimage.nix
     ./udf.nix
   ];
 }

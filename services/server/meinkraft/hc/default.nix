@@ -295,6 +295,18 @@ in
         url = "https://cdn.modrinth.com/data/vNZgQmjg/versions/8CL8kG3K/immersive_optimization-fabric-1.21.11-0.1.4.jar";
         sha512 = "9beee4c4dba2b06ccef1021d8569d579046e4269ce94b6ff0457807f38419eccf0abaeb0ecf8646762bc7f359459c27e93199ffc9651729ac8552b4f5fbbd916";
       };
+      "mods/vanish.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/UL4bJFDY/versions/NpTm6CT2/vanish-1.6.6%2B1.21.11.jar";
+        sha512 = "414bd779f495f694d8b90b9d91434100cf785e3accfce356381f31868fa5c75a6eb708b0764345ee3af76e9f984e29ddf303600f73201f1214cb1b2de0243392";
+      };
+      "mods/geyser.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/wKkoqHrH/versions/AK5CLVbp/geyser-fabric-Geyser-Fabric-2.9.4-b1092.jar";
+        sha512 = "04ca05b9fef38144e8560619c53e85b6b8b16e4a50c2990b732f2cf87bd8e30f0e5de14e8081b9d9057915099f30fac15031a15b1a497dc502a041ccc62b1254";
+      };
+      "mods/floodgate.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/bWrNNfkb/versions/wzwExuYr/Floodgate-Fabric-2.2.6-b54.jar";
+        sha512 = "aae816d98e2233167602c053becb43ffb6880451296fab2f3c6a6cd4c8bdc8208955d73e1089f9acdd8c1dccee7835c0b33fc42413ab317d9a9feee7b29de1af";
+      };
     };
     symlinks = {
     };
@@ -305,6 +317,7 @@ in
   networking.firewall.allowedTCPPorts = [
     hcraft.server
     24454
+    19132
   ];
 
   services.caddy.virtualHosts."floor1-map.l1npengtul.lol".extraConfig = ''
