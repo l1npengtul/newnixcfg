@@ -13,7 +13,7 @@ in
   services.minecraft-servers.servers."hcraft" = {
     enable = true;
     package = pkgs.fabricServers.fabric-1_21_11.override { jre_headless = pkgs.zulu25; };
-    jvmOpts = "-Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20";
+    jvmOpts = "-Xms7000M -Xmx7000M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20";
     serverProperties = {
       server-port = hcraft.server;
       broadcast-console-to-ops = true;
@@ -23,9 +23,11 @@ in
       "rcon.password" = hcraft.rcon.password;
       "rcon.port" = hcraft.rcon.port;
       motd = "Join Floor 1: discord.gg/hellocharlotte";
-      max-players = 40;
+      max-players = 30;
       sync-chunk-writes = false;
       max-chained-neighbor-updates = 10000;
+      view-distance = 10;
+      spawn-protection = 4;
     };
     files = {
       "server-icon.png" = "${hfile}/hc/hcicon.png";
@@ -191,10 +193,10 @@ in
         url = "https://cdn.modrinth.com/data/r0v8vy1s/versions/XdouG8YV/alternate-current-mc1.21.11-1.9.0.jar";
         sha512 = "6c6f9411fad87f5ad04648fe47946764bce5f9121af2155aa2be7731e52b11e9150ac2de1657e0407ecc4cf1c373ef605b4de020aa71db32ba051bf88aec2535";
       };
-      "mods/grimac.jar" = pkgs.fetchurl {
-        url = "https://cdn.modrinth.com/data/LJNGWSvH/versions/c5kqeyny/grimac-fabric-2.3.73-f118b5c.jar";
-        sha512 = "9bf1f192660f216c6920d61c050c11e9e5ff13471704e5fbbcb63a68f5406e1363409e88211183bc1f1c8646034bebe6a0716c8cb72298612676ddbb33b31a29";
-      };
+      #"mods/grimac.jar" = pkgs.fetchurl {
+      #  url = "https://cdn.modrinth.com/data/LJNGWSvH/versions/c5kqeyny/grimac-fabric-2.3.73-f118b5c.jar";
+      #  sha512 = "9bf1f192660f216c6920d61c050c11e9e5ff13471704e5fbbcb63a68f5406e1363409e88211183bc1f1c8646034bebe6a0716c8cb72298612676ddbb33b31a29";
+      #};
       "mods/noisium.jar" = pkgs.fetchurl {
         url = "https://cdn.modrinth.com/data/hasdd01q/versions/VyMvRQKq/noisium-fabric-2.8.3%2Bmc1.21.11.jar";
         sha512 = "03d4c116204ee8cb4f95b668576c9e8c099ed939c150ff0cf4ff094ae52b0c5f6214c1292c94f25ea7f614254151d1ff2db68ecaddc9f56486189d29fa3a24eb";
@@ -311,6 +313,18 @@ in
         url = "https://cdn.modrinth.com/data/yeVTVdYd/versions/dHlJNEYn/kits-1.8.0-mc1.21.11.jar";
         sha512 = "ecceb0d55f5691e4e4ea52f0926b0b2f9599c612a2fe6efc2f83ea554400174e51b0521c6159bfa4001a19a64cc4f41f128b2827c9affa9b91c8f813aecc0461";
       };
+      "mods/universal-graves.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/yn9u3ypm/versions/rZeFZ5ip/graves-3.10.2%2B1.21.11.jar";
+        sha512 = "62b4e92a9f93585d65a4ef4965472a55f9c180cbc946d4f08ad1f801c59e967a0123b5b3fc6f444504f1088026c0eca65f9d530adee64721ea85ff7c8cc7eca8";
+      };
+      "mods/Convenient-Mobgriefing.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/FJI3H6YI/versions/nrsoEBMy/convenient-mobgriefing-2.2.0.jar";
+        sha512 = "6263f64e35778b61979e3cfdebf6f089bd87c4776ead47c14ec045622f0dceb708daa1644b47a78fc942d1e7ff1eab13c00f85ba3084e24ee41cc83d6c498967";
+      };
+      "mods/servercore.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/4WWQxlQP/versions/zg8VIycZ/servercore-fabric-1.5.15%2B1.21.11.jar";
+        sha512 = "964392769e53f9764466e26044552f60e91137f487b49d98a85bd4dc03ab8e965f0c69bc1a43e96ef5737cd8f1a9bb75cc0a0c09dd30bab6786d8ab4bbea6e01";
+      };
     };
     symlinks = {
     };
@@ -320,6 +334,9 @@ in
 
   networking.firewall.allowedTCPPorts = [
     hcraft.server
+    24454
+  ];
+  networking.firewall.allowedUDPPorts = [
     24454
     19132
   ];

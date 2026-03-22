@@ -131,7 +131,7 @@
       chicago95,
       shhh,
       randomshit,
-      lager-patch,
+      #lager-patch,
       ...
     }@inputs:
     let
@@ -217,9 +217,9 @@
         }
 
         ./hosts/common/server
+        ./services/tailscale.nix
+        ./services/sshd.nix
         ./pkgs/minimal.nix
-        ./services
-        ./services/server
         ./configuration.nix
       ];
 
@@ -229,11 +229,11 @@
           ;
       };
 
-      lager-overlay = final: prev: {
-        inherit (lager-patch.legacyPackages.${prev.system})
-          lager
-          ;
-      };
+      #lager-overlay = final: prev: {
+      #  inherit (lager-patch.legacyPackages.${prev.system})
+      #    lager
+      #    ;
+      #};
 
       commonArgs = {
         inherit system;
@@ -242,7 +242,7 @@
           reapersws-overlay
           nix-vscode-extensions.overlays.default
           inputs.nix-minecraft.overlay
-          lager-overlay
+          #lager-overlay
         ];
       };
 
@@ -314,6 +314,9 @@
 
             ./hosts/servers/wiltshire
 
+            ./services/server
+            ./services
+
             # services
             ./services/syncthing.nix
             ./services/server/jellyfin.nix
@@ -337,6 +340,9 @@
 
             ./hosts/servers/omvdijan
 
+            ./services/server
+            ./services
+
             # services
             ./services/server/forgejo.nix
             #./services/server/atticd.nix
@@ -358,6 +364,8 @@
             nixos-hardware.nixosModules.common-cpu-amd
 
             nix-minecraft.nixosModules.minecraft-servers
+
+            ./services/server
 
             ./hosts/servers/garganta
 

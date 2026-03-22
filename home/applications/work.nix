@@ -10,6 +10,7 @@ in
     davinci-resolve-studio
     krita
     trenchbroom
+    inkscape
   ];
   programs.obs-studio = {
     enable = true;
