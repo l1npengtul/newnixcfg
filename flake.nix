@@ -349,8 +349,8 @@
             ./services/server/caddy.nix
             ./services/server/madamoiselle
 
-            ./services/server/meinkraft
-            ./services/server/meinkraft/obamna
+            #./services/server/meinkraft
+            #./services/server/meinkraft/obamna
           ]
           ++ common-server-modules;
         };
