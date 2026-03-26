@@ -302,8 +302,8 @@ in
         sha512 = "414bd779f495f694d8b90b9d91434100cf785e3accfce356381f31868fa5c75a6eb708b0764345ee3af76e9f984e29ddf303600f73201f1214cb1b2de0243392";
       };
       "mods/geyser.jar" = pkgs.fetchurl {
-        url = "https://cdn.modrinth.com/data/wKkoqHrH/versions/AK5CLVbp/geyser-fabric-Geyser-Fabric-2.9.4-b1092.jar";
-        sha512 = "04ca05b9fef38144e8560619c53e85b6b8b16e4a50c2990b732f2cf87bd8e30f0e5de14e8081b9d9057915099f30fac15031a15b1a497dc502a041ccc62b1254";
+        url = "https://cdn.modrinth.com/data/wKkoqHrH/versions/Sbp6mTG7/geyser-fabric-Geyser-Fabric-2.9.5-b1104.jar";
+        sha512 = "942149bbc068e1b8022550ab5d013886320505e09aa34d3ef5f1a9dedffca934d1a9777ceebd8416e20b709f28cccd1b81873e705e2109da76e3cb557c60df7b";
       };
       "mods/floodgate.jar" = pkgs.fetchurl {
         url = "https://cdn.modrinth.com/data/bWrNNfkb/versions/wzwExuYr/Floodgate-Fabric-2.2.6-b54.jar";
