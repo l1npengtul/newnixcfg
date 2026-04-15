@@ -15,9 +15,7 @@ in
     ghidra-bin
     gdb
     # hex editor
-    #okteta
-
-    jetbrains.rust-rover
+    okteta
 
     kdiff3
 

@@ -23,18 +23,14 @@
     upx
     tmux
     popsicle
-    hyfetch
     zenith
     onefetch
     exfat
     exfatprogs
     xfsprogs
     f3
-    mesa-demos
-    freshfetch
     micro-full
     fishPlugins.grc
-    #     zgrviewer
     fd
     dmg2img
     ipmicfg
@@ -48,14 +44,12 @@
     woeusb-ng
     minicom
     ntfs3g
-    p7zip
-    p7zip-rar
     unar
     yq
     f3
     grabserial
     ripgrep-all
-    ripgrep
+    git
     git-lfs
     sof-firmware
     unzip
@@ -63,7 +57,6 @@
     pciutils
     usbutils
     nmap
-    firefox
     rpi-imager
   ];
   programs.nix-index-database.comma.enable = true;

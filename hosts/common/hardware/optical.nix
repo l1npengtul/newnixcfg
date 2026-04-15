@@ -1,0 +1,4 @@
+{ ... }:
+{
+  boot.kernelModules = [ "sg" ];
+}

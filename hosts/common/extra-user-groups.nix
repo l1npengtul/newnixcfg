@@ -11,5 +11,6 @@
     "lp"
     "cdrom"
     "gamemode"
+    "optical"
   ];
 }

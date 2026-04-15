@@ -15,6 +15,7 @@ in
   programs.obs-studio = {
     enable = true;
   };
+  programs.firefox.enable = true;
   programs.thunderbird = {
     enable = true;
     profiles."default".isDefault = true;

@@ -48,7 +48,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lager-patch.url = "github:NixOS/nixpkgs?ref=pull/493363/head";
+    #     lager-patch.url = "github:NixOS/nixpkgs?ref=pull/493363/head";
+
+    reaper-patch.url = "github:NixOS/nixpkgs?ref=pull/509253/head";
 
     vhs-decode-nur-packages.url = "github:JuniorIsAJitterbug/nur-packages";
 
@@ -56,7 +58,7 @@
 
     nixpkgs-reaper-sws.url = "github:l1npengtul/nixpkgs/update-reaper-sws-extensions";
 
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions/9622747080c8cb57eaecba1985e48fc1f0bd1feb";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions/284955ddb46db29437be321d28c169c76767954b";
 
     disko = {
       url = "github:nix-community/disko/latest";
@@ -72,7 +74,7 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
-    reapkgs-known.url = "github:silvarc141/reapkgs-known";
+    reapkgs-known.url = "github:silvarc141/reapkgs-known/27487c09915f77cb8742936a1974897029055fee";
     reapkgs-extras.url = "github:l1npengtul/reapkgs-extras";
 
     # Additional Configuration Files
@@ -131,13 +133,29 @@
       chicago95,
       shhh,
       randomshit,
-      #lager-patch,
+      reaper-patch,
       ...
     }@inputs:
     let
       username = "l1npengtul";
       system = "x86_64-linux";
       lib = nixpkgs.lib // home-manager.lib;
+
+      reapersws-overlay = final: prev: {
+        inherit (nixpkgs-reaper-sws.legacyPackages.${prev.system})
+          reaper-sws-extension
+          ;
+      };
+
+      commonArgs = {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          reapersws-overlay
+          nix-vscode-extensions.overlays.default
+          inputs.nix-minecraft.overlay
+        ];
+      };
 
       common-pc-modules = [
         nixos-hardware.nixosModules.common-pc-ssd
@@ -176,9 +194,11 @@
         }
 
         ./hosts/common
+        ./hosts/common/personal-defaults.nix
         ./pkgs
         ./services
         ./services/syncthing.nix
+        ./services/server/defaults/podman.nix
         ./configuration.nix
       ];
 
@@ -222,29 +242,6 @@
         ./pkgs/minimal.nix
         ./configuration.nix
       ];
-
-      reapersws-overlay = final: prev: {
-        inherit (nixpkgs-reaper-sws.legacyPackages.${prev.system})
-          reaper-sws-extension
-          ;
-      };
-
-      #lager-overlay = final: prev: {
-      #  inherit (lager-patch.legacyPackages.${prev.system})
-      #    lager
-      #    ;
-      #};
-
-      commonArgs = {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          reapersws-overlay
-          nix-vscode-extensions.overlays.default
-          inputs.nix-minecraft.overlay
-          #lager-overlay
-        ];
-      };
 
       pkgs = import nixpkgs commonArgs;
       pkgs-stable = import nixpkgs-stable commonArgs;
@@ -348,6 +345,7 @@
             #./services/server/atticd.nix
             ./services/server/caddy.nix
             ./services/server/madamoiselle
+            ./services/server/fwdjellyfin.nix
 
             #./services/server/meinkraft
             #./services/server/meinkraft/obamna
