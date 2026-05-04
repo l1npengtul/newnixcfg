@@ -7,6 +7,25 @@
   alsa-lib,
   copyDesktopItems,
   makeDesktopItem,
+  freetype,
+  expat,
+  libGL,
+  libjack2,
+  curl,
+  webkitgtk_6_0,
+  libsysprof-capture,
+  pcre2,
+  util-linux,
+  libselinux,
+  libsepol,
+  libthai,
+  libxkbcommon,
+  libdatrie,
+  libepoxy,
+  libsoup_3,
+  lerc,
+  sqlite,
+  ninja,
   libX11,
   libXcomposite,
   libXcursor,
@@ -14,151 +33,152 @@
   libXrandr,
   libXtst,
   libXdmcp,
-  libXext,
   xvfb,
-  freetype,
-  fontconfig,
-  expat,
-  libGL,
-  libjack2,
-  curl,
-  ninja,
-  writableTmpDirAsHomeHook,
+  makeFontsCache,
   # Disable VST building by default, since NixOS doesn't have a VST license
   enableVST2 ? false,
-}: let
-  plugins = [
-    "ABTester"
-    "AddInvert"
-    "ChannelMute"
-    "CompensatedDelay"
-    "Compressor"
-    "Crossfeed"
-    "Delay"
-    "Expander"
-    "Gate"
-    "HugeGain"
-    "Limiter"
-    "Maths"
-    "MidiLooper"
-    "Oscilloscope"
-    "PitchTrack"
-    "SFX8"
-    "SampleDelay"
-    "SimpleVerb"
-    "SpectrumAnalyzer"
-    "StereoEnhancer"
-    "StereoProcessor"
-    "ToneGenerator"
-    "WaveLooper"
-    "XYScope"
-  ];
-  desktopItems =
-    map (pl: (makeDesktopItem {
+}:
+let
+  fontConf = makeFontsCache {
+    fontDirectories = [ ];
+  };
+in
+stdenv.mkDerivation {
+  pname = "socalabs-sfx8";
+  version = "1.1.0";
+
+  src =
+    (fetchFromGitHub {
+      owner = "FigBug";
+      repo = "slPlugins";
+      rev = "482e4ae488ec175e8afe6f76894f0793bbd76c7a";
+      hash = "sha256-XwE5G5lWJq+qLOH+yYYZdrxD/SkpYacLa9wBaN+vhZI=";
+      fetchSubmodules = true;
+    }).overrideAttrs
+      (_: {
+        GIT_CONFIG_COUNT = 1;
+        GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
+        GIT_CONFIG_VALUE_0 = "git@github.com:";
+      });
+
+  desktopItems = [
+    (makeDesktopItem {
       type = "Application";
-      name = "socalabs-${lib.toLower pl}";
-      desktopName = "Socalabs ${pl}";
-      comment = "Socalabs ${pl} Plugin (Standalone)";
-      # only SFX8 has an icon
-      exec = "${pl}";
+      name = "socalabs-sfx8";
+      desktopName = "Socalabs SFX8";
+      comment = "Socalabs SFX8 Plugin (Standalone)";
+      icon = "SFX8";
+      exec = "SFX8";
       categories = [
         "Audio"
         "AudioVideo"
       ];
-    }))
-    plugins;
-in
-  stdenv.mkDerivation {
-    pname = "socalabs-sfx8";
-    version = "1.1.0";
-    inherit desktopItems;
+    })
+  ];
 
-    src = fetchFromGitHub {
-      owner = "FigBug";
-      repo = "slPlugins";
-      rev = "dc51ca3cc468e2fcead6ac0c2ba460f3f9c04176";
-      hash = "";
-      fetchSubmodules = true;
-      preFetch = ''
-        # can't clone using ssh
-        export GIT_CONFIG_COUNT=1
-        export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
-        export GIT_CONFIG_VALUE_0=git@github.com:
-      '';
-    };
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    copyDesktopItems
+    ninja
+  ];
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-      copyDesktopItems
-      ninja
-      writableTmpDirAsHomeHook
-    ];
+  buildInputs = [
+    alsa-lib
+    libX11
+    libXcomposite
+    libXcursor
+    libXinerama
+    libXrandr
+    libXtst
+    libXdmcp
+    xvfb
+    libGL
+    libjack2
+    libsysprof-capture
+    libselinux
+    libsepol
+    libthai
+    libxkbcommon
+    libdatrie
+    libepoxy
+    libsoup_3
+    lerc
+    freetype
+    curl
+    webkitgtk_6_0
+    pcre2
+    util-linux
+    sqlite
+    expat
+  ];
 
-    buildInputs = [
-      alsa-lib
-      libX11
-      libXcomposite
-      libXcursor
-      libXinerama
-      libXrandr
-      libXtst
-      libXdmcp
-      libXext
-      xvfb
-      libGL
-      libjack2
-      freetype
-      fontconfig
-      expat
-      curl
-    ];
+  cmakeFlags = [
+    (lib.cmakeBool "JUCE_COPY_PLUGIN_AFTER_BUILD" false)
+    "--preset ninja-gcc"
+  ];
 
-    cmakeFlags = [
-      (lib.cmakeBool "JUCE_COPY_PLUGIN_AFTER_BUILD" false)
-      "--preset ninja-gcc"
-    ];
+  patchPhase = ''
+    substituteInPlace CMakeLists.txt \
+    --replace-fail 'FORMATS Standalone VST VST3 AU LV2' 'FORMATS Standalone ${lib.optionalString enableVST2 "VST"} VST3'
 
-    postPatch = ''
-      find plugins/ -name CMakeLists.txt -exec substituteInPlace {} --replace-fail 'FORMATS Standalone VST VST3 AU LV2' 'FORMATS Standalone ${lib.optionalString enableVST2 "VST"} VST3'
-    '';
+    # we need to patch JUCE itself to enable jack MIDI support
+    # please https://github.com/juce-framework/JUCE/issues/952
+    # TODO: remove when juce updates :D
+    substituteInPlace modules/juce/modules/juce_audio_devices/native/juce_Midi_linux.cpp \
+    --replace-fail "port = client.createPort (portName, forInput, false);" "port = client.createPort (portName, forInput, true);"
+  '';
 
-    strictDeps = true;
+  cmakeBuildType = "Release";
 
-    preBuild = ''
-      cd ../Builds/ninja-gcc
-    '';
+  strictDeps = true;
 
-    installPhase = ''
-      runHook preInstall
+  preBuild = ''
+    # build takes 10 years without this set
+    export HOME=(mktemp -d)
+    export FONTCONFIG_FILE=${fontConf}
 
-      mkdir -p $out/lib/vst3 $out/bin
+    cd ../Builds/ninja-gcc
+  '';
 
-      ls
+  installPhase = ''
+    runHook preInstall
 
-      install -Dm444 $src/plugin/Resources/logo.png $out/share/pixmaps/SFX8.png
+    mkdir -p $out/lib/vst3 $out/bin
 
-      runHook postInstall
-    '';
+    ${lib.optionalString enableVST2 ''
+      mkdir -p $out/lib/vst
+      cp -r SFX8_artefacts/Release/VST/libSFX8.so $out/lib/vst
+    ''}
 
-    NIX_LDFLAGS = (
-      toString [
-        "-lX11"
-        "-lXext"
-        "-lXcomposite"
-        "-lXcursor"
-        "-lXinerama"
-        "-lXrandr"
-        "-lXtst"
-        "-lXdmcp"
-      ]
-    );
+    cp -r SFX8_artefacts/Release/VST3/SFX8.vst3 $out/lib/vst3
 
-    meta = {
-      description = "Socalabs SLPlugins";
-      homepage = "https://socalabs.com/";
-      platforms = lib.platforms.linux;
-      license = [lib.licenses.gpl3] ++ lib.optional enableVST2 lib.licenses.unfree;
-      maintainers = [lib.maintainers.l1npengtul];
-    };
-  }
+    install -Dm755 SFX8_artefacts/Release/Standalone/SFX8 $out/bin
+
+    install -Dm444 $src/plugin/Resources/logo.png $out/share/pixmaps/SFX8.png
+
+    runHook postInstall
+  '';
+
+  NIX_LDFLAGS = (
+    toString [
+      "-lX11"
+      "-lXext"
+      "-lXcomposite"
+      "-lXcursor"
+      "-lXinerama"
+      "-lXrandr"
+      "-lXtst"
+      "-lXdmcp"
+    ]
+  );
+
+  meta = {
+    description = "Socalabs SFX8 Plugin";
+    homepage = "https://socalabs.com/synths/sfx8/";
+    mainProgram = "SFX8";
+    platforms = lib.platforms.linux;
+    license = [ lib.licenses.gpl3 ] ++ lib.optional enableVST2 lib.licenses.unfree;
+    maintainers = [ lib.maintainers.l1npengtul ];
+  };
+}

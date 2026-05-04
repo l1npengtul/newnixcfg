@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   powerManagement = {
     enable = true;
     powertop.enable = true;
@@ -40,12 +41,10 @@
     settings = {
       battery = {
         governor = "powersave";
-        energy_performance_preference = "power";
-        turbo = "never";
+        turbo = "auto";
       };
       charger = {
-        governor = "powersave";
-        energy_performance_preference = "balance_power";
+        governor = "performance";
         turbo = "auto";
       };
     };

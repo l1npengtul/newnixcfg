@@ -38,27 +38,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    #     lager-patch.url = "github:NixOS/nixpkgs?ref=pull/493363/head";
-
-    reaper-patch.url = "github:NixOS/nixpkgs?ref=pull/509253/head";
 
     vhs-decode-nur-packages.url = "github:JuniorIsAJitterbug/nur-packages";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     nixpkgs-reaper-sws.url = "github:l1npengtul/nixpkgs/update-reaper-sws-extensions";
-
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions/284955ddb46db29437be321d28c169c76767954b";
 
     disko = {
       url = "github:nix-community/disko/latest";
@@ -75,7 +64,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
 
     reapkgs-known.url = "github:silvarc141/reapkgs-known/27487c09915f77cb8742936a1974897029055fee";
-    reapkgs-extras.url = "github:l1npengtul/reapkgs-extras";
+    reapkgs-extras.url = "github:l1npengtul/reapkgs-extras/8f709e959a7ed37e884067bc6fd4d3e423582fb4";
 
     # Additional Configuration Files
 
@@ -116,12 +105,10 @@
       auto-cpufreq,
       musnix,
       audio,
-      aagl,
       nix-index-database,
       vhs-decode-nur-packages,
       nix-minecraft,
       nixpkgs-reaper-sws,
-      nix-vscode-extensions,
       disko,
       sops-nix,
       impermanence,
@@ -133,7 +120,6 @@
       chicago95,
       shhh,
       randomshit,
-      reaper-patch,
       ...
     }@inputs:
     let
@@ -152,7 +138,6 @@
         config.allowUnfree = true;
         overlays = [
           reapersws-overlay
-          nix-vscode-extensions.overlays.default
           inputs.nix-minecraft.overlay
         ];
       };

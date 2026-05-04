@@ -1,15 +1,20 @@
-{inputs, ...}: let
+{ inputs, ... }:
+let
   randomshit = builtins.toString inputs.randomshit;
-in {
+in
+{
   xdg.dataFile."icons/Chicago95".source = "${inputs.chicago95}/Icons/Chicago95";
-  xdg.dataFile."icons/miku-cursor-linux".source = "${inputs.hatsune-miku-windows-linux-cursors}/miku-cursor-linux";
-  xdg.dataFile."color-schemes/PlasmaOverdose.colors".source = "${inputs.plasma-overdose}/colorschemes/PlasmaOverdose.colors";
+  xdg.dataFile."icons/miku-cursor-linux".source =
+    "${inputs.hatsune-miku-windows-linux-cursors}/miku-cursor-linux";
+  xdg.dataFile."color-schemes/PlasmaOverdose.colors".source =
+    "${inputs.plasma-overdose}/colorschemes/PlasmaOverdose.colors";
   xdg.dataFile."sounds/Plasma-Overdose".source = "${inputs.plasma-overdose}/sounds";
   xdg.dataFile."aurorae/themes/Plasma-Overdose" = {
     recursive = true;
     source = "${inputs.plasma-overdose}/aurorae/Plasma-Overdose";
   };
-  xdg.dataFile."plasma/look-and-feel/Plasma-Overdose".source = "${inputs.plasma-overdose}/plasma/look-and-feel/Plasma-Overdose";
+  xdg.dataFile."plasma/look-and-feel/Plasma-Overdose".source =
+    "${inputs.plasma-overdose}/plasma/look-and-feel/Plasma-Overdose";
   programs.plasma = {
     enable = true;
 
@@ -49,10 +54,6 @@ in {
     powerdevil = {
       AC = {
         powerButtonAction = "lockScreen";
-        autoSuspend = {
-          action = "sleep";
-          idleTimeout = 1000;
-        };
         turnOffDisplay = {
           idleTimeout = 1000;
           idleTimeoutWhenLocked = "immediately";
@@ -99,8 +100,10 @@ in {
       #       kdeglobals.Icons.Theme = "Memphis98";
       kdeglobals.KDE.AnimationDurationFactor = 0.125;
       kdeglobals.KDE.widgetStyle = "Windows";
-      kwinrc.Wayland."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
-      kwinrc.Wayland."InputMethod\x5b$e\x5d" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      kwinrc.Wayland."InputMethod[$e]" =
+        "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      kwinrc.Wayland."InputMethod\x5b$e\x5d" =
+        "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       kwinrc.Wayland.VirtualKeyboardEnabled = true;
       kwinrc.Windows.FocusPolicy = "FocusFollowsMouse";
       kwinrc.Desktops.Number = {
