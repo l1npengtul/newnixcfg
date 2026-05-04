@@ -2,15 +2,17 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./../../common/hardware/gpu-intel.nix
+    ./../../common/battery_optimizations.nix
   ];
 
   time.timeZone = inputs.shhh.systems.tz.oldhome;
 
-  boot.kernelParams = ["mem_sleep_default=deep"];
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/MAGPIE_SIGNAL";
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
