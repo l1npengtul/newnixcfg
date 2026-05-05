@@ -151,6 +151,7 @@
         overlays = [
           reapersws-overlay
           inputs.nix-minecraft.overlay
+          gram-editor-overlay
         ];
       };
 

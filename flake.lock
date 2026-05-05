@@ -227,6 +227,22 @@
         "type": "github"
       }
     },
+    "gram-editor-patch": {
+      "locked": {
+        "lastModified": 1775856988,
+        "narHash": "sha256-TkKPoJRAXhSM1QV9dTRCFG98evKG17i9bdAu2pgjwQE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d3dfd42df58b085ae658332729a42c0978f1a61c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/508631/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "hatsune-miku-windows-linux-cursors": {
       "flake": false,
       "locked": {
@@ -777,6 +793,7 @@
         "chicago95": "chicago95",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
+        "gram-editor-patch": "gram-editor-patch",
         "hatsune-miku-windows-linux-cursors": "hatsune-miku-windows-linux-cursors",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
