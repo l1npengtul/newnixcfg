@@ -134,13 +134,13 @@
       lib = nixpkgs.lib // home-manager.lib;
 
       reapersws-overlay = final: prev: {
-        inherit (nixpkgs-reaper-sws.legacyPackages.${prev.system})
+        inherit (nixpkgs-reaper-sws.legacyPackages.${prev.stdenv.hostPlatform.system})
           reaper-sws-extension
           ;
       };
 
       gram-editor-overlay = final: prev: {
-        inherit (gram-editor-patch.legacyPackages.${prev.system})
+        inherit (gram-editor-patch.legacyPackages.${prev.stdenv.hostPlatform.system})
           gram
           ;
       };
