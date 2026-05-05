@@ -11,6 +11,7 @@ in
     krita
     trenchbroom
     inkscape
+    protonvpn
   ];
   programs.obs-studio = {
     enable = true;
