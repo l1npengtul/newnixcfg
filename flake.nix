@@ -120,7 +120,7 @@
       deploy-rs,
       reapkgs-known,
       reapkgs-extras,
-      gram-editor,
+      gram-editor-patch,
       plasma-overdose,
       hatsune-miku-windows-linux-cursors,
       chicago95,
@@ -140,7 +140,7 @@
       };
 
       gram-editor-overlay = final: prev: {
-        inherit (gram-editor.legacyPackages.${prev.system})
+        inherit (gram-editor-patch.legacyPackages.${prev.system})
           gram
           ;
       };
