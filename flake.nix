@@ -66,6 +66,11 @@
     reapkgs-known.url = "github:silvarc141/reapkgs-known/27487c09915f77cb8742936a1974897029055fee";
     reapkgs-extras.url = "github:l1npengtul/reapkgs-extras/8f709e959a7ed37e884067bc6fd4d3e423582fb4";
 
+    # Nixpkgs patches
+    # github:NixOS/nixpkgs?ref=pull/{PR NUMBER}/head
+
+    gram-editor-patch.url = "github:NixOS/nixpkgs?ref=pull/508631/head";
+
     # Additional Configuration Files
 
     plasma-overdose = {
@@ -115,6 +120,7 @@
       deploy-rs,
       reapkgs-known,
       reapkgs-extras,
+      gram-editor,
       plasma-overdose,
       hatsune-miku-windows-linux-cursors,
       chicago95,
@@ -130,6 +136,12 @@
       reapersws-overlay = final: prev: {
         inherit (nixpkgs-reaper-sws.legacyPackages.${prev.system})
           reaper-sws-extension
+          ;
+      };
+
+      gram-editor-overlay = final: prev: {
+        inherit (gram-editor.legacyPackages.${prev.system})
+          gram
           ;
       };
 

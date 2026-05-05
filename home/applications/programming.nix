@@ -8,7 +8,7 @@
 
     kdiff3
 
-    fresh-editor
+    gram
   ];
 
   programs.direnv = {
