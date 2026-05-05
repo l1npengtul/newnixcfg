@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   trenchbroom = import ./trenchbroom.nix { inherit pkgs; };
 in
@@ -15,7 +15,10 @@ in
   programs.obs-studio = {
     enable = true;
   };
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
+  };
   programs.thunderbird = {
     enable = true;
     profiles."default".isDefault = true;
