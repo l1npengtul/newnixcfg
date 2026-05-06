@@ -94,5 +94,5 @@ clangStdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_LIBGIT2" false)
   ];
 
-  qtWrapperArgs = [ "--prefix $RPGMTRANSLATE_DATA_DIR : \"$XDG_STATE_HOME/rpgmtranslate-qt" ];
+  qtWrapperArgs = [ ''--prefix RPGMTRANSLATE_DATA_DIR : "$XDG_STATE_HOME/rpgmtranslate-qt"'' ];
 })

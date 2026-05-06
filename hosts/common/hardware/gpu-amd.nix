@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -17,7 +18,11 @@
     mesa-demos
     vulkan-tools
     clinfo
+    lact
   ];
+
+  services.lact.enable = true;
+
   environment.variables = {
     RUSTICL_ENABLE = "radeonsi";
   };
