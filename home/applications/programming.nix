@@ -49,4 +49,6 @@
       };
     };
   };
+
+  xdg.configFile.gram."settings.jsonc".source = ./settings.jsonc;
 }
