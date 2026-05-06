@@ -50,5 +50,5 @@
     };
   };
 
-  xdg.configFile.gram."settings.jsonc".source = ./settings.jsonc;
+  xdg.configFile."gram/settings.jsonc".source = ./settings.jsonc;
 }
