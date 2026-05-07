@@ -172,4 +172,5 @@
   "buffer_font_size": 15.0,
   "theme": "Rose Quartz",
   "load_direnv": "shell_hook",
+  "restore_on_startup": "last_session",
 }
