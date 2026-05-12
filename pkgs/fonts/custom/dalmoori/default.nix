@@ -1,9 +1,9 @@
 {
-  stdenv,
+  stdenvNoCC,
   lib,
   fetchzip,
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "dalmoori-ttf";
   version = "0.200";
 

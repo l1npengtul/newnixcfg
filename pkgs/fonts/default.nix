@@ -1,8 +1,12 @@
-{pkgs, ...}: let
-  rainyhearts-ttf = pkgs.callPackage ./custom/rainyhearts {inherit pkgs;};
-  dalmoori-ttf = pkgs.callPackage ./custom/dalmoori {};
-  pixelmplus-ttf = pkgs.callPackage ./custom/pixelmplus {};
-in {
+{ pkgs, ... }:
+let
+  rainyhearts-ttf = pkgs.callPackage ./custom/rainyhearts { inherit pkgs; };
+  dalmoori-ttf = pkgs.callPackage ./custom/dalmoori { };
+  pixelmplus-ttf = pkgs.callPackage ./custom/pixelmplus { };
+  libre-moretus = pkgs.callPackage ./custom/libre-moretus { };
+  minipax = pkgs.callPackage ./custom/minipax { };
+in
+{
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
@@ -19,6 +23,11 @@ in {
     fira
     fira-mono
     roboto
+    libertine
+    gelasio
+    ibm-plex
+    libre-moretus
+    minipax
   ];
 
   fonts.enableDefaultPackages = true;
@@ -28,8 +37,16 @@ in {
 
   fonts.fontconfig = {
     defaultFonts = {
-      sansSerif = ["rainyhearts" "Noto Sans CJK JP" "Noto Sans CJK KR"];
-      monospace = ["ComicShannsMono Nerd Font Mono" "Noto Sans Mono CJK JP" "Noto Sans Mono CJK KR"];
+      sansSerif = [
+        "rainyhearts"
+        "Noto Sans CJK JP"
+        "Noto Sans CJK KR"
+      ];
+      monospace = [
+        "ComicShannsMono Nerd Font Mono"
+        "Noto Sans Mono CJK JP"
+        "Noto Sans Mono CJK KR"
+      ];
     };
   };
 }

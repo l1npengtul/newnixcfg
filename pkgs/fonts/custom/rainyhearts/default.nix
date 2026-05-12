@@ -1,9 +1,9 @@
 {
-  stdenv,
+  stdenvNoCC,
   lib,
-  pkgs,
+  unzip,
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "rainyhearts-ttf";
   version = "0.1";
   src = ./rainyhearts.zip;
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   unpackPhase = ''
     runHook preUnpack
 
-    ${pkgs.unzip}/bin/unzip $src
+    ${unzip}/bin/unzip $src
 
     runHook postUnpack
   '';
