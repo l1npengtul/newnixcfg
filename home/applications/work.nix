@@ -12,6 +12,7 @@ in
     trenchbroom
     inkscape
     proton-vpn
+    firefoxpwa
   ];
   programs.obs-studio = {
     enable = true;
@@ -19,6 +20,8 @@ in
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";
+    nativeMessagingHosts = [pkgs.firefoxpwa];
+    package = pkgs.firefox-devedition;
   };
   programs.thunderbird = {
     enable = true;
