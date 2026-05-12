@@ -52,12 +52,15 @@ in
     };
 
     powerdevil = {
+      general.pausePlayersOnSuspend = true;
       AC = {
         powerButtonAction = "lockScreen";
         turnOffDisplay = {
-          idleTimeout = 1000;
+          idleTimeout = 300;
           idleTimeoutWhenLocked = "immediately";
         };
+        dimDisplay.enable = true;
+        autoSuspend.action = "nothing";
       };
       battery = {
         powerButtonAction = "sleep";
