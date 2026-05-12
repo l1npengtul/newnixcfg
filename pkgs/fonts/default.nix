@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  rainyhearts-ttf = pkgs.callPackage ./custom/rainyhearts { inherit pkgs; };
+  rainyhearts-ttf = pkgs.callPackage ./custom/rainyhearts { };
   dalmoori-ttf = pkgs.callPackage ./custom/dalmoori { };
   pixelmplus-ttf = pkgs.callPackage ./custom/pixelmplus { };
   libre-moretus = pkgs.callPackage ./custom/libre-moretus { };
