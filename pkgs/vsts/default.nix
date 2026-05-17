@@ -102,6 +102,19 @@ in
     bespokesynth
     oxefmsynth
     uhhyou-plugins
+    
+    bjumblr
+    bslizr
+    ingen
+    infamousplugins
+    caps
+    eq10q
+    csa
+    aeolus
+    aeolus-stops
+    
+    ninjas2
+    
 
     paulxstretch
     ripplerx
