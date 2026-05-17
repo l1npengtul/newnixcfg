@@ -8,6 +8,7 @@
       "org.duckstation.DuckStation"
       "org.musescore.MuseScore"
       "com.usebottles.bottles"
+      "com.logseq.Logseq"
     ];
   };
 }

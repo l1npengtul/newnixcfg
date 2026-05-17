@@ -9,6 +9,11 @@
     kdiff3
 
     gram
+    
+    marksman
+    eslint
+    zuban
+    typescript-language-server
   ];
 
   programs.direnv = {

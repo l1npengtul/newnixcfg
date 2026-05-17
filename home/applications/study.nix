@@ -3,6 +3,6 @@
     libreoffice-qt
     hunspell
     anki-bin
-    logseq
+    qownnotes
   ];
 }
