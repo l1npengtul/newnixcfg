@@ -71,6 +71,8 @@
 
     gram-editor-patch.url = "github:NixOS/nixpkgs?ref=pull/508631/head";
 
+    reaper-patch.url = "github:NixOS/nixpkgs?ref=pull/520888/head";
+
     # Additional Configuration Files
 
     plasma-overdose = {
@@ -121,6 +123,7 @@
       reapkgs-known,
       reapkgs-extras,
       gram-editor-patch,
+      reaper-patch,
       plasma-overdose,
       hatsune-miku-windows-linux-cursors,
       chicago95,
@@ -145,6 +148,12 @@
           ;
       };
 
+      reaper-overlay = final: prev: {
+        inherit (reaper-patch.legacyPackages.${prev.stdenv.hostPlatform.system})
+          reaper
+          ;
+      };
+
       commonArgs = {
         inherit system;
         config.allowUnfree = true;
@@ -152,6 +161,7 @@
           reapersws-overlay
           inputs.nix-minecraft.overlay
           gram-editor-overlay
+          reaper-overlay
         ];
       };
 
