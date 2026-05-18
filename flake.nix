@@ -148,12 +148,6 @@
           ;
       };
 
-      reaper-overlay = final: prev: {
-        inherit (reaper-patch.legacyPackages.${prev.stdenv.hostPlatform.system})
-          reaper
-          ;
-      };
-
       commonArgs = {
         inherit system;
         config.allowUnfree = true;
@@ -161,9 +155,12 @@
           reapersws-overlay
           inputs.nix-minecraft.overlay
           gram-editor-overlay
-          reaper-overlay
         ];
       };
+
+      pkgs = import nixpkgs commonArgs;
+      pkgs-stable = import nixpkgs-stable commonArgs;
+      pkgs-master = import nixpkgs-master commonArgs;
 
       common-pc-modules = [
         nixos-hardware.nixosModules.common-pc-ssd
@@ -250,10 +247,6 @@
         ./pkgs/minimal.nix
         ./configuration.nix
       ];
-
-      pkgs = import nixpkgs commonArgs;
-      pkgs-stable = import nixpkgs-stable commonArgs;
-      pkgs-master = import nixpkgs-master commonArgs;
     in
     {
       inherit lib commonArgs;

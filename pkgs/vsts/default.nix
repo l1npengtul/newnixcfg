@@ -64,12 +64,7 @@ in
     dxvk_2
     plugdata
     carla
-    (reaper.overrideAttrs (prev: {
-      postInstall = (prev.postInstall or "") + ''
-        rm $out/opt/REAPER/libSwell.so
-        ln -s ${libswell}/lib/libSwell.so $out/opt/REAPER/libSwell.so
-      '';
-    }))
+    pkgs-stable.reaper
     reaper-sws-extension
     reaper-reapack-extension
 
@@ -102,7 +97,7 @@ in
     bespokesynth
     oxefmsynth
     uhhyou-plugins
-    
+
     bjumblr
     bslizr
     ingen
@@ -112,9 +107,8 @@ in
     csa
     aeolus
     aeolus-stops
-    
+
     ninjas2
-    
 
     paulxstretch
     ripplerx

@@ -495,11 +495,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1778998687,
-        "narHash": "sha256-hMvyUjhLdK1Y+tjR6HxzbCvXRpu/98ak4aUKze+Bkjg=",
+        "lastModified": 1779038657,
+        "narHash": "sha256-Iq6bO4qglwOeYbJiGBbvdbGrCijjAXH/WFzjIVxVrrc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f9710d15003bad7a6ed5f1c14229164fac2f1458",
+        "rev": "17d3c11a8258a66aad5904c728013da0edc3a709",
         "type": "github"
       },
       "original": {
@@ -708,6 +708,22 @@
         "url": "ssh://git@github.com/l1npengtul/randomshit.git"
       }
     },
+    "reaper-patch": {
+      "locked": {
+        "lastModified": 1778934446,
+        "narHash": "sha256-RkGpwG/EQbKuARERucuIL0TTmu/8S/tfZJ2kjvTzFws=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6a619b65537a7ca86c634995899607c17a56b13e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/520888/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "reapkgs": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -809,6 +825,7 @@
         "plasma-manager": "plasma-manager",
         "plasma-overdose": "plasma-overdose",
         "randomshit": "randomshit",
+        "reaper-patch": "reaper-patch",
         "reapkgs-extras": "reapkgs-extras",
         "reapkgs-known": "reapkgs-known",
         "shhh": "shhh",
