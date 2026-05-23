@@ -21,8 +21,6 @@
   makeDesktopItem,
   copyDesktopItems,
   writeShellScript,
-  bubblewrap,
-  mktemp,
 }:
 let
   rpgmtranslate-qt-unwrapped = clangStdenv.mkDerivation (finalAttrs: {
@@ -31,7 +29,7 @@ let
 
     src = fetchFromGitHub {
       owner = "RPG-Maker-Translation-Tools";
-      repo = "${finalAttrs.pname}";
+      repo = "rpgmtranslate-qt";
       tag = "v${finalAttrs.version}";
       hash = "sha256-BELD3RpMF+S0PZZUjgf/s1gunQN0ez1eLnA3UQdNsZs=";
     };
@@ -46,20 +44,6 @@ let
 
     patches = [
       ./use-local-corrosion.patch
-    ];
-
-    desktopItems = [
-      (makeDesktopItem {
-        type = "Application";
-        name = "rpgmtranslate-qt";
-        desktopName = "RPGMTranslate QT";
-        comment = "RPG Maker Game Translation Tool";
-        exec = "rpgmtranslate";
-        categories = [
-          "Game"
-          "Utility"
-        ];
-      })
     ];
 
     buildInputs = [
@@ -90,7 +74,6 @@ let
       rustc
       corrosion
       rust-cbindgen
-      copyDesktopItems
     ];
 
     env.RUSTFLAGS = "-C target-feature=+aes,+sse2";
@@ -110,35 +93,37 @@ stdenvNoCC.mkDerivation {
   dontPatchELF = true;
   dontStrip = true;
 
+  nativeBuildInputs = [
+    copyDesktopItems
+  ];
+
+  desktopItems = [
+    (makeDesktopItem {
+      type = "Application";
+      name = "rpgmtranslate-qt";
+      desktopName = "RPGMTranslate QT";
+      comment = "RPG Maker Game Translation Tool";
+      exec = "rpgmtranslate-qt";
+      categories = [
+        "Game"
+        "Utility"
+      ];
+    })
+  ];
+
   installPhase =
     let
       wrapper = writeShellScript "rpgmtranslate-qt" ''
         set -e
 
-        echo "Creating temporary directory"
-        TMPDIR=$(${mktemp}/bin/mktemp --directory)
-        echo "Temporary directory: $TMPDIR"
-        echo "Copying default Vamp Plugin settings"
-        cp -r ${rpgmtranslate-qt-unwrapped}/libexec/resources/VampTransforms $TMPDIR
-        echo "Changing permissions to be writable"
-        chmod -R u+w $TMPDIR/VampTransforms
+        mkdir -p $HOME/.local/share/rpg-maker-translation-tools/rpgmtranslate
 
-        echo "Starting Bitwig Studio in Bubblewrap Environment"
-        ${bubblewrap}/bin/bwrap \
-          --bind / / \
-          --bind $TMPDIR/VampTransforms ${rpgmtranslate-qt-unwrapped}/libexec/resources/VampTransforms \
-          --dev-bind /dev /dev \
-          ${rpgmtranslate-qt-unwrapped}/bin/bitwig-studio \
-          || true
-
-        echo "Bitwig exited, removing temporary directory"
-        rm -rf $TMPDIR
+        ${rpgmtranslate-qt-unwrapped}/bin/rpgmtranslate
       '';
     in
     ''
       mkdir -p $out/bin
-      cp ${wrapper} $out/bin/bitwig-studio
-      cp -r ${rpgmtranslate-qt-unwrapped}/share $out
+      cp ${wrapper} $out/bin/rpgmtranslate-qt
     '';
 
 }
