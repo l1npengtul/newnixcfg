@@ -52,6 +52,7 @@ in
     paulstretch
     zam-plugins
     chow-tape-model
+    chow-kick
     vcv-rack
     cardinal
     alsa-utils
@@ -109,6 +110,9 @@ in
     aeolus-stops
 
     ninjas2
+    drum-machine
+    drumgizmo
+    drumkv1
 
     paulxstretch
     ripplerx
