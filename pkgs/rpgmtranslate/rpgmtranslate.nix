@@ -87,16 +87,6 @@ stdenvNoCC.mkDerivation {
   pname = "rpgmtranslate-qt";
   inherit (rpgmtranslate-qt-unwrapped) version;
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
-  dontPatchELF = true;
-  dontStrip = true;
-
-  nativeBuildInputs = [
-    copyDesktopItems
-  ];
-
   desktopItems = [
     (makeDesktopItem {
       type = "Application";
@@ -111,7 +101,14 @@ stdenvNoCC.mkDerivation {
     })
   ];
 
-  installPhase =
+  dontUnpack = true;
+  dontConfigure = true;
+
+  nativeBuildInputs = [
+    copyDesktopItems
+  ];
+
+  postInstall =
     let
       wrapper = writeShellScript "rpgmtranslate-qt" ''
         set -e
