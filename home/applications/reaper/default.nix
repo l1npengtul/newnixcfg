@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: let
+}:
+let
   reapkgs = with inputs.reapkgs-known.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
     birdbird-reascript-testing."BirdBird_Global Sampler.lua"
     birdbird-reascript-testing."BirdBird_Parameter History.lua"
@@ -36,7 +37,8 @@
   extras = with inputs.reapkgs-extras.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
     demian-d."AD Collection.jsfx"
   ];
-in {
+in
+{
   xdg.configFile.REAPER = {
     recursive = true;
     source = pkgs.symlinkJoin {
@@ -44,17 +46,25 @@ in {
       paths = reapkgs ++ extras;
     };
   };
+  xdg.configFile."REAPER/MIDINoteNames" = {
+    recursive = true;
+    source = ./note_names;
+  };
   xdg.configFile."REAPER/libSwell-user.colortheme".source = ./reapertips/libSwell-user.colortheme;
   xdg.configFile."REAPER/Mac-Saturated.SWSColor".source = ./reapertips-colors/Mac-Saturated.SWSColor;
   xdg.configFile."REAPER/Data/toolbar_icons" = {
     recursive = true;
     source = ./toolbar_icons;
   };
-  xdg.configFile."REAPER/UserPlugins/reaper_sws-x86_64.so".source = "${pkgs.reaper-sws-extension}/UserPlugins/reaper_sws-x86_64.so";
-  xdg.configFile."REAPER/UserPlugins/reaper_reapack-x86_64.so".source = "${pkgs.reaper-reapack-extension}/UserPlugins/reaper_reapack-x86_64.so";
+  xdg.configFile."REAPER/UserPlugins/reaper_sws-x86_64.so".source =
+    "${pkgs.reaper-sws-extension}/UserPlugins/reaper_sws-x86_64.so";
+  xdg.configFile."REAPER/UserPlugins/reaper_reapack-x86_64.so".source =
+    "${pkgs.reaper-reapack-extension}/UserPlugins/reaper_reapack-x86_64.so";
 
-  xdg.configFile."REAPER/Scripts/sws_python.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python.py";
-  xdg.configFile."REAPER/Scripts/sws_python64.py".source = "${pkgs.reaper-sws-extension}/Scripts/sws_python64.py";
+  xdg.configFile."REAPER/Scripts/sws_python.py".source =
+    "${pkgs.reaper-sws-extension}/Scripts/sws_python.py";
+  xdg.configFile."REAPER/Scripts/sws_python64.py".source =
+    "${pkgs.reaper-sws-extension}/Scripts/sws_python64.py";
   xdg.configFile."REAPER/ColorThemes/reapertips.ReaperThemeZip".source =
     ./reapertips/02_Theme/reapertips.ReaperThemeZip;
 }
